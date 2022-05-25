@@ -106,7 +106,10 @@ begin
        SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from paises where id = (select max(id) from paises)';
        open;
-       result := FieldByName('id').AsInteger + 1;
+       if not isEmpty then
+          result := FieldByName('id').AsInteger + 1
+       else
+          result := 1;
        close;
      finally
        freeandnil(sqlseq);

@@ -3,7 +3,8 @@ unit uDmConexao;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.SqlExpr, Data.DbxSqlite;
+  System.SysUtils, System.Classes, Data.DB, Data.SqlExpr, Data.DbxSqlite,
+  Data.DBXTrace;
 
 type
   TdmConexao = class(TDataModule)
