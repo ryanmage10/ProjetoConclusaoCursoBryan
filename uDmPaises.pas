@@ -130,7 +130,7 @@ begin
         Params[5].AsString := user_update;
         //ObjToField(oPais, sqlInserir);
         ExecSql();
-        Close;
+        //Close;
         result := true;
 
      except on E:Exception do

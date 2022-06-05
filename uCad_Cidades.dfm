@@ -72,34 +72,38 @@ inherited Cad_Cidades: TCad_Cidades
     end
   end
   object edt_CodIbge: TEdit
-    Left = 349
+    Left = 352
     Top = 83
     Width = 75
     Height = 21
-    MaxLength = 3
-    TabOrder = 1
+    MaxLength = 6
+    NumbersOnly = True
+    TabOrder = 4
   end
   object edt_DDD: TEdit
     Left = 268
     Top = 83
     Width = 75
     Height = 21
-    TabOrder = 2
+    NumbersOnly = True
+    TabOrder = 3
   end
   object edt_Cidade: TEdit
     Left = 16
     Top = 83
     Width = 246
     Height = 21
+    CharCase = ecUpperCase
     MaxLength = 50
-    TabOrder = 3
+    TabOrder = 2
   end
   object edt_Estado: TEdit
     Left = 16
     Top = 129
     Width = 327
     Height = 21
+    CharCase = ecUpperCase
     Enabled = False
-    TabOrder = 4
+    TabOrder = 1
   end
 end

@@ -120,7 +120,10 @@ begin
        SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from cidades where id = (select max(id) from cidades)';
        open;
-       result := FieldByName('id').AsInteger + 1;
+       if not isEmpty then
+          result := FieldByName('id').AsInteger + 1
+       else
+          result := 1;
        close;
      finally
        freeandnil(sqlseq);
@@ -202,7 +205,7 @@ function TDmCidades.Recuperar(var oCidade: TCidades; out sErro: string): boolean
 var Estado: TEstados;
 begin
   try
-    Estado := TEstados.Create;
+    Estado := TEstados.Criar;
     with SqlRecuperar do
     begin
       paramByName('id').AsInteger := oCidade.Id;

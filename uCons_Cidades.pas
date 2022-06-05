@@ -100,7 +100,7 @@ procedure TCons_Cidades.FormCreate(Sender: TObject);
 begin
   inherited;
   CidadeControl := TCidadesController.Create;
-  Cidade := TCidades.Create;
+  Cidade := TCidades.Criar;
 
   if ( not Dset_Cidades.IsEmpty ) then
     Dset_Cidades.EmptyDataSet;

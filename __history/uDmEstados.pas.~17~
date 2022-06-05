@@ -1,0 +1,233 @@
+unit uDmEstados;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr, uDmConexao,
+  Datasnap.DBClient, Datasnap.Provider, uEstados, uPaises, uDmPaises;
+
+type
+  TdmEstados = class(TDataModule)
+    sqlPesquisar: TSQLDataSet;
+    sqlInserir: TSQLDataSet;
+    sqlAlterar: TSQLDataSet;
+    sqlExcluir: TSQLDataSet;
+    dspEstados: TDataSetProvider;
+    cdsEstados: TClientDataSet;
+    sqlRecuperar: TSQLDataSet;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
+  private
+    { Private declarations }
+    procedure FieldToObj(var oEstado : TEstados; sql: TSqlDataSet);
+    procedure ObjToField(oEstado : TEstados; var sql: TSqlDataSet);
+  public
+    { Public declarations }
+    function gerarId: integer;
+    procedure Pesquisar(Value: string; var Dset: TClientDataSet);
+    function Recuperar(Var oEstado: TEstados; out sErro:string): boolean;
+    function inserir(oEstado: TEstados; out sErro: string): boolean;
+    function Alterar(oEstado: TEstados; out sErro: string): boolean;
+    function Excluir(oEstado: TEstados; var sErro: string):Boolean;
+  end;
+
+var
+  dmEstados: TdmEstados;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TdmEstados }
+
+function TdmEstados.Alterar(oEstado: TEstados; out sErro: string): boolean;
+begin
+  with sqlAlterar, oEstado do
+  begin
+     //ObjToField(oEstado, sqlAlterar);
+     try
+        Params[0].AsString := Nome;
+        Params[1].AsString := UF;
+        Params[2].AsString := inttoStr(Pais.Id);
+        Params[3].AsString := user_insert;
+        Params[4].AsString := user_update;
+        Params[7].AsInteger := Id;
+        ExecSql();
+        result := true;
+     except on E:Exception do
+       begin
+          sErro := 'Ocorreu um erro ao Alterar a Cidade' + E.Message;
+          result := False;
+       end;
+     end;
+  end;
+end;
+
+procedure TdmEstados.DataModuleCreate(Sender: TObject);
+begin
+   DmPaises:= TDmPaises.Create(nil);
+end;
+
+procedure TdmEstados.DataModuleDestroy(Sender: TObject);
+begin
+   FreeAndNil(DmPaises);
+end;
+
+function TdmEstados.Excluir(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   try
+    with SqlExcluir do
+    begin
+      paramByName('id').AsInteger := oEstado.Id;
+      ExecSql();
+      result := true;
+    end;
+  except on E: Exception do
+    begin
+      sErro := 'Erro ao Excluir Estado' + E.Message;
+      result := False;
+    end;
+  end;
+end;
+
+procedure TdmEstados.FieldToObj(var oEstado: TEstados; sql: TSqlDataSet);
+var a : integer;
+begin
+with oEstado, Sql do
+  begin
+    Id := FieldByName('id').AsInteger;
+    Nome := FieldByName('Estado').AsString;
+    UF := FieldByName('Sigla').AsString;
+   // oEstado.Pais.ID := SQL.FieldByName('id_pais').AsInteger;
+    a := SQL.FieldByName('id_pais').AsInteger;
+    oEstado.GetPais.SetID( a);
+    //DataCad := FieldByName('date_insert').AsDatetime;
+    //DataUltAlt := FieldByName('date_update').AsDatetime;
+    User_Insert := FieldByName('User_Insert').AsString;
+    User_Update := FieldByName('User_Update').AsString;
+  end;
+end;
+
+function TdmEstados.gerarId: integer;
+var sqlSeq : TSqlDataset;
+begin
+   sqlSeq := TSqlDataset.create(nil);
+   with sqlSeq do
+   begin
+     try
+       SQLConnection := DmConexao.sqlConBanco;
+       CommandText := 'select id from estados where id = (select max(id) from estados)';
+       open;
+       if not isEmpty then
+          result := FieldByName('id').AsInteger + 1
+       else
+          result := 1;
+       close;
+     finally
+       freeandnil(sqlseq);
+     end;
+   end;
+end;
+
+function TdmEstados.inserir(oEstado: TEstados; out sErro: string): boolean;
+begin
+   with sqlinserir, OEstado do
+  begin
+     //ObjToField(oEstado, sqlInserir);
+     try
+        Params[0].AsInteger := GerarId;
+        Params[1].AsString := Nome;
+        Params[2].AsString := UF;
+        Params[3].AsString := inttoStr(Pais.Id);
+        Params[4].AsString := user_insert;
+        Params[5].AsString := user_update;
+        ExecSql();
+        //Close;
+        result := true;
+     except on E:Exception do
+       begin
+          sErro := 'Ocorreu um erro ao inserir a Estado' + E.Message;
+          result := False;
+       end;
+     end;
+  end;
+end;
+
+procedure TdmEstados.ObjToField(oEstado: TEstados; var sql: TSqlDataSet);
+begin
+  with oEstado, Sql do
+  begin
+    ParamByName('id').AsInteger := Id;
+    ParamByName('nome').AsString := Nome;
+    ParamByName('sigla').AsString := uf;
+    ParamByName('id_pais').AsInteger := Pais.ID;
+    ParamByName('date_insert').AsDatetime := DataCad;
+    ParamByName('date_update').AsDatetime := DataUltAlt;
+    ParamByName('User_Insert').AsString := User_Insert;
+    ParamByName('User_Update').AsString := User_Update;
+  end;
+end;
+
+procedure TdmEstados.Pesquisar(Value: string; var Dset: TClientDataSet);
+begin
+  with sqlPesquisar do
+  begin
+    Dset.EmptyDataSet;
+    if Value = '' then
+    begin
+      CommandText := 'SELECT E.ID, E.ESTADO, E.SIGLA, '+
+       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID';
+    end
+    else
+    begin
+      CommandText := 'SELECT E.ID, E.ESTADO, E.SIGLA, '+
+       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE ESTADO LIKE :NOME';
+      ParambyName('NOME').AsString := '%' + Value + '%';
+    end;
+    open;
+    while not eof do
+    begin
+      Dset.Append;
+      Dset.FieldByName('id').AsInteger := sqlPesquisar.FieldByName('id').AsInteger;
+      Dset.FieldByName('Estado').AsString := sqlPesquisar.FieldByName('ESTADO').AsString;
+      Dset.FieldByName('PAIS').AsString := sqlPesquisar.FieldByName('PAIS').AsString;
+      Dset.FieldByName('sigla').AsString := sqlPesquisar.FieldByName('sigla').AsString;
+      //Dset.FieldByName('data_insert').AsDateTime := FieldByName('Data_insert').AsDateTime;
+      Dset.Post;
+      Next;
+    end;
+    close;
+  end;
+end;
+
+function TdmEstados.Recuperar(var oEstado: TEstados;
+  out sErro: string): boolean;
+ var pais: TPaises;
+      a : integer;
+begin
+   try
+    //Pais := TPaises.Criar;
+    with SqlRecuperar do
+    begin
+      paramByName('id').AsInteger := oEstado.Id;
+      open;
+      FieldtoObj(oEstado, sqlRecuperar);
+      close;
+
+      //DmPaises.Recuperar(oEstado.GetPais, sErro);
+      //oEstado.Pais := (Pais.clone);
+      result := true;
+    end;
+    Pais.Free;
+  except on E: Exception do
+    begin
+      sErro := 'Erro ao recuperar Estado' + E.Message;
+      result := False;
+    end;
+  end;
+
+end;
+
+end.

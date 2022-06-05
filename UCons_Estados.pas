@@ -115,7 +115,7 @@ procedure TCons_Estados.FormCreate(Sender: TObject);
 begin
   inherited;
   EstadoControl := TEstadosController.Create;
-  Estado := TEstados.Create;
+  Estado := TEstados.Criar;
 
   if ( not Dset_Estados.IsEmpty ) then
     Dset_Estados.EmptyDataSet;
@@ -127,7 +127,7 @@ end;
 procedure TCons_Estados.FormDestroy(Sender: TObject);
 begin
   inherited;
-  Estado.Free;
+  //Estado.Free;
   EstadoControl.Free;
 end;
 

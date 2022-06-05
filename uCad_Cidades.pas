@@ -74,7 +74,7 @@ end;
 procedure TCad_Cidades.FormCreate(Sender: TObject);
 begin
   inherited;
-  Cidade := TCidades.Create;
+  Cidade := TCidades.Criar;
   CidadeControl := TCidadesController.Create;
 end;
 

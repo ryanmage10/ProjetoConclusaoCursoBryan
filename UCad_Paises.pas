@@ -55,7 +55,7 @@ end;
 procedure TCad_Paises.FormCreate(Sender: TObject);
 begin
   inherited;
-  Pais := TPaises.Create;
+  Pais := TPaises.Criar;
   PaisesControl := TPaisesController.Create;
 end;
 

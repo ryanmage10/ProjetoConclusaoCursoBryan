@@ -50,6 +50,7 @@ object dmConexao: TdmConexao
         'riverAssemblyLoader=Borland.Data.TDBXTraceDriverLoader,Borland.D' +
         'ata.DbxCommonDriver,Version=24.0.0.0,Culture=neutral,PublicKeyTo' +
         'ken=91d62ebb5b0d1b1b')
+    Connected = True
     Left = 24
     Top = 24
   end

@@ -28,6 +28,7 @@ object Cons_Base: TCons_Base
       Top = 48
       Width = 505
       Height = 281
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -91,6 +92,7 @@ object Cons_Base: TCons_Base
       Top = 16
       Width = 421
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 3
     end

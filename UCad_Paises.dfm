@@ -61,6 +61,7 @@ inherited Cad_Paises: TCad_Paises
       Top = 99
       Width = 246
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 3
     end
@@ -69,6 +70,7 @@ inherited Cad_Paises: TCad_Paises
       Top = 99
       Width = 75
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 3
       TabOrder = 4
     end
@@ -78,6 +80,7 @@ inherited Cad_Paises: TCad_Paises
       Width = 75
       Height = 21
       MaxLength = 3
+      NumbersOnly = True
       TabOrder = 5
     end
   end

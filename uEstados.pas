@@ -18,12 +18,14 @@ type
     function GetNome: string;
     function GetUF: string;
     function GetPais: TPaises;
+
   public
+
     property Nome: string read GetNome write SetNome;
     property UF: string read GetUF write SetUF;
     property Pais: TPaises read GetPais write SetPais;
 
-    constructor Create;
+    constructor Criar;
     destructor Free;
     function clone: TEstados;
     procedure LimparDados;
@@ -32,10 +34,10 @@ type
 
 implementation
 
-constructor TEstados.Create;
+constructor TEstados.Criar;
 begin
   inherited;
-  FPais := TPaises.Create;
+  FPais := TPaises.Criar;
   LimparDados;
 end;
 
@@ -63,7 +65,7 @@ end;
 
 function TEstados.clone: TEstados;
 begin
-  result := TEstados.Create;
+  result := TEstados.Criar;
   result.CopiarDados(Self);
 end;
 

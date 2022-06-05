@@ -23,7 +23,6 @@ object MenuPrincipal: TMenuPrincipal
     Color = clSkyBlue
     ParentBackground = False
     TabOrder = 0
-    ExplicitTop = 8
   end
   object Menu1: TMainMenu
     Left = 168

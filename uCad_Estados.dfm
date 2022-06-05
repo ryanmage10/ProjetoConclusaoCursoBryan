@@ -66,6 +66,7 @@ inherited Cad_Estados: TCad_Estados
       Top = 83
       Width = 246
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 3
     end
@@ -74,6 +75,7 @@ inherited Cad_Estados: TCad_Estados
       Top = 83
       Width = 75
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 3
       TabOrder = 4
     end
@@ -83,6 +85,7 @@ inherited Cad_Estados: TCad_Estados
       Width = 75
       Height = 21
       MaxLength = 3
+      NumbersOnly = True
       TabOrder = 5
     end
     object edt_Pais: TEdit
@@ -90,6 +93,7 @@ inherited Cad_Estados: TCad_Estados
       Top = 129
       Width = 327
       Height = 21
+      CharCase = ecUpperCase
       Enabled = False
       TabOrder = 6
     end

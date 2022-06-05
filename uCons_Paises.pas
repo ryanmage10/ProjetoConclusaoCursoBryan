@@ -115,7 +115,7 @@ procedure TCons_Paises.FormCreate(Sender: TObject);
 begin
   inherited;
   PaisControl := TPaisesController.Create;
-  Pais := TPaises.Create;
+  Pais := TPaises.Criar;
 
   if ( not Dset_Paises.IsEmpty ) then
     Dset_Paises.EmptyDataSet;

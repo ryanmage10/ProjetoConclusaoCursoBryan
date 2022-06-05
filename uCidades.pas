@@ -22,7 +22,7 @@ type
     property DDD: string read GetDDD write SetDDD;
     property Estado: TEstados read GetEstado write SetEstado;
 
-    constructor Create;
+    constructor Criar;
     destructor Free;
     function clone: TCidades;
     procedure CopiarDados(Value: TCidades);
@@ -52,9 +52,9 @@ begin
   FEstado.CopiarDados(Value.Estado);
 end;
 
-constructor TCidades.Create;
+constructor TCidades.Criar;
 begin
-  FEstado := TEstados.Create;
+  FEstado := TEstados.Criar;
   LimparDados;
 end;
 
@@ -76,7 +76,7 @@ end;
 function TCidades.clone: TCidades;
 begin
 
-  result := TCidades.Create;
+  result := TCidades.Criar;
   result.CopiarDados(Self);
 end;
 

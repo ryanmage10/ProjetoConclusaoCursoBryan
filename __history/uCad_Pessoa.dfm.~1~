@@ -1,0 +1,5 @@
+inherited Cad_Base1: TCad_Base1
+  Caption = 'Cad_Pessoa'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

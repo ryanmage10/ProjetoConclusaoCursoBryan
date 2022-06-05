@@ -11,19 +11,21 @@ type
     FNome: string[50];
     FDDI: string[3];
     Fsigla: String[3];
+
     function GetNome: string;
     function GetDDI: string;
     function GetSigla: string;
     procedure SetNome(Value: string);
     procedure SetDDI(Value: string);
     procedure SetSigla(Value: string);
+
   public
 
     property Nome: string read GetNome write SetNome;
     property DDI: string read GetDDI write SetDDI;
     property sigla: string read GetSigla write SetSigla;
 
-    constructor Create;
+    constructor Criar;
     Destructor Free;
     function clone: TPaises;
     procedure CopiarDados(Value: TPaises);
@@ -33,7 +35,7 @@ type
 
 implementation
 
-constructor TPaises.Create;
+constructor TPaises.Criar;
 begin
   inherited;
   LimparDados;
@@ -54,7 +56,7 @@ end;
 
 function TPaises.clone: TPaises;
 begin
-  result := TPaises.Create;
+  result := TPaises.Criar;
   result.CopiarDados(Self);
 end;
 

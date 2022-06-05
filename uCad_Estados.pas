@@ -74,7 +74,7 @@ end;
 procedure TCad_Estados.FormCreate(Sender: TObject);
 begin
   inherited;
-  Estado := TEstados.Create;
+  Estado := TEstados.Criar;
 end;
 
 procedure TCad_Estados.FormDestroy(Sender: TObject);

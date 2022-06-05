@@ -14,6 +14,7 @@ type
     FDataUltAlt: TDateTime;
     Fuser_insert: string;
     Fuser_update: string;
+
     function GetID: integer;
     function GetDataCad: TDateTime;
     function GetDataUltAlt: TDateTime;
@@ -24,14 +25,16 @@ type
     procedure SetDataUltAlt(value: TDateTime);
     procedure setUser_insert(Value: string);
     procedure setUser_Update(Value: string);
+
   public
+
     property ID: integer read GetID write SetID;
     property DataCad: TDateTime read GetDataCad write SetDataCad;
     property DataUltAlt: TDateTime read GetDataUltAlt write SetDataUltAlt;
     property User_Insert: string read GetUser_Insert write SetUser_Insert;
     property User_Update: string read GetUser_Update write SetUser_Update;
 
-    constructor Create;
+    constructor Criar;
     procedure copiarDados(value: TBase);
     function Clone: TBase;
     procedure LimparDados;
@@ -40,7 +43,7 @@ type
 
 implementation
 
-constructor TBase.Create;
+constructor TBase.Criar;
 begin
   LimparDados;
 end;
@@ -65,7 +68,7 @@ end;
 
 function TBase.Clone: TBase;
 begin
-  result := TBase.Create;
+  result := TBase.Criar;
   result.copiarDados(Self);
 end;
 

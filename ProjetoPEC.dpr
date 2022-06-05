@@ -22,7 +22,8 @@ uses
   uDmCidades in 'uDmCidades.pas' {DmCidades: TDataModule},
   uPaisesController in 'uPaisesController.pas',
   uEstadosController in 'uEstadosController.pas',
-  uCidadesController in 'uCidadesController.pas';
+  uCidadesController in 'uCidadesController.pas',
+  uCad_Pessoa in 'uCad_Pessoa.pas' {Cad_Base1};
 
 {$R *.res}
 
@@ -31,5 +32,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMenuPrincipal, MenuPrincipal);
   Application.CreateForm(TdmConexao, dmConexao);
+  Application.CreateForm(TCad_Base1, Cad_Base1);
   Application.Run;
 end.
