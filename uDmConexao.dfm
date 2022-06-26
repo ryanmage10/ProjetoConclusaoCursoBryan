@@ -4,7 +4,9 @@ object dmConexao: TdmConexao
   Width = 240
   object ConnectionConexao: TFDConnection
     Params.Strings = (
-      'Database=C:\Users\Bryan\Desktop\PROJETOTCC.FDB'
+      
+        'Database=C:\Users\Bryan\Documents\GitHub\ProjetoConclusaoCursoBr' +
+        'yan\PROJETOTCC.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'CharacterSet=UTF8'
