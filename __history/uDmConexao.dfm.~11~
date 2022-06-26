@@ -1,0 +1,31 @@
+object dmConexao: TdmConexao
+  OldCreateOrder = False
+  Height = 203
+  Width = 240
+  object ConnectionConexao: TFDConnection
+    Params.Strings = (
+      
+        'Database=C:\Users\Bryan\Documents\GitHub\ProjetoConclusaoCursoBr' +
+        'yan\PROJETOPEC1.db'
+      'User_Name=sysdba'
+      'ConnectionDef=Conexao')
+    TxOptions.AutoStop = False
+    Connected = True
+    LoginPrompt = False
+    Left = 32
+    Top = 32
+  end
+  object TransactionConexao: TFDTransaction
+    Options.AutoStop = False
+    Connection = ConnectionConexao
+    Left = 144
+    Top = 32
+  end
+  object Qry: TFDQuery
+    Connection = ConnectionConexao
+    SQL.Strings = (
+      'select * from paises')
+    Left = 32
+    Top = 96
+  end
+end

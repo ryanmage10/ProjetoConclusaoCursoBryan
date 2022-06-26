@@ -6,17 +6,10 @@ object dmEstados: TdmEstados
   Width = 277
   object sqlPesquisar: TSQLDataSet
     CommandText = 
-      'SELECT E.ID, E.ESTADO, E.SIGLA,'#13#10'E.DATE_INSERT, P.PAIS  FROM EST' +
-      'ADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE NOME L' +
-      'IKE :NOME'
+      'SELECT E.ID, E.ESTADO, E.SIGLA, '#13#10'      E.DATE_INSERT, P.PAIS  F' +
+      'ROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID'
     MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftUnknown
-        Name = 'NOME'
-        ParamType = ptInput
-      end>
-    SQLConnection = dmConexao.SQLConBanco
+    Params = <>
     Left = 24
     Top = 24
   end
@@ -68,7 +61,6 @@ object dmEstados: TdmEstados
         Name = 'DATE_UPDATE'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 80
     Top = 24
   end
@@ -120,7 +112,6 @@ object dmEstados: TdmEstados
         Name = 'id'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 144
     Top = 24
   end
@@ -133,7 +124,6 @@ object dmEstados: TdmEstados
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 215
     Top = 24
   end
@@ -163,7 +153,6 @@ object dmEstados: TdmEstados
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 221
     Top = 88
   end

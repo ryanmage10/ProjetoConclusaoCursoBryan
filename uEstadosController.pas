@@ -1,10 +1,11 @@
 unit uEstadosController;
 
 interface
-uses uEstados, uDMEstados, system.SysUtils, DBClient;
+uses uEstados, system.SysUtils, DBClient, uDaoEstados;
   type
   TEstadosController = class
     private
+      DaoEstado : TDaoEstados;
     protected
     public
       constructor create;
@@ -22,40 +23,40 @@ implementation
 function TEstadosController.Alterar(oEstado: TEstados;
   var sErro: string): Boolean;
 begin
-   result := DmEstados.Alterar(oEstado, sErro);
+   result := DaoEstado.Alterar(oEstado, sErro);
 end;
 
 constructor TEstadosController.create;
 begin
-   DmEstados:= TDmEstados.Create(nil);
+   DaoEstado := TDaoEstados.Create;
 end;
 
 function TEstadosController.Excluir(oEstado: TEstados;
   var sErro: string): Boolean;
 begin
-  result := DmEstados.Excluir(oEstado, sErro);
+  result := DaoEstado.Excluir(oEstado, sErro);
 end;
 
 destructor TEstadosController.Free;
 begin
-  freeandnil(DmEstados);
+  DaoEstado.Free;
 end;
 
 function TEstadosController.Inserir(oEstado: TEstados;
   var sErro: string): Boolean;
 begin
-   result := DmEstados.Inserir(oEstado, sErro);
+   result := DaoEstado.Inserir(oEstado, sErro);
 end;
 
 procedure TEstadosController.Pesquisar(sNome: string; var Dset: TClientDataSet);
 begin
-   DmEstados.Pesquisar(sNome, Dset);
+   DaoEstado.Pesquisar(sNome, Dset);
 end;
 
 function TEstadosController.Recuperar(oEstado: TEstados;
   var sErro: string): Boolean;
 begin
-  result := DmEstados.Recuperar(oEstado, sErro);
+  result := DaoEstado.Recuperar(oEstado, sErro);
 end;
 
 end.

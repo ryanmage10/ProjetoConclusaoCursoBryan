@@ -1,11 +1,12 @@
 unit uCidadesController;
 
 interface
-uses uCidades, uDMCidades, system.SysUtils, DBClient;
+uses uCidades, uDaoCidades, system.SysUtils, DBClient;
   type
   TCidadesController = class
     private
     protected
+      DaoCidade : TDaoCidades;
     public
       constructor create;
       destructor Free;
@@ -23,40 +24,40 @@ implementation
 function TCidadesController.Alterar(oCidade: TCidades;
   var sErro: string): Boolean;
 begin
-   result := DmCidades.Alterar(oCidade, sErro);
+   result := DaoCidade.Alterar(oCidade, sErro);
 end;
 
 constructor TCidadesController.create;
 begin
-  DmCidades:= TDmCidades.Create(nil);
+   DaoCidade := TDaoCidades.Create;
 end;
 
 function TCidadesController.Excluir(oCidade: TCidades;
   var sErro: string): Boolean;
 begin
-   result := DmCidades.Excluir(oCidade, sErro);
+   result := DaoCidade.Excluir(oCidade, sErro);
 end;
 
 destructor TCidadesController.Free;
 begin
-   freeandnil(DmCidades);
+   DaoCidade.Free;
 end;
 
 function TCidadesController.Inserir(oCidade: TCidades;
   var sErro: string): Boolean;
 begin
-   result := DmCidades.Inserir(oCidade, sErro);
+   result := DaoCidade.Inserir(oCidade, sErro);
 end;
 
 procedure TCidadesController.Pesquisar(sNome: string; var Dset: TClientDataSet);
 begin
-   DmCidades.Pesquisar(sNome, Dset);
+  DaoCidade.Pesquisar(sNome, Dset);
 end;
 
 function TCidadesController.Recuperar(oCidade: TCidades;
   var sErro: string): Boolean;
 begin
-   result := DmCidades.Recuperar(oCidade, sErro);
+   result := DaoCidade.Recuperar(oCidade, sErro);
 end;
 
 end.

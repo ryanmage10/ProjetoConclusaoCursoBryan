@@ -4,7 +4,10 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr,
-  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uPaises;
+  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uPaises, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TDmPaises = class(TDataModule)
@@ -12,13 +15,12 @@ type
     sqlInserir: TSQLDataSet;
     sqlAlterar: TSQLDataSet;
     sqlExcluir: TSQLDataSet;
-    dspPaises: TDataSetProvider;
-    cdsPaises: TClientDataSet;
     sqlRecuperar: TSQLDataSet;
+    QryPaises: TFDQuery;
   private
     { Private declarations }
-    procedure FieldToObj(var oPais : TPaises; sql: TSqlDataSet);
-    procedure ObjToField(oPais : TPaises; var sql: TSqlDataSet);
+    procedure FieldToObj(var oPais : TPaises; Qry: TFDQuery);
+    procedure ObjToField(var oPais : TPaises; Qry: TFDQuery);
   public
     { Public declarations }
     function gerarId: integer;
@@ -43,9 +45,9 @@ implementation
 
 function TDmPaises.Alterar(oPais: TPaises; out sErro: string): boolean;
 begin
-  with sqlAlterar, oPais do
+  with QryPaises, oPais do
   begin
-     //ObjToField(oPais, sqlAlterar);
+     ObjToField(oPais, QryPaises);
      try
         Params[0].AsString := Nome;
         Params[1].AsString := Sigla;
@@ -81,11 +83,11 @@ begin
   end;
 end;
 
-procedure TDmPaises.FieldToObj(var oPais: TPaises; sql: TSqlDataSet);
+procedure TDmPaises.FieldToObj(var oPais: TPaises; Qry: TFDQuery);
 begin
-  with oPais, Sql do
+  with oPais, Qry do
   begin
-    Id := Sql.FieldByName('ID').AsInteger;
+    Id := FieldByName('ID').AsInteger;
     Nome := FieldByName('pais').AsString;
     Sigla := FieldByName('Sigla').AsString;
     DDI := FieldByName('DDI').AsString;
@@ -103,7 +105,7 @@ begin
    with sqlSeq do
    begin
      try
-       SQLConnection := DmConexao.sqlConBanco;
+       //SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from paises where id = (select max(id) from paises)';
        open;
        if not isEmpty then
@@ -130,7 +132,7 @@ begin
         Params[5].AsString := user_update;
         //ObjToField(oPais, sqlInserir);
         ExecSql();
-        Close;
+        //Close;
         result := true;
 
      except on E:Exception do
@@ -142,9 +144,9 @@ begin
   end;
 end;
 
-procedure TDmPaises.ObjToField(oPais: TPaises; var sql: TSqlDataSet);
+procedure TDmPaises.ObjToField(var oPais: TPaises; Qry: TFDQuery);
 begin
-  with oPais, Sql do
+  with oPais, Qry do
   begin
     ParamByName('id').AsInteger := Id;
     ParamByName('nome').AsString := Nome;
@@ -160,16 +162,17 @@ end;
 
 procedure TDmPaises.Pesquisar(Value: string; Var Dset : TClientDataSet);
 begin
-  with sqlPesquisar do
+  with QryPaises do
   begin
     DSET.EmptyDataSet;
+    Sql.Clear;
     if Value = '' then
     begin
-      CommandText := 'SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES';
+        Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES');
     end
     else
     begin
-      CommandText := 'SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES WHERE PAIS LIKE :NOME';
+      Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES WHERE PAIS LIKE :NOME');
       ParambyName('NOME').AsString := '%' + Value + '%';
     end;
     open;
@@ -205,5 +208,19 @@ begin
     end;
   end;
 end;
+
+  FdConnection1.StartTransaction;
+  try
+    FdQuery1.SQL.Clear;
+    FdQuery1.SQL.Text:=('insert into teste (chave) values (:chave)');
+    FdQuery1.ExecSQL('',['01']);
+    FdQuery1.ExecSQL('',['01']);
+    FDConnection1.Commit;
+  except on E : Exception do
+    begin
+      FDConnection1.Rollback;
+      ShowMessage('Classe do Erro: '+ E.ClassName +' Mensagem do erro: '+E.Message);
+    end;
+  end;
 
 end.

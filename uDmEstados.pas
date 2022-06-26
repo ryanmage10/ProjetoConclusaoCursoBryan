@@ -114,7 +114,7 @@ begin
    with sqlSeq do
    begin
      try
-       SQLConnection := DmConexao.sqlConBanco;
+       //SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from estados where id = (select max(id) from estados)';
        open;
        if not isEmpty then
@@ -180,7 +180,7 @@ begin
     else
     begin
       CommandText := 'SELECT E.ID, E.ESTADO, E.SIGLA, '+
-       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE ESTADO LIKE :NOME';
+       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE E.ESTADO LIKE :NOME';
       ParambyName('NOME').AsString := '%' + Value + '%';
     end;
     open;

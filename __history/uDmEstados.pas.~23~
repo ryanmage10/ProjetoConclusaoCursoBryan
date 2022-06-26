@@ -99,8 +99,7 @@ with oEstado, Sql do
     Id := FieldByName('id').AsInteger;
     Nome := FieldByName('Estado').AsString;
     UF := FieldByName('Sigla').AsString;
-   // oEstado.Pais.ID := SQL.FieldByName('id_pais').AsInteger;
-    oEstado.GetPais.SetID( SQL.FieldByName('id_pais').AsInteger);
+    Pais.ID := FieldByName('id_pais').AsInteger;
     //DataCad := FieldByName('date_insert').AsDatetime;
     //DataUltAlt := FieldByName('date_update').AsDatetime;
     User_Insert := FieldByName('User_Insert').AsString;
@@ -181,7 +180,7 @@ begin
     else
     begin
       CommandText := 'SELECT E.ID, E.ESTADO, E.SIGLA, '+
-       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE ESTADO LIKE :NOME';
+       'E.DATE_INSERT, P.PAIS  FROM ESTADOS AS E LEFT JOIN PAISES AS P ON E.ID_PAIS = P.ID WHERE E.ESTADO LIKE :NOME';
       ParambyName('NOME').AsString := '%' + Value + '%';
     end;
     open;
@@ -205,15 +204,18 @@ function TdmEstados.Recuperar(var oEstado: TEstados;
  var pais: TPaises;
 begin
    try
-    //Pais := TPaises.Criar;
+    Pais := TPaises.Criar;
     with SqlRecuperar do
     begin
       paramByName('id').AsInteger := oEstado.Id;
       open;
       FieldtoObj(oEstado, sqlRecuperar);
+      Pais.id := FieldByName('id_pais').AsInteger;
       close;
 
-      DmPaises.Recuperar(oEstado.GetPais, sErro);
+      if DmPaises = nil then
+        DmPaises:= TDmPaises.Create(nil);
+      DmPaises.Recuperar(Pais, sErro);
       oEstado.Pais := (Pais.clone);
       result := true;
     end;

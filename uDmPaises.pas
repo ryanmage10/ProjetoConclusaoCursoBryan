@@ -4,7 +4,10 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr,
-  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uPaises;
+  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uPaises, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TDmPaises = class(TDataModule)
@@ -12,13 +15,11 @@ type
     sqlInserir: TSQLDataSet;
     sqlAlterar: TSQLDataSet;
     sqlExcluir: TSQLDataSet;
-    dspPaises: TDataSetProvider;
-    cdsPaises: TClientDataSet;
     sqlRecuperar: TSQLDataSet;
   private
     { Private declarations }
-    procedure FieldToObj(var oPais : TPaises; sql: TSqlDataSet);
-    procedure ObjToField(oPais : TPaises; var sql: TSqlDataSet);
+    procedure FieldToObj(var oPais : TPaises; Qry: TFDQuery);
+    procedure ObjToField(var oPais : TPaises; Qry: TFDQuery);
   public
     { Public declarations }
     function gerarId: integer;
@@ -43,9 +44,9 @@ implementation
 
 function TDmPaises.Alterar(oPais: TPaises; out sErro: string): boolean;
 begin
-  with sqlAlterar, oPais do
+  {with QryPaises, oPais do
   begin
-     //ObjToField(oPais, sqlAlterar);
+     ObjToField(oPais, QryPaises);
      try
         Params[0].AsString := Nome;
         Params[1].AsString := Sigla;
@@ -61,7 +62,7 @@ begin
           result := False;
        end;
      end;
-  end;
+  end; }
 end;
 
 function TDmPaises.Excluir(oPais: TPaises; var sErro: string): Boolean;
@@ -81,11 +82,11 @@ begin
   end;
 end;
 
-procedure TDmPaises.FieldToObj(var oPais: TPaises; sql: TSqlDataSet);
+procedure TDmPaises.FieldToObj(var oPais: TPaises; Qry: TFDQuery);
 begin
-  with oPais, Sql do
+  with oPais, Qry do
   begin
-    Id := Sql.FieldByName('ID').AsInteger;
+    Id := FieldByName('ID').AsInteger;
     Nome := FieldByName('pais').AsString;
     Sigla := FieldByName('Sigla').AsString;
     DDI := FieldByName('DDI').AsString;
@@ -103,7 +104,7 @@ begin
    with sqlSeq do
    begin
      try
-       SQLConnection := DmConexao.sqlConBanco;
+       //SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from paises where id = (select max(id) from paises)';
        open;
        if not isEmpty then
@@ -142,9 +143,9 @@ begin
   end;
 end;
 
-procedure TDmPaises.ObjToField(oPais: TPaises; var sql: TSqlDataSet);
+procedure TDmPaises.ObjToField(var oPais: TPaises; Qry: TFDQuery);
 begin
-  with oPais, Sql do
+  with oPais, Qry do
   begin
     ParamByName('id').AsInteger := Id;
     ParamByName('nome').AsString := Nome;
@@ -160,31 +161,40 @@ end;
 
 procedure TDmPaises.Pesquisar(Value: string; Var Dset : TClientDataSet);
 begin
-  with sqlPesquisar do
+  {with QryPaises do
   begin
     DSET.EmptyDataSet;
-    if Value = '' then
-    begin
-      CommandText := 'SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES';
-    end
-    else
-    begin
-      CommandText := 'SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES WHERE PAIS LIKE :NOME';
-      ParambyName('NOME').AsString := '%' + Value + '%';
+    Sql.Clear;
+    TransactionConexao.StartTransaction;
+    try
+      if Value = '' then
+      begin
+        Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES');
+      end
+      else
+      begin
+        Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES WHERE PAIS LIKE :NOME');
+        ParambyName('NOME').AsString := '%' + Value + '%';
+      end;
+      open;
+      while not eof do
+      begin
+        Dset.Append;
+        Dset.FieldByName('id').AsInteger := FieldByName('id').AsInteger;
+        Dset.FieldByName('PAIS').AsString := FieldByName('PAIS').AsString;
+        Dset.FieldByName('sigla').AsString := FieldByName('sigla').AsString;
+        //Dset.FieldByName('data_insert').AsDateTime := FieldByName('Date_insert').AsDateTime;
+        dset.Post;
+        next;
+      end;
+
+      close;
+    except
+      TransactionConexao.Rollback;
+      raise;
     end;
-    open;
-    while not eof do
-    begin
-      Dset.Append;
-      Dset.FieldByName('id').AsInteger := FieldByName('id').AsInteger;
-      Dset.FieldByName('PAIS').AsString := FieldByName('PAIS').AsString;
-      Dset.FieldByName('sigla').AsString := FieldByName('sigla').AsString;
-      //Dset.FieldByName('data_insert').AsDateTime := FieldByName('Date_insert').AsDateTime;
-      dset.Post;
-      next;
-    end;
-    close;
-  end;
+
+  end;}
 end;
 
 function TDmPaises.Recuperar(var oPais: TPaises; out sErro: string): boolean;
@@ -194,7 +204,7 @@ begin
     begin
       paramByName('id').AsInteger := oPais.Id;
       open;
-      FieldtoObj(oPais, sqlRecuperar);
+      //FieldtoObj(oPais, sqlRecuperar);
       close;
       result := true;
     end;

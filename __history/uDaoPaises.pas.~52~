@@ -1,0 +1,214 @@
+unit uDaoPaises;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr,
+  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uPaises, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TDaoPaises = class(TObject)
+
+  private
+    { Private declarations }
+    constructor Create;
+    destructor free;
+    procedure FieldToObj(var oPais: TPaises; Qry: TFDQuery);
+    procedure ObjToField(var oPais: TPaises; Qry: TFDQuery);
+  public
+    { Public declarations }
+    procedure Pesquisar(Value: string; var dset: TClientDataSet);
+    function Recuperar(Var oPais: TPaises): boolean;
+    function inserir(oPais: TPaises): boolean;
+    function Alterar(oPais: TPaises): boolean;
+    function Excluir(oPais: TPaises): boolean;
+
+  end;
+
+var
+  DmPaises: TDaoPaises;
+
+implementation
+
+function TDaoPaises.Alterar(oPais: TPaises): boolean;
+begin
+  with DmConexao.Qry, oPais do
+  begin
+    Sql.Clear;
+    try
+      DmConexao.TransactionConexao.StartTransaction;
+      sql.add('UPDATE PAISES SET PAIS = :NOME, SIGLA = :SIGLA, DDI = :DDI, ');
+      Sql.Add('USER_INSERT = :USER_INSERT, USER_UPDATE = :USER_UPDATE, DATE_INSERT = :DATE_INSERT, DATE_UPDATE = :DATE_UPDATE');
+      Sql.Add(' WHERE ID = :ID');
+      paramByName('id').AsInteger := oPais.Id;
+      ObjToField(oPais, DmConexao.Qry);
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    except
+      on E: Exception do
+      begin
+        sErro := 'Ocorreu um erro ao Alterar a Pais' + E.Message;
+        result := False;
+        DmConexao.TransactionConexao.Rollback;
+      end;
+    end;
+  end;
+end;
+
+constructor TDaoPaises.Create;
+begin
+   //
+end;
+
+function TDaoPaises.Excluir(oPais: TPaises): boolean;
+begin
+  try
+    with DmConexao.Qry do
+    begin
+      Sql.Clear;
+      DmConexao.TransactionConexao.StartTransaction;
+      Sql.Add('DELETE FROM PAISES WHERE ID = :ID');
+      paramByName('ID').AsInteger := oPais.ID;
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    end;
+  except
+    on E: Exception do
+    begin
+      sErro := 'Erro ao Excluir Pais' + E.Message;
+      result := False;
+      DmConexao.TransactionConexao.Rollback;
+    end;
+  end;
+end;
+
+procedure TDaoPaises.FieldToObj(var oPais: TPaises; Qry: TFDQuery);
+begin
+  with oPais, Qry do
+  begin
+    ID := FieldByName('ID').AsInteger;
+    Nome := FieldByName('pais').AsString;
+    Sigla := FieldByName('Sigla').AsString;
+    DDI := FieldByName('DDI').AsString;
+    DataCad := FieldByName('date_insert').AsDatetime;
+    DataUltAlt := FieldByName('date_update').AsDatetime;
+    user_insert := FieldByName('User_Insert').AsString;
+    user_update := FieldByName('User_Update').AsString;
+  end;
+end;
+
+destructor TDaoPaises.free;
+begin
+  //
+end;
+
+function TDaoPaises.inserir(oPais: TPaises; out sErro: string): boolean;
+begin
+  with DmConexao.Qry, oPais do
+  begin
+    Sql.Clear;
+    DmConexao.TransactionConexao.StartTransaction;
+    try
+      sql.add('INSERT INTO PAISES (PAIS, SIGLA, DDI, USER_INSERT,USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
+      Sql.add(' VALUES (:NOME, :SIGLA, :DDI, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
+      ObjToField(oPais, DmConexao.Qry);
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      Close;
+    except
+      on E: Exception do
+      begin
+        DmConexao.TransactionConexao.Rollback;
+        sErro := 'Ocorreu um erro ao inserir a Pais' + E.Message;
+        result := False;
+      end;
+    end;
+  end;
+end;
+
+procedure TDaoPaises.ObjToField(var oPais: TPaises; Qry: TFDQuery);
+begin
+  with oPais, Qry do
+  begin
+    paramByName('nome').AsString := Nome;
+    paramByName('sigla').AsString := Sigla;
+    paramByName('DDI').AsString := DDI;
+    paramByName('date_insert').AsDatetime := DataCad;
+    paramByName('date_update').AsDatetime := DataUltAlt;
+    paramByName('User_Insert').AsString := user_insert;
+    paramByName('User_Update').AsString := user_update;
+  end;
+end;
+
+procedure TDaoPaises.Pesquisar(Value: string; Var dset: TClientDataSet);
+begin
+  with DmConexao.Qry do
+  begin
+    dset.EmptyDataSet;
+    Sql.Clear;
+    DmConexao.TransactionConexao.StartTransaction;
+    try
+      if Value = '' then
+      begin
+        Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES');
+      end
+      else
+      begin
+        Sql.Add('SELECT ID, PAIS, SIGLA, DATE_INSERT FROM PAISES WHERE PAIS LIKE :NOME');
+        paramByName('NOME').AsString := '%' + Value + '%';
+      end;
+      open;
+      while not eof do
+      begin
+        dset.Append;
+        dset.FieldByName('id').AsInteger := FieldByName('id').AsInteger;
+        dset.FieldByName('PAIS').AsString := FieldByName('PAIS').AsString;
+        dset.FieldByName('sigla').AsString := FieldByName('sigla').AsString;
+        // Dset.FieldByName('data_insert').AsDateTime := FieldByName('Date_insert').AsDateTime;
+        dset.Post;
+        next;
+      end;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    except
+      DmConexao.TransactionConexao.Rollback;
+      raise;
+    end;
+
+  end;
+end;
+
+function TDaoPaises.Recuperar(var oPais: TPaises): boolean;
+begin
+  try
+    with DmConexao.Qry do
+    begin
+      sql.clear;
+      DmConexao.TransactionConexao.StartTransaction;
+      Sql.Add('SELECT * FROM PAISES WHERE ID = :ID');
+      paramByName('ID').AsInteger := oPais.ID;
+      open;
+      FieldtoObj(oPais, DmConexao.Qry);
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    end;
+  except
+    on E: Exception do
+    begin
+      sErro := 'Erro ao recuperar Pais' + E.Message;
+      result := False;
+      DmConexao.TransactionConexao.Rollback;
+    end;
+  end;
+end;
+
+end.

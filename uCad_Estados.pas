@@ -11,11 +11,9 @@ type
   TCad_Estados = class(TCad_Base)
     lbl_Estado: TLabel;
     lbl_sigla: TLabel;
-    lbl_DDD: TLabel;
     lbl_Pais: TLabel;
     edt_Estado: TEdit;
     edt_Sigla: TEdit;
-    edt_DDD: TEdit;
     edt_Pais: TEdit;
     btn_pesquisar: TButton;
     procedure btn_pesquisarClick(Sender: TObject);
@@ -75,12 +73,14 @@ procedure TCad_Estados.FormCreate(Sender: TObject);
 begin
   inherited;
   Estado := TEstados.Criar;
+  estadoControl := TEstadosController.Create;
 end;
 
 procedure TCad_Estados.FormDestroy(Sender: TObject);
 begin
   inherited;
   Estado.Free;
+  estadoControl.Free;
 end;
 
 procedure TCad_Estados.FormShow(Sender: TObject);
@@ -96,7 +96,6 @@ begin
   edt_estado.text := Estado.Nome;
   edt_sigla.text := estado.UF;
   edt_pais.text := Estado.Pais.Nome;
-  //edt_DDI.text := Pais.DDI;
 end;
 
 procedure TCad_Estados.PopularObjeto;
@@ -104,7 +103,6 @@ begin
   Estado.ID := strtoint(edt_id.text);
   Estado.Nome := edt_Estado.text;
   Estado.UF := edt_sigla.text;
-   //Estado.DDI :=  edt_DDI.text;
 end;
 
 function TCad_Estados.ValidarDados: boolean;

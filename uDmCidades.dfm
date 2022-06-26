@@ -16,7 +16,6 @@ object DmCidades: TDmCidades
         Name = 'NOME'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 24
     Top = 24
   end
@@ -68,7 +67,6 @@ object DmCidades: TDmCidades
         Name = 'DATE_UPDATE'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 80
     Top = 24
   end
@@ -120,7 +118,6 @@ object DmCidades: TDmCidades
         Name = 'id'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 144
     Top = 24
   end
@@ -133,7 +130,6 @@ object DmCidades: TDmCidades
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 223
     Top = 24
   end
@@ -163,7 +159,6 @@ object DmCidades: TDmCidades
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 224
     Top = 88
   end

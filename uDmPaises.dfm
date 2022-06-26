@@ -14,7 +14,6 @@ object DmPaises: TDmPaises
         Name = 'NOME'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 24
     Top = 24
   end
@@ -65,7 +64,6 @@ object DmPaises: TDmPaises
         Name = 'DATE_UPDATE'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 80
     Top = 24
   end
@@ -116,7 +114,6 @@ object DmPaises: TDmPaises
         Name = 'id'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 144
     Top = 24
   end
@@ -129,26 +126,8 @@ object DmPaises: TDmPaises
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 208
     Top = 24
-  end
-  object dspPaises: TDataSetProvider
-    DataSet = sqlPesquisar
-    Left = 24
-    Top = 120
-  end
-  object cdsPaises: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftString
-        Name = 'NOME'
-        ParamType = ptInput
-      end>
-    ProviderName = 'dspPaises'
-    Left = 24
-    Top = 192
   end
   object sqlRecuperar: TSQLDataSet
     CommandText = 
@@ -161,7 +140,6 @@ object DmPaises: TDmPaises
         Name = 'ID'
         ParamType = ptInput
       end>
-    SQLConnection = dmConexao.SQLConBanco
     Left = 280
     Top = 24
   end

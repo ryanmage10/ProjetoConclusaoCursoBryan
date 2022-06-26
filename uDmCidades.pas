@@ -117,7 +117,7 @@ begin
    with sqlSeq do
    begin
      try
-       SQLConnection := DmConexao.sqlConBanco;
+       //SQLConnection := DmConexao.sqlConBanco;
        CommandText := 'select id from cidades where id = (select max(id) from cidades)';
        open;
        if not isEmpty then

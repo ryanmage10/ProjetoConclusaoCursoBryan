@@ -81,7 +81,7 @@ end;
 
 function TEstados.GetPais: TPaises;
 begin
-  result := FPais.clone;
+  result := FPais;
 end;
 
 procedure TEstados.SetNome(Value: string);
