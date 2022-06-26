@@ -146,21 +146,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="uDmPaises.pas">
-            <Form>DmPaises</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="uDmEstados.pas">
-            <Form>dmEstados</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="uDmCidades.pas">
-            <Form>DmCidades</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="uPaisesController.pas"/>
         <DCCReference Include="uEstadosController.pas"/>
         <DCCReference Include="uCidadesController.pas"/>
@@ -170,6 +155,7 @@
         </DCCReference>
         <DCCReference Include="uDaoPaises.pas"/>
         <DCCReference Include="uDaoEstados.pas"/>
+        <DCCReference Include="uDaoCidades.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -17,13 +17,15 @@ uses
   uPaises in 'uPaises.pas',
   uPessoa in 'uPessoa.pas',
   uDmConexao in 'uDmConexao.pas' {dmConexao: TDataModule},
+  uDmPaises in 'uDmPaises.pas' {DmPaises: TDataModule},
+  uDmEstados in 'uDmEstados.pas' {dmEstados: TDataModule},
+  uDmCidades in 'uDmCidades.pas' {DmCidades: TDataModule},
   uPaisesController in 'uPaisesController.pas',
   uEstadosController in 'uEstadosController.pas',
   uCidadesController in 'uCidadesController.pas',
   uCad_Pessoa in 'uCad_Pessoa.pas' {Cad_Base1},
   uDaoPaises in 'uDaoPaises.pas',
-  uDaoEstados in 'uDaoEstados.pas',
-  uDaoCidades in 'uDaoCidades.pas';
+  uDaoEstados in 'uDaoEstados.pas';
 
 {$R *.res}
 

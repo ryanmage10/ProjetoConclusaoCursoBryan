@@ -1,5 +1,5 @@
 inherited Cad_Cidades: TCad_Cidades
-  Caption = 'Cadastro de Cidades'
+  Caption = 'Cad_Cidades'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -85,7 +85,6 @@ inherited Cad_Cidades: TCad_Cidades
     Top = 83
     Width = 75
     Height = 21
-    MaxLength = 3
     NumbersOnly = True
     TabOrder = 3
   end
