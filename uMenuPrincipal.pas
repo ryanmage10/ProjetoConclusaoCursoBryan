@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
-  uCons_Cidades;
+  uCons_Cidades, uCons_Empresas;
 
 type
   TMenuPrincipal = class(TForm)
@@ -15,9 +15,11 @@ type
     btn_Paises: TMenuItem;
     btn_Estados: TMenuItem;
     btn_Cidades: TMenuItem;
+    btn_Empresa: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
+    procedure btn_EmpresaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,6 +39,17 @@ begin
       ConsCidadeForm.ShowModal;
    finally
       FreeAndNil(ConsCidadeForm);
+   end;
+end;
+
+procedure TMenuPrincipal.btn_EmpresaClick(Sender: TObject);
+var ConsEmpresaForm: TCons_Empresas;
+begin
+   ConsEmpresaForm := TCons_Empresas.Create(nil);
+   try
+      ConsEmpresaForm.ShowModal;
+   finally
+      FreeAndNil(ConsEmpresaForm);
    end;
 end;
 

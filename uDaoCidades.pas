@@ -1,4 +1,4 @@
-unit uDaoCidades;
+unit uCidadesDao;
 
 interface
 
@@ -7,10 +7,10 @@ uses
   Datasnap.Provider, Datasnap.DBClient, uDmConexao, uCidadeS, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDaoEstados, uEstados;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uEstadosDao, uEstados;
 
 type
-  TDaoCidadeS = class(TObject)
+  TCidadesDao = class(TObject)
 
   private
     { Private declarations }
@@ -32,17 +32,15 @@ type
   end;
 
 var
-  DmCidadeS: TDaoCidades;
+  CidadesDao: TCidadesDao;
 
 implementation
 
-function TDaoCidades.Alterar(oCidade: TCidades; out sErro: string): boolean;
+function TCidadesDao.Alterar(oCidade: TCidades; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oCidade do
   begin
     Sql.Clear;
-    try
-      DmConexao.TransactionConexao.StartTransaction;
       sql.add('UPDATE CIDADES SET CIDADE = :NOME, DDD = :DDD, COD_IBGE = :COD_IBGE, ID_ESTADO = :ID_ESTADO, ');
       Sql.Add('USER_INSERT = :USER_INSERT, USER_UPDATE = :USER_UPDATE, DATE_INSERT = :DATE_INSERT, DATE_UPDATE = :DATE_UPDATE');
       Sql.Add(' WHERE ID = :ID');
@@ -50,49 +48,29 @@ begin
       ObjToField(oCidade, DmConexao.Qry);
       ExecSql();
       result := true;
-      DmConexao.TransactionConexao.Commit;
       close;
-    except
-      on E: Exception do
-      begin
-        sErro := 'Ocorreu um erro ao Alterar a Cidade' + E.Message;
-        result := False;
-        DmConexao.TransactionConexao.Rollback;
-      end;
-    end;
   end;
 end;
 
-constructor TDaoCidadeS.Create;
+constructor TCidadesDao.Create;
 begin
 
 end;
 
-function TDaoCidadeS.Excluir(oCidade: TCidades; var sErro: string): boolean;
+function TCidadesDao.Excluir(oCidade: TCidades; var sErro: string): boolean;
 begin
-  try
     with DmConexao.Qry do
     begin
       Sql.Clear;
-      DmConexao.TransactionConexao.StartTransaction;
       Sql.Add('DELETE FROM CIDADES WHERE ID = :ID');
       paramByName('ID').AsInteger := oCidade.ID;
       ExecSql();
       result := true;
-      DmConexao.TransactionConexao.Commit;
       close;
     end;
-  except
-    on E: Exception do
-    begin
-      sErro := 'Erro ao Excluir Cidade' + E.Message;
-      result := False;
-      DmConexao.TransactionConexao.Rollback;
-    end;
-  end;
 end;
 
-procedure TDaoCidadeS.FieldToObj(var oCidade: TCidadeS; Qry: TFDQuery);
+procedure TCidadesDao.FieldToObj(var oCidade: TCidadeS; Qry: TFDQuery);
 begin
   with oCidade, Qry do
   begin
@@ -107,36 +85,25 @@ begin
   end;
 end;
 
-destructor TDaoCidadeS.Free;
+destructor TCidadesDao.Free;
 begin
 end;
 
-function TDaoCidadeS.inserir(oCidade: TCidades; out sErro: string): boolean;
+function TCidadesDao.inserir(oCidade: TCidades; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oCidade do
   begin
     Sql.Clear;
-    DmConexao.TransactionConexao.StartTransaction;                    
-    try
       sql.add('INSERT INTO CIDADES (Cidade, DDD, COD_IBGE, ID_ESTADO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
       Sql.add(' VALUES (:NOME, :DDD, :COD_IBGE, :ID_ESTADO,  :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
       ObjToField(oCidade, DmConexao.Qry);
       ExecSql();
       result := true;
-      DmConexao.TransactionConexao.Commit;
       Close;
-    except
-      on E: Exception do
-      begin
-        DmConexao.TransactionConexao.Rollback;
-        sErro := 'Ocorreu um erro ao inserir a Cidade' + E.Message;
-        result := False;
-      end;
-    end;
   end;
 end;
 
-procedure TDaoCidadeS.ObjToField(var oCidade: TCidadeS; Qry: TFDQuery);
+procedure TCidadesDao.ObjToField(var oCidade: TCidadeS; Qry: TFDQuery);
 begin
   with oCidade, Qry do
   begin
@@ -151,14 +118,12 @@ begin
   end;
 end;
 
-procedure TDaoCidades.Pesquisar(Value: string; Var dset: TClientDataSet);
+procedure TCidadesDao.Pesquisar(Value: string; Var dset: TClientDataSet);
 begin
   with DmConexao.Qry do
   begin
     dset.EmptyDataSet;
     Sql.Clear;
-    DmConexao.TransactionConexao.StartTransaction;
-    try
       if Value = '' then
       begin
         Sql.Add('SELECT C.ID, C.CIDADE, C.DDD, C.COD_IBGE, E.ESTADO, C.DATE_INSERT FROM CIDADES C LEFT JOIN ESTADOS E ON C.ID_ESTADO = E.ID');
@@ -178,53 +143,37 @@ begin
         dset.Post;
         next;
       end;
-      DmConexao.TransactionConexao.Commit;
       close;
-    except
-      DmConexao.TransactionConexao.Rollback;
-      raise;
-    end;
 
   end;
 end;
 
-function TDaoCidadeS.Recuperar(var oCidade: TCidadeS; out sErro: string): boolean;
+function TCidadesDao.Recuperar(var oCidade: TCidadeS; out sErro: string): boolean;
 var EstadoAux : TEstados;
-    DaoEstados : TDaoEstados;
+    EstadosDao : TEstadosDao;
 begin
-  try
     with DmConexao.Qry do
     begin
       sql.clear;
       EstadoAux := TEstados.Create;
-      DmConexao.TransactionConexao.StartTransaction;
       Sql.Add('SELECT * FROM CIDADES WHERE ID = :ID');
       paramByName('ID').AsInteger := oCidade.ID;
       open;
       FieldtoObj(oCidade, DmConexao.Qry);
       EstadoAux.Id := FieldbyName('Id_ESTADO').AsInteger;
       result := true;
-      DmConexao.TransactionConexao.Commit;
       close;
 
-      DaoEstados := TDaoEstados.Create;
+      EstadosDao := TEstadosDao.Create;
       try
-        DaoEstados.Recuperar(EstadoAux, sErro);
+        EstadosDao.Recuperar(EstadoAux, sErro);
         oCidade.Estado.CopiarDados(EstadoAux);
       finally
-        DaoEstados.Free;
+        EstadosDao.Free;
         EstadoAux.Free;
       end;
 
     end;
-  except
-    on E: Exception do
-    begin
-      sErro := 'Erro ao recuperar Cidade' + E.Message;
-      result := False;
-      DmConexao.TransactionConexao.Rollback;
-    end;
-  end;
 end;
 
 end.

@@ -26,7 +26,7 @@ type
     property Estado: TEstados read GetEstado write SetEstado;
     property CodIbge: string read GetCodIbge write SetCodIbge;
 
-    constructor Criar;
+    constructor Create;
     destructor Free;
     function clone: TCidades;
     procedure CopiarDados(Value: TCidades);
@@ -58,9 +58,9 @@ begin
   FEstado.CopiarDados(Value.Estado);
 end;
 
-constructor TCidades.Criar;
+constructor TCidades.Create;
 begin
-  FEstado := TEstados.Criar;
+  FEstado := TEstados.Create;
   LimparDados;
 end;
 
@@ -86,8 +86,7 @@ end;
 
 function TCidades.clone: TCidades;
 begin
-
-  result := TCidades.Criar;
+  result := TCidades.Create;
   result.CopiarDados(Self);
 end;
 

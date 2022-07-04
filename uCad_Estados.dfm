@@ -6,6 +6,18 @@ inherited Cad_Estados: TCad_Estados
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
+    inherited lbl_Cad: TLabel
+      Visible = False
+    end
+    inherited lbl_DataCad: TLabel
+      Visible = False
+    end
+    inherited Lbl_Alt: TLabel
+      Visible = False
+    end
+    inherited lbl_DataAlt: TLabel
+      Visible = False
+    end
     object lbl_Estado: TLabel [5]
       Left = 16
       Top = 64
@@ -22,9 +34,9 @@ inherited Cad_Estados: TCad_Estados
     object lbl_sigla: TLabel [6]
       Left = 349
       Top = 64
-      Width = 27
+      Width = 14
       Height = 13
-      Caption = 'Sigla'
+      Caption = 'UF'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -11
@@ -73,6 +85,7 @@ inherited Cad_Estados: TCad_Estados
       Height = 21
       CharCase = ecUpperCase
       Enabled = False
+      MaxLength = 50
       TabOrder = 5
     end
     object btn_pesquisar: TButton

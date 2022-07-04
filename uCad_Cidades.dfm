@@ -6,6 +6,28 @@ inherited Cad_Cidades: TCad_Cidades
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
+    Font.Color = clRed
+    ParentFont = False
+    inherited lbl_Cad: TLabel
+      Font.Color = clBlack
+      ParentFont = False
+      Visible = False
+    end
+    inherited lbl_DataCad: TLabel
+      Font.Color = clBlack
+      ParentFont = False
+      Visible = False
+    end
+    inherited Lbl_Alt: TLabel
+      Font.Color = clBlack
+      ParentFont = False
+      Visible = False
+    end
+    inherited lbl_DataAlt: TLabel
+      Font.Color = clBlack
+      ParentFont = False
+      Visible = False
+    end
     object lbl_Cidade: TLabel [5]
       Left = 16
       Top = 64
@@ -26,7 +48,7 @@ inherited Cad_Cidades: TCad_Cidades
       Height = 13
       Caption = 'DDD'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clRed
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
@@ -105,6 +127,7 @@ inherited Cad_Cidades: TCad_Cidades
     Height = 21
     CharCase = ecUpperCase
     Enabled = False
+    MaxLength = 50
     TabOrder = 1
   end
 end

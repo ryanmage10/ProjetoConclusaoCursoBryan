@@ -6,6 +6,7 @@ inherited Cons_Estados: TCons_Estados
   TextHeight = 13
   inherited Panel1: TPanel
     inherited GridPesquisa: TDBGrid
+      Left = 4
       DataSource = ds_Estados
       Columns = <
         item

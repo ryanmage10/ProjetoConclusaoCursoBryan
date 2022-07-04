@@ -1,0 +1,230 @@
+unit uDaoEstados;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr,
+  Datasnap.Provider, Datasnap.DBClient, uDmConexao, uEstados, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uPaisesDao, uPaises;
+
+type
+  TDaoEstados = class(TObject)
+
+  private
+    { Private declarations }
+
+    procedure FieldToObj(var oEstado: TEstados; Qry: TFDQuery);
+    procedure ObjToField(var oEstado: TEstados; Qry: TFDQuery);
+  public
+    { Public declarations }
+
+    constructor Create;
+    destructor  Free;
+
+    procedure Pesquisar(Value: string; var dset: TClientDataSet);
+    function Recuperar(Var oEstado: TEstados; out sErro: string): boolean;
+    function inserir(oEstado: TEstados; out sErro: string): boolean;
+    function Alterar(oEstado: TEstados; out sErro: string): boolean;
+    function Excluir(oEstado: TEstados; var sErro: string): boolean;
+
+  end;
+
+var
+  DmEstados: TDaoEstados;
+
+implementation
+
+function TDaoEstados.Alterar(oEstado: TEstados; out sErro: string): boolean;
+begin
+  with DmConexao.Qry, oEstado do
+  begin
+    Sql.Clear;
+    try
+      DmConexao.TransactionConexao.StartTransaction;
+      sql.add('UPDATE Estados SET ESTADO = :NOME, SIGLA = :SIGLA, ID_PAIS = :ID_PAIS, ');
+      Sql.Add('USER_INSERT = :USER_INSERT, USER_UPDATE = :USER_UPDATE, DATE_INSERT = :DATE_INSERT, DATE_UPDATE = :DATE_UPDATE');
+      Sql.Add(' WHERE ID = :ID');
+      paramByName('id').AsInteger := oEstado.Id;
+      ObjToField(oEstado, DmConexao.Qry);
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    except
+      on E: Exception do
+      begin
+        sErro := 'Ocorreu um erro ao Alterar a Estado' + E.Message;
+        result := False;
+        DmConexao.TransactionConexao.Rollback;
+      end;
+    end;
+  end;
+end;
+
+constructor TDaoEstados.Create;
+begin
+
+end;
+
+function TDaoEstados.Excluir(oEstado: TEstados; var sErro: string): boolean;
+begin
+  try
+    with DmConexao.Qry do
+    begin
+      Sql.Clear;
+      DmConexao.TransactionConexao.StartTransaction;
+      Sql.Add('DELETE FROM Estados WHERE ID = :ID');
+      paramByName('ID').AsInteger := oEstado.ID;
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    end;
+  except
+    on E: Exception do
+    begin
+      sErro := 'Erro ao Excluir Estado' + E.Message;
+      result := False;
+      DmConexao.TransactionConexao.Rollback;
+    end;
+  end;
+end;
+
+procedure TDaoEstados.FieldToObj(var oEstado: TEstados; Qry: TFDQuery);
+begin
+  with oEstado, Qry do
+  begin
+    ID := FieldByName('ID').AsInteger;
+    Nome := FieldByName('ESTADO').AsString;
+    UF := FieldByName('Sigla').AsString;
+    //Pais.Id := FieldByName('Id_Pais').AsInteger;
+    DataCad := FieldByName('date_insert').AsDatetime;
+    DataUltAlt := FieldByName('date_update').AsDatetime;
+    user_insert := FieldByName('User_Insert').AsString;
+    user_update := FieldByName('User_Update').AsString;
+  end;
+end;
+
+destructor TDaoEstados.Free;
+begin
+end;
+
+function TDaoEstados.inserir(oEstado: TEstados; out sErro: string): boolean;
+begin
+  with DmConexao.Qry, oEstado do
+  begin
+    Sql.Clear;
+    DmConexao.TransactionConexao.StartTransaction;                    
+    try
+      sql.add('INSERT INTO Estados (ESTADO, SIGLA, ID_PAIS, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
+      Sql.add(' VALUES (:NOME, :SIGLA, :ID_PAIS, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
+      ObjToField(oEstado, DmConexao.Qry);
+      ExecSql();
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      Close;
+    except
+      on E: Exception do
+      begin
+        DmConexao.TransactionConexao.Rollback;
+        sErro := 'Ocorreu um erro ao inserir a Estado' + E.Message;
+        result := False;
+      end;
+    end;
+  end;
+end;
+
+procedure TDaoEstados.ObjToField(var oEstado: TEstados; Qry: TFDQuery);
+begin
+  with oEstado, Qry do
+  begin
+    paramByName('nome').AsString := Nome;
+    paramByName('sigla').AsString := UF;
+    paramByName('ID_pais').AsInteger:= Pais.Id;
+    paramByName('User_Insert').AsString := user_insert;
+    paramByName('User_Update').AsString := user_update;
+    paramByName('date_insert').AsDatetime := DataCad;
+    paramByName('date_update').AsDatetime := DataUltAlt;
+  end;
+end;
+
+procedure TDaoEstados.Pesquisar(Value: string; Var dset: TClientDataSet);
+begin
+  with DmConexao.Qry do
+  begin
+    dset.EmptyDataSet;
+    Sql.Clear;
+    DmConexao.TransactionConexao.StartTransaction;
+    try
+      if Value = '' then
+      begin
+        Sql.Add('SELECT E.ID, E.ESTADO, E.SIGLA, P.PAIS, E.DATE_INSERT FROM ESTADOS E LEFT JOIN PAISES P ON E.ID_PAIS = P.ID');
+      end
+      else
+      begin
+        Sql.Add('SELECT E.ID, E.ESTADO, E.SIGLA, P.PAIS, E.DATE_INSERT FROM ESTADOS E LEFT JOIN PAISES P ON E.ID_PAIS = P.ID WHERE ESTADO LIKE :NOME');
+        paramByName('NOME').AsString := '%' + Value + '%';
+      end;
+      open;
+      while not eof do
+      begin
+        dset.Append;
+        dset.FieldByName('id').AsInteger := FieldByName('id').AsInteger;
+        dset.FieldByName('ESTADO').AsString := FieldByName('ESTADO').AsString;
+        dset.FieldByName('sigla').AsString := FieldByName('sigla').AsString;
+        dset.FieldByName('PAIS').AsString := FieldByName('PAIS').AsString;
+        dset.Post;
+        next;
+      end;
+      DmConexao.TransactionConexao.Commit;
+      close;
+    except
+      DmConexao.TransactionConexao.Rollback;
+      raise;
+    end;
+
+  end;
+end;
+
+function TDaoEstados.Recuperar(var oEstado: TEstados; out sErro: string): boolean;
+var PaisAux : TPaises;
+    DaoPaises : TPaisesDao;
+begin
+  try
+    with DmConexao.Qry do
+    begin
+      sql.clear;
+      PaisAux := TPaises.Create;
+      DmConexao.TransactionConexao.StartTransaction;
+      Sql.Add('SELECT * FROM ESTADOS WHERE ID = :ID');
+      paramByName('ID').AsInteger := oEstado.ID;
+      open;
+      FieldtoObj(oEstado, DmConexao.Qry);
+      PaisAux.Id := FieldbyName('Id_pais').AsInteger;
+      result := true;
+      DmConexao.TransactionConexao.Commit;
+      close;
+
+      DaoPaises := TPaisesDao.Create;
+      try
+        DaoPaises.Recuperar(PaisAux, sErro);
+        oEstado.Pais.CopiarDados(PaisAux);
+      finally
+        DaoPaises.Free;
+        PaisAux.Free;
+      end;
+
+    end;
+  except
+    on E: Exception do
+    begin
+      sErro := 'Erro ao recuperar Estado' + E.Message;
+      result := False;
+      DmConexao.TransactionConexao.Rollback;
+    end;
+  end;
+end;
+
+end.

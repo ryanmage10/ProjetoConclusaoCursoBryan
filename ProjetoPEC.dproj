@@ -140,7 +140,7 @@
         <DCCReference Include="uCidades.pas"/>
         <DCCReference Include="uEstados.pas"/>
         <DCCReference Include="uPaises.pas"/>
-        <DCCReference Include="uPessoa.pas"/>
+        <DCCReference Include="uPessoas.pas"/>
         <DCCReference Include="uDmConexao.pas">
             <Form>dmConexao</Form>
             <FormType>dfm</FormType>
@@ -150,12 +150,34 @@
         <DCCReference Include="uEstadosController.pas"/>
         <DCCReference Include="uCidadesController.pas"/>
         <DCCReference Include="uCad_Pessoa.pas">
-            <Form>Cad_Base1</Form>
+            <Form>Cad_Pessoa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDaoPaises.pas"/>
-        <DCCReference Include="uDaoEstados.pas"/>
-        <DCCReference Include="uDaoCidades.pas"/>
+        <DCCReference Include="uPaisesDao.pas"/>
+        <DCCReference Include="uEstadosDao.pas"/>
+        <DCCReference Include="uPaisesService.pas"/>
+        <DCCReference Include="uPaisesFactory.pas"/>
+        <DCCReference Include="uEstadosFactory.pas"/>
+        <DCCReference Include="uEstadosService.pas"/>
+        <DCCReference Include="uCidadesDao.pas"/>
+        <DCCReference Include="uCidadesFactory.pas"/>
+        <DCCReference Include="uCidadesService.pas"/>
+        <DCCReference Include="uEmpresas.pas"/>
+        <DCCReference Include="uFuncionarios.pas"/>
+        <DCCReference Include="uClientes.pas"/>
+        <DCCReference Include="uFornecedores.pas"/>
+        <DCCReference Include="uEmpresasController.pas"/>
+        <DCCReference Include="uEmpresasService.pas"/>
+        <DCCReference Include="uEmpresasFactory.pas"/>
+        <DCCReference Include="uEmpresasDao.pas"/>
+        <DCCReference Include="uCad_Empresas.pas">
+            <Form>Cad_Empresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Empresas.pas">
+            <Form>Cons_Empresas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

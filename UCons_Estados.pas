@@ -42,13 +42,11 @@ implementation
 
 procedure TCons_Estados.btn_AlterarClick(Sender: TObject);
 var CadEstadoForm: TCad_Estados;
-  sErro:string;
 begin
    CadEstadoForm := TCad_Estados.Create(nil);
    Estado.LimparDados;
-   sErro := '';
    Estado.id := Dset_Estados.FieldByName('id').asInteger;
-   if EstadoControl.Recuperar(Estado,sErro) then
+   if EstadoControl.Recuperar(Estado) then
    begin
      try
         CadEstadoForm.Estado.CopiarDados(Estado);
@@ -62,21 +60,25 @@ begin
 end;
 
 procedure TCons_Estados.btn_ExcluirClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if (dset_Estados.Active) and (dset_Estados.RecordCount > 0) then
   begin
-     if MessageDlg('Deseja Realmente excluir este Estado?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+     if MessageDlg('Deseja Realmente excluir o Estado: '+ dset_EstadosEstado.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
      begin
       Estado.ID := dset_EstadosID.AsInteger;
-      EstadoControl.Excluir(Estado, sErro);
-      EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
+      if not EstadoControl.VerificarExclusao(Estado) then
+      begin
+        EstadoControl.Excluir(Estado);
+        EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
+      end
+      Else
+        raise Exception.Create('Erro ao excluir: Há registros vinculados à esse estado');
      end;
   end
   else
   begin
-    raise Exception.Create('Erro ao excluir');
+    raise Exception.Create('Erro ao excluir: Lista Vazia');
   end;
 end;
 
@@ -100,13 +102,12 @@ begin
 end;
 
 procedure TCons_Estados.btn_SelecionarClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if dset_estados.RecordCount > 0 then
   begin
     estado.ID := dset_estadosid.AsInteger;
-    if estadoControl.Recuperar(estado, sErro) then
+    if estadoControl.Recuperar(estado) then
       self.Close;
   end;
 end;
@@ -115,7 +116,7 @@ procedure TCons_Estados.FormCreate(Sender: TObject);
 begin
   inherited;
   EstadoControl := TEstadosController.Create;
-  Estado := TEstados.Criar;
+  Estado := TEstados.Create;
 
   if ( not Dset_Estados.IsEmpty ) then
     Dset_Estados.EmptyDataSet;

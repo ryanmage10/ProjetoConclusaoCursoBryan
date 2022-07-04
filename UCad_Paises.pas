@@ -34,28 +34,30 @@ implementation
 {$R *.dfm}
 
 procedure TCad_Paises.btn_SalvarClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if validarDados then
   begin
      popularObjeto;
-     try
+
+     if not PaisesControl.VerificarNome(Pais) then
+     begin
        if Inclusao then
-          PaisesControl.Inserir(Pais, sErro)
+          PaisesControl.Inserir(Pais)
        else
-          PaisesControl.Alterar(Pais, sErro);
-     except on E:Exception do
-        showmessage(sErro);
-     end;
-     Self.Close;
+          PaisesControl.Alterar(Pais);
+
+       Self.Close;
+     end
+     else
+      raise Exception.Create('Já Existe um Pais cadastrado com esse nome');
   end;
 end;
 
 procedure TCad_Paises.FormCreate(Sender: TObject);
 begin
   inherited;
-  Pais := TPaises.Criar;
+  Pais := TPaises.Create;
   PaisesControl := TPaisesController.Create;
 end;
 
@@ -79,6 +81,15 @@ begin
     edt_pais.text := Pais.Nome;
     edt_sigla.text := Pais.sigla;
     edt_DDI.text := Pais.DDI;
+
+    lbl_Cad.Visible := True;
+    lbl_DataCad.Visible := True;
+    lbl_DataCad.Caption := Pais.User_Insert + '-' + DatetoStr(Pais.DataCad);
+
+    lbl_DataAlt.Caption := Pais.User_Update + '-' + DatetoStr(Pais.DataUltAlt);
+    Lbl_Alt.Visible := True;
+    lbl_DataAlt.Visible := True;
+
 end;
 
 procedure TCad_Paises.PopularObjeto;

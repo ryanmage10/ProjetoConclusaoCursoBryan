@@ -1,0 +1,123 @@
+unit uPaisesService;
+
+interface
+uses uPaises, uPaisesFactory, system.SysUtils, DBClient, uDmConexao;
+  type
+  TPaisesService = class(TObject)
+    private
+      PaisFactory : TPaisesFactory;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oPais: TPaises; var sErro: string):Boolean;
+      function Alterar(oPais: TPaises; var sErro: string):Boolean;
+      function Excluir(oPais: TPaises; var sErro: string):Boolean;
+      function Recuperar(var oPais: TPaises; var sErro: string):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+  var
+  PaisesService: TPaisesService;
+implementation
+
+{ TPaisesService }
+
+function TPaisesService.Alterar(oPais: TPaises; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := PaisFactory.Alterar(oPais, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Alterar o Pais' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+constructor TPaisesService.create;
+begin
+   PaisFactory := TPaisesFactory.Create;
+end;
+
+function TPaisesService.Excluir(oPais: TPaises; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := PaisFactory.Excluir(oPais, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Excluir o Pais' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+destructor TPaisesService.free;
+begin
+   freeandnil(PaisFactory);
+end;
+
+function TPaisesService.Inserir(oPais: TPaises; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := PaisFactory.Inserir(oPais, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Pais' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+procedure TPaisesService.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        PaisFactory.Pesquisar(sNome, Dset);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+function TPaisesService.Recuperar(var oPais: TPaises; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := PaisFactory.Recuperar(oPais, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Pais' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+end.

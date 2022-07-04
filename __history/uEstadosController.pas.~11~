@@ -1,0 +1,59 @@
+unit uEstadosController;
+
+interface
+uses uEstados, system.SysUtils, DBClient, uEstadosService;
+  type
+  TEstadosController = class
+    private
+      EstadoService : TEstadosService;
+    protected
+    public
+      constructor create;
+      destructor Free;
+      function Inserir(oEstado: TEstados):Boolean;
+      function Alterar(oEstado: TEstados):Boolean;
+      function Excluir(oEstado: TEstados):Boolean;
+      function Recuperar(oEstado: TEstados):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+implementation
+
+{ TEstadosController }
+
+function TEstadosController.Alterar(oEstado: TEstados;
+  var sErro: string): Boolean;
+begin
+   result := EstadoService.Alterar(oEstado, sErro);
+end;
+
+constructor TEstadosController.create;
+begin
+   EstadoService := TEstadosService.Create;
+end;
+
+function TEstadosController.Excluir(oEstado: TEstados): Boolean;
+begin
+  result := EstadoService.Excluir(oEstado);
+end;
+
+destructor TEstadosController.Free;
+begin
+  EstadoService.Free;
+end;
+
+function TEstadosController.Inserir(oEstado: TEstados): Boolean;
+begin
+   result := EstadoService.Inserir(oEstado);
+end;
+
+procedure TEstadosController.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   EstadoService.Pesquisar(sNome, Dset);
+end;
+
+function TEstadosController.Recuperar(oEstado: TEstados): Boolean;
+begin
+  result := EstadoService.Recuperar(oEstado);
+end;
+
+end.

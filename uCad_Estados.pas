@@ -51,28 +51,30 @@ begin
 end;
 
 procedure TCad_Estados.btn_SalvarClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if ValidarDados then
   begin
     popularObjeto;
-    try
-      if Inclusao then
-         estadoControl.Inserir(Estado, sErro)
-      else
-        estadoControl.Alterar(Estado, sErro);
-    except on E:Exception do
 
-    end;
-    self.Close;
+    if not EstadoControl.VerificarNome(Estado) then
+     begin
+        if Inclusao then
+           estadoControl.Inserir(Estado)
+        else
+          estadoControl.Alterar(Estado);
+
+        self.Close;
+     end
+     else
+      raise Exception.Create('Já Existe um Estado cadastrado com esse nome');
   end;
 end;
 
 procedure TCad_Estados.FormCreate(Sender: TObject);
 begin
   inherited;
-  Estado := TEstados.Criar;
+  Estado := TEstados.Create;
   estadoControl := TEstadosController.Create;
 end;
 
@@ -96,6 +98,14 @@ begin
   edt_estado.text := Estado.Nome;
   edt_sigla.text := estado.UF;
   edt_pais.text := Estado.Pais.Nome;
+
+    lbl_Cad.Visible := True;
+    lbl_DataCad.Visible := True;
+    lbl_DataCad.Caption := Estado.User_Insert + '-' + DatetoStr(Estado.DataCad);
+
+    lbl_DataAlt.Caption := Estado.User_Update + '-' + DatetoStr(Estado.DataUltAlt);
+    Lbl_Alt.Visible := True;
+    lbl_DataAlt.Visible := True;
 end;
 
 procedure TCad_Estados.PopularObjeto;

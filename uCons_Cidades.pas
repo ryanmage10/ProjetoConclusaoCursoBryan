@@ -21,13 +21,14 @@ type
     procedure btn_PesquisarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn_ExcluirClick(Sender: TObject);
+    procedure btn_SelecionarClick(Sender: TObject);
   private
     { Private declarations }
     CidadeControl : TCidadesController;
-    Cidade : TCidades;
+
   public
     { Public declarations }
-
+     Cidade : TCidades;
   end;
 
 var
@@ -39,13 +40,11 @@ implementation
 
 procedure TCons_Cidades.btn_AlterarClick(Sender: TObject);
 var CadCidadeForm: TCad_Cidades;
-    sErro:string;
 begin
    CadCidadeForm := TCad_Cidades.Create(nil);
    Cidade.LimparDados;
-   sErro := '';
    Cidade.id := Dset_Cidades.FieldByName('id').asInteger;
-   if CidadeControl.Recuperar(Cidade,sErro) then
+   if CidadeControl.Recuperar(Cidade) then
    begin
      try
         CadCidadeForm.Cidade.CopiarDados(Cidade);
@@ -59,16 +58,18 @@ begin
 end;
 
 procedure TCons_Cidades.btn_ExcluirClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if (dset_Cidades.Active) and (dset_Cidades.RecordCount > 0) then
   begin
-     if MessageDlg('Deseja Realmente excluir esta Cidade?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+     if MessageDlg('Deseja Realmente excluir a Cidade '+ dset_cidadesCidade.AsString + '?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
      begin
       Cidade.ID := dset_CidadesID.AsInteger;
-      CidadeControl.Excluir(Cidade, sErro);
-      CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
+      if not CidadeControl.VerificarExclusao(Cidade) then
+      begin
+        CidadeControl.Excluir(Cidade);
+        CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
+      end;
      end;
   end
   else
@@ -96,11 +97,22 @@ begin
   CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
 end;
 
+procedure TCons_Cidades.btn_SelecionarClick(Sender: TObject);
+begin
+  inherited;
+  if dset_cidades.RecordCount > 0 then
+  begin
+    cidade.ID := dset_cidadesid.AsInteger;
+    if cidadeControl.Recuperar(cidade) then
+      self.Close;
+  end;
+end;
+
 procedure TCons_Cidades.FormCreate(Sender: TObject);
 begin
   inherited;
   CidadeControl := TCidadesController.Create;
-  Cidade := TCidades.Criar;
+  Cidade := TCidades.Create;
 
   if ( not Dset_Cidades.IsEmpty ) then
     Dset_Cidades.EmptyDataSet;

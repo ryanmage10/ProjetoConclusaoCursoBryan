@@ -1,0 +1,85 @@
+inherited Cons_Cidades: TCons_Cidades
+  Caption = 'Consulta Cidades'
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    inherited GridPesquisa: TDBGrid
+      Left = 9
+      Width = 497
+      DataSource = ds_Cidades
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'ID'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CIDADE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ESTADO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DATA_INSERT'
+          Visible = True
+        end>
+    end
+    inherited Panel2: TPanel
+      inherited btn_Novo: TButton
+        OnClick = btn_NovoClick
+      end
+      inherited btn_Excluir: TButton
+        OnClick = btn_ExcluirClick
+      end
+    end
+    inherited btn_Alterar: TButton
+      OnClick = btn_AlterarClick
+    end
+    inherited btn_Pesquisar: TButton
+      Top = 17
+      OnClick = btn_PesquisarClick
+      ExplicitTop = 17
+    end
+  end
+  object ds_Cidades: TDataSource
+    DataSet = dset_Cidades
+    Left = 408
+    Top = 80
+  end
+  object dset_Cidades: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'NOME'
+        ParamType = ptUnknown
+      end>
+    ProviderName = 'dspCidades'
+    Left = 464
+    Top = 80
+    object dset_CidadesID: TIntegerField
+      DisplayLabel = 'Id'
+      FieldName = 'ID'
+    end
+    object dset_CidadesCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      Size = 50
+    end
+    object dset_CidadesESTADO: TStringField
+      DisplayLabel = 'Estado'
+      FieldName = 'ESTADO'
+      Size = 50
+    end
+    object dset_CidadesDATA_INSERT: TDateField
+      DisplayLabel = 'Data Inser'#231#227'o'
+      FieldName = 'DATA_INSERT'
+    end
+  end
+end

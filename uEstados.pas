@@ -25,7 +25,7 @@ type
     property UF: string read GetUF write SetUF;
     property Pais: TPaises read GetPais write SetPais;
 
-    constructor Criar;
+    constructor Create;
     destructor Free;
     function clone: TEstados;
     procedure LimparDados;
@@ -34,10 +34,10 @@ type
 
 implementation
 
-constructor TEstados.Criar;
+constructor TEstados.Create;
 begin
   inherited;
-  FPais := TPaises.Criar;
+  FPais := TPaises.Create;
   LimparDados;
 end;
 
@@ -65,7 +65,7 @@ end;
 
 function TEstados.clone: TEstados;
 begin
-  result := TEstados.Criar;
+  result := TEstados.Create;
   result.CopiarDados(Self);
 end;
 

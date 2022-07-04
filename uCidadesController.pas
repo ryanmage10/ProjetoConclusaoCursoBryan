@@ -1,63 +1,71 @@
 unit uCidadesController;
 
 interface
-uses uCidades, uDaoCidades, system.SysUtils, DBClient;
+uses uCidades, uCidadesService, system.SysUtils, DBClient;
   type
   TCidadesController = class
     private
     protected
-      DaoCidade : TDaoCidades;
+      CidadeService : TCidadesService;
     public
       constructor create;
       destructor Free;
-      function Inserir(oCidade: TCidades; var sErro: string):Boolean;
-      function Alterar(oCidade: TCidades; var sErro: string):Boolean;
-      function Excluir(oCidade: TCidades; var sErro: string):Boolean;
-      function Recuperar(oCidade: TCidades; var sErro: string):Boolean;
+      function Inserir(oCidade: TCidades):Boolean;
+      function Alterar(oCidade: TCidades):Boolean;
+      function Excluir(oCidade: TCidades):Boolean;
+      function Recuperar(oCidade: TCidades):Boolean;
       procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+      function VerificarNome(Value: TCidades): boolean;
+      function VerificarExclusao(Value: TCidades): boolean;
 
   end;
 implementation
 
 { TCidadesController }
 
-function TCidadesController.Alterar(oCidade: TCidades;
-  var sErro: string): Boolean;
+function TCidadesController.Alterar(oCidade: TCidades): Boolean;
 begin
-   result := DaoCidade.Alterar(oCidade, sErro);
+   result := CidadeService.Alterar(oCidade);
 end;
 
 constructor TCidadesController.create;
 begin
-   DaoCidade := TDaoCidades.Create;
+   CidadeService := TCidadesService.Create;
 end;
 
-function TCidadesController.Excluir(oCidade: TCidades;
-  var sErro: string): Boolean;
+function TCidadesController.Excluir(oCidade: TCidades): Boolean;
 begin
-   result := DaoCidade.Excluir(oCidade, sErro);
+   result := CidadeService.Excluir(oCidade);
 end;
 
 destructor TCidadesController.Free;
 begin
-   DaoCidade.Free;
+   CidadeService.Free;
 end;
 
-function TCidadesController.Inserir(oCidade: TCidades;
-  var sErro: string): Boolean;
+function TCidadesController.Inserir(oCidade: TCidades): Boolean;
 begin
-   result := DaoCidade.Inserir(oCidade, sErro);
+   result := CidadeService.Inserir(oCidade);
 end;
 
 procedure TCidadesController.Pesquisar(sNome: string; var Dset: TClientDataSet);
 begin
-  DaoCidade.Pesquisar(sNome, Dset);
+  CidadeService.Pesquisar(sNome, Dset);
 end;
 
-function TCidadesController.Recuperar(oCidade: TCidades;
-  var sErro: string): Boolean;
+function TCidadesController.Recuperar(oCidade: TCidades): Boolean;
 begin
-   result := DaoCidade.Recuperar(oCidade, sErro);
+   result := CidadeService.Recuperar(oCidade);
+end;
+
+function TCidadesController.VerificarExclusao(Value: TCidades): boolean;
+begin
+  result := CidadeService.VerificarExclusao(Value);
+end;
+
+function TCidadesController.VerificarNome(Value: TCidades): boolean;
+begin
+  result := CidadeService.VerificarNome(Value);
 end;
 
 end.

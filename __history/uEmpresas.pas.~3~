@@ -1,0 +1,48 @@
+unit uEmpresas;
+
+interface
+uses uPessoas;
+type
+  TEmpresas = class(TPessoas)
+
+  protected
+
+  public
+
+    constructor Create;
+    procedure copiarDados(value: TEmpresas);
+    function Clone: TPessoas;
+    procedure LimparDados;
+    destructor Free;
+  end;
+implementation
+
+{ TEmpresas }
+
+function TEmpresas.Clone: TPessoas;
+begin
+
+end;
+
+procedure TEmpresas.copiarDados(value: TEmpresas);
+begin
+
+end;
+
+constructor TEmpresas.Create;
+begin
+   inherited;
+   LimparDados;
+end;
+
+destructor TEmpresas.Free;
+begin
+
+end;
+
+procedure TEmpresas.LimparDados;
+begin
+
+end;
+
+end.

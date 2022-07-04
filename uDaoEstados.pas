@@ -1,4 +1,4 @@
-unit uDaoEstados;
+unit uEstadosDao;
 
 interface
 
@@ -7,10 +7,10 @@ uses
   Datasnap.Provider, Datasnap.DBClient, uDmConexao, uEstados, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDaoPaises, uPaises;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uPaisesDao, uPaises;
 
 type
-  TDaoEstados = class(TObject)
+  TEstadosDao = class(TObject)
 
   private
     { Private declarations }
@@ -32,11 +32,11 @@ type
   end;
 
 var
-  DmEstados: TDaoEstados;
+  DmEstados: TEstadosDao;
 
 implementation
 
-function TDaoEstados.Alterar(oEstado: TEstados; out sErro: string): boolean;
+function TEstadosDao.Alterar(oEstado: TEstados; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oEstado do
   begin
@@ -63,12 +63,12 @@ begin
   end;
 end;
 
-constructor TDaoEstados.Create;
+constructor TEstadosDao.Create;
 begin
 
 end;
 
-function TDaoEstados.Excluir(oEstado: TEstados; var sErro: string): boolean;
+function TEstadosDao.Excluir(oEstado: TEstados; var sErro: string): boolean;
 begin
   try
     with DmConexao.Qry do
@@ -92,14 +92,13 @@ begin
   end;
 end;
 
-procedure TDaoEstados.FieldToObj(var oEstado: TEstados; Qry: TFDQuery);
+procedure TEstadosDao.FieldToObj(var oEstado: TEstados; Qry: TFDQuery);
 begin
   with oEstado, Qry do
   begin
     ID := FieldByName('ID').AsInteger;
     Nome := FieldByName('ESTADO').AsString;
     UF := FieldByName('Sigla').AsString;
-    //Pais.Id := FieldByName('Id_Pais').AsInteger;
     DataCad := FieldByName('date_insert').AsDatetime;
     DataUltAlt := FieldByName('date_update').AsDatetime;
     user_insert := FieldByName('User_Insert').AsString;
@@ -107,11 +106,11 @@ begin
   end;
 end;
 
-destructor TDaoEstados.Free;
+destructor TEstadosDao.Free;
 begin
 end;
 
-function TDaoEstados.inserir(oEstado: TEstados; out sErro: string): boolean;
+function TEstadosDao.inserir(oEstado: TEstados; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oEstado do
   begin
@@ -136,7 +135,7 @@ begin
   end;
 end;
 
-procedure TDaoEstados.ObjToField(var oEstado: TEstados; Qry: TFDQuery);
+procedure TEstadosDao.ObjToField(var oEstado: TEstados; Qry: TFDQuery);
 begin
   with oEstado, Qry do
   begin
@@ -150,7 +149,7 @@ begin
   end;
 end;
 
-procedure TDaoEstados.Pesquisar(Value: string; Var dset: TClientDataSet);
+procedure TEstadosDao.Pesquisar(Value: string; Var dset: TClientDataSet);
 begin
   with DmConexao.Qry do
   begin
@@ -188,9 +187,9 @@ begin
   end;
 end;
 
-function TDaoEstados.Recuperar(var oEstado: TEstados; out sErro: string): boolean;
+function TEstadosDao.Recuperar(var oEstado: TEstados; out sErro: string): boolean;
 var PaisAux : TPaises;
-    DaoPaises : TDaoPaises;
+    DaoPaises : TPaisesDao;
 begin
   try
     with DmConexao.Qry do
@@ -207,7 +206,7 @@ begin
       DmConexao.TransactionConexao.Commit;
       close;
 
-      DaoPaises := TDaoPaises.Create;
+      DaoPaises := TPaisesDao.Create;
       try
         DaoPaises.Recuperar(PaisAux, sErro);
         oEstado.Pais.CopiarDados(PaisAux);

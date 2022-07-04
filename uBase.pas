@@ -34,7 +34,7 @@ type
     property User_Insert: string read GetUser_Insert write SetUser_Insert;
     property User_Update: string read GetUser_Update write SetUser_Update;
 
-    constructor Criar;
+    constructor Create;
     procedure copiarDados(value: TBase);
     function Clone: TBase;
     procedure LimparDados;
@@ -43,7 +43,7 @@ type
 
 implementation
 
-constructor TBase.Criar;
+constructor TBase.Create;
 begin
   LimparDados;
 end;
@@ -51,24 +51,24 @@ end;
 procedure TBase.LimparDados;
 begin
   FID := 0;
-  FDataCad := Today;
-  FDataUltAlt := Today;
+  FDataCad := 0;
+  FDataUltAlt := 0;
   FUser_Insert := '';
   FUser_Update := '';
 end;
 
 procedure TBase.copiarDados(value: TBase);
 begin
-  FID := value.ID;
-  FDataCad := value.DataCad;
-  FDataUltAlt := value.DataUltAlt;
-  FUser_Insert := Value.User_Insert;
-  FUser_Update := Value.User_Update;
+  ID := value.ID;
+  DataCad := value.DataCad;
+  DataUltAlt := value.DataUltAlt;
+  User_Insert := Value.User_Insert;
+  User_Update := Value.User_Update;
 end;
 
 function TBase.Clone: TBase;
 begin
-  result := TBase.Criar;
+  result := TBase.Create;
   result.copiarDados(Self);
 end;
 

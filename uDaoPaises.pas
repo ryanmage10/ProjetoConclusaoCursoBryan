@@ -10,7 +10,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TDaoPaises = class(TObject)
+  TPaisesDao = class(TObject)
 
   private
     { Private declarations }
@@ -29,11 +29,11 @@ type
   end;
 
 var
-  DmPaises: TDaoPaises;
+  DmPaises: TPaisesDao;
 
 implementation
 
-function TDaoPaises.Alterar(oPais: TPaises; out sErro: string): boolean;
+function TPaisesDao.Alterar(oPais: TPaises; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oPais do
   begin
@@ -60,12 +60,12 @@ begin
   end;
 end;
 
-constructor TDaoPaises.Create;
+constructor TPaisesDao.Create;
 begin
    //
 end;
 
-function TDaoPaises.Excluir(oPais: TPaises; var sErro: string): boolean;
+function TPaisesDao.Excluir(oPais: TPaises; var sErro: string): boolean;
 begin
   try
     with DmConexao.Qry do
@@ -89,7 +89,7 @@ begin
   end;
 end;
 
-procedure TDaoPaises.FieldToObj(var oPais: TPaises; Qry: TFDQuery);
+procedure TPaisesDao.FieldToObj(var oPais: TPaises; Qry: TFDQuery);
 begin
   with oPais, Qry do
   begin
@@ -104,12 +104,12 @@ begin
   end;
 end;
 
-destructor TDaoPaises.free;
+destructor TPaisesDao.free;
 begin
   //
 end;
 
-function TDaoPaises.inserir(oPais: TPaises; out sErro: string): boolean;
+function TPaisesDao.inserir(oPais: TPaises; out sErro: string): boolean;
 begin
   with DmConexao.Qry, oPais do
   begin
@@ -134,7 +134,7 @@ begin
   end;
 end;
 
-procedure TDaoPaises.ObjToField(var oPais: TPaises; Qry: TFDQuery);
+procedure TPaisesDao.ObjToField(var oPais: TPaises; Qry: TFDQuery);
 begin
   with oPais, Qry do
   begin
@@ -148,7 +148,7 @@ begin
   end;
 end;
 
-procedure TDaoPaises.Pesquisar(Value: string; Var dset: TClientDataSet);
+procedure TPaisesDao.Pesquisar(Value: string; Var dset: TClientDataSet);
 begin
   with DmConexao.Qry do
   begin
@@ -185,7 +185,7 @@ begin
   end;
 end;
 
-function TDaoPaises.Recuperar(var oPais: TPaises; out sErro: string): boolean;
+function TPaisesDao.Recuperar(var oPais: TPaises; out sErro: string): boolean;
 begin
   try
     with DmConexao.Qry do

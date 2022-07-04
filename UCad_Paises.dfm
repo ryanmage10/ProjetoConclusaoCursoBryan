@@ -14,6 +14,24 @@ inherited Cad_Paises: TCad_Paises
     Height = 197
     ExplicitWidth = 429
     ExplicitHeight = 197
+    inherited lbl_Cad: TLabel
+      Width = 79
+      Caption = 'Cadastrado por:'
+      Visible = False
+      ExplicitWidth = 79
+    end
+    inherited lbl_DataCad: TLabel
+      Visible = False
+    end
+    inherited Lbl_Alt: TLabel
+      Width = 101
+      Caption = 'Ultima Alteracao por:'
+      Visible = False
+      ExplicitWidth = 101
+    end
+    inherited lbl_DataAlt: TLabel
+      Visible = False
+    end
     object lbl_Pais: TLabel [5]
       Left = 16
       Top = 80

@@ -1,0 +1,5 @@
+inherited Cons_Empresas: TCons_Empresas
+  Caption = 'Consulta de Empresas'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

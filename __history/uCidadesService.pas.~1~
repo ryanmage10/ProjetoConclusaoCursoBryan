@@ -1,0 +1,124 @@
+unit uCidadesService;
+
+interface
+uses uCidades, uCidadesFactory, system.SysUtils, DBClient, uDmConexao;
+  type
+  TCidadesService = class(TObject)
+    private
+      CidadeFactory : TCidadesFactory;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oCidade: TCidades; var sErro: string):Boolean;
+      function Alterar(oCidade: TCidades; var sErro: string):Boolean;
+      function Excluir(oCidade: TCidades; var sErro: string):Boolean;
+      function Recuperar(var oCidade: TCidades; var sErro: string):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+  var
+  CidadesService: TCidadesService;
+implementation
+
+{ TCidadesService }
+
+function TCidadesService.Alterar(oCidade: TCidades; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := CidadeFactory.Alterar(oCidade, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Alterar o Cidade' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+constructor TCidadesService.create;
+begin
+   CidadeFactory := TCidadesFactory.Create;
+end;
+
+function TCidadesService.Excluir(oCidade: TCidades; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := CidadeFactory.Excluir(oCidade, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Excluir o Cidade' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+destructor TCidadesService.free;
+begin
+   freeandnil(CidadeFactory);
+end;
+
+function TCidadesService.Inserir(oCidade: TCidades; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := CidadeFactory.Inserir(oCidade, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Cidade' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+procedure TCidadesService.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        CidadeFactory.Pesquisar(sNome, Dset);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+function TCidadesService.Recuperar(var oCidade: TCidades; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := CidadeFactory.Recuperar(oCidade, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Cidade' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+end.
+

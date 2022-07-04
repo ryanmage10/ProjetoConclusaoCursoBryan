@@ -1,0 +1,63 @@
+unit uEstadosFactory;
+
+interface
+uses uEstados, system.SysUtils, DBClient, uEstadosDao, uDmConexao;
+  type
+  TEstadosFactory = class(TObject)
+    private
+      EstadoDao : TEstadosDao;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oEstado: TEstados; var sErro: string):Boolean;
+      function Alterar(oEstado: TEstados; var sErro: string):Boolean;
+      function Excluir(oEstado: TEstados; var sErro: string):Boolean;
+      function Recuperar(var oEstado: TEstados; var sErro: string):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+
+  var
+  EstadosFactory: TEstadosFactory;
+implementation
+
+{ TEstadosFactory }
+
+function TEstadosFactory.Alterar(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   result := EstadoDao.Alterar(oEstado, sErro);
+end;
+
+constructor TEstadosFactory.create;
+begin
+   EstadoDao := TEstadosDao.Create;
+end;
+
+function TEstadosFactory.Excluir(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   result := EstadoDao.Excluir(oEstado, sErro);
+end;
+
+destructor TEstadosFactory.free;
+begin
+   freeandnil(EstadoDao);
+end;
+
+function TEstadosFactory.Inserir(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   result := EstadoDao.Inserir(oEstado, sErro);
+end;
+
+procedure TEstadosFactory.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   EstadoDao.Pesquisar(sNome, Dset);
+end;
+
+function TEstadosFactory.Recuperar(var oEstado: TEstados;
+  var sErro: string): Boolean;
+begin
+   result := EstadoDao.Recuperar(oEstado, sErro);
+end;
+
+end.
+

@@ -1,63 +1,70 @@
 unit uPaisesController;
 
 interface
-  uses uPaises, uDMPaises, system.SysUtils, DBClient, uDaoPaises;
+  uses uPaises, uPaisesService, system.SysUtils, DBClient;
   type
   TPaisesController = class(TObject)
     private
-      DaoPais : TDaoPaises;
+      PaisService : TPaisesService;
     protected
     public
       constructor create;
       destructor free;
-      function Inserir(oPais: TPaises; var sErro: string):Boolean;
-      function Alterar(oPais: TPaises; var sErro: string):Boolean;
-      function Excluir(oPais: TPaises; var sErro: string):Boolean;
-      function Recuperar(oPais: TPaises; var sErro: string):Boolean;
+      function Inserir(oPais: TPaises):Boolean;
+      function Alterar(oPais: TPaises):Boolean;
+      function Excluir(oPais: TPaises):Boolean;
+      function Recuperar(var oPais: TPaises):Boolean;
       procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+      function VerificarNome(Value: TPaises): boolean;
+      function VerificarExclusao(Value: TPaises): boolean;
   end;
 implementation
 
 { TPaisesController }
 
-function TPaisesController.Alterar(oPais: TPaises;
-  var sErro: string): Boolean;
+function TPaisesController.Alterar(oPais: TPaises): Boolean;
 begin
-   result := DaoPais.Alterar(oPais, sErro);
+   result := PaisService.Alterar(oPais);
 end;
 
 constructor TPaisesController.create;
 begin
-   //DmPaises := TDmPaises.Create(nil);
-   DaoPais := TDaoPaises.Create;
+   PaisService := TPaisesService.Create;
 end;
 
-function TPaisesController.Excluir(oPais: TPaises;
-  var sErro: string): Boolean;
+function TPaisesController.Excluir(oPais: TPaises): Boolean;
 begin
-   result := DaoPais.Excluir(oPais, sErro);
+   result := PaisService.Excluir(oPais);
 end;
 
 destructor TPaisesController.free;
 begin
-   //freeandnil(DmPaises);
+   freeandnil(PaisService);
 end;
 
-function TPaisesController.Inserir(oPais: TPaises;
-  var sErro: string): Boolean;
+function TPaisesController.Inserir(oPais: TPaises): Boolean;
 begin
-   result := DaoPais.Inserir(oPais, sErro);
+   result := PaisService.Inserir(oPais);
 end;
 
 procedure TPaisesController.Pesquisar(sNome: string; var Dset: TClientDataSet);
 begin
-  DaoPais.Pesquisar(sNome, dset);
+  PaisService.Pesquisar(sNome, dset);
 end;
 
-function TPaisesController.Recuperar(oPais: TPaises;
-  var sErro: string): Boolean;
+function TPaisesController.Recuperar(var oPais: TPaises): Boolean;
 begin
-   result := DaoPais.Recuperar(oPais, sErro);
+   result := PaisService.Recuperar(oPais);
+end;
+
+function TPaisesController.VerificarExclusao(Value: TPaises): boolean;
+begin
+  result := PaisService.VerificarExclusao(Value);
+end;
+
+function TPaisesController.VerificarNome(Value: TPaises): boolean;
+begin
+  result := PaisService.VerificarNome(Value);
 end;
 
 end.

@@ -1,0 +1,124 @@
+unit uEstadosService;
+
+interface
+uses uEstados, uEstadosFactory, system.SysUtils, DBClient, uDmConexao;
+  type
+  TEstadosService = class(TObject)
+    private
+      EstadoFactory : TEstadosFactory;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oEstado: TEstados; var sErro: string):Boolean;
+      function Alterar(oEstado: TEstados; var sErro: string):Boolean;
+      function Excluir(oEstado: TEstados; var sErro: string):Boolean;
+      function Recuperar(var oEstado: TEstados; var sErro: string):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+  var
+  EstadosService: TEstadosService;
+implementation
+
+{ TEstadosService }
+
+function TEstadosService.Alterar(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := EstadoFactory.Alterar(oEstado, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Alterar o Estado' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+constructor TEstadosService.create;
+begin
+   EstadoFactory := TEstadosFactory.Create;
+end;
+
+function TEstadosService.Excluir(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := EstadoFactory.Excluir(oEstado, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Excluir o Estado' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+destructor TEstadosService.free;
+begin
+   freeandnil(EstadoFactory);
+end;
+
+function TEstadosService.Inserir(oEstado: TEstados; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := EstadoFactory.Inserir(oEstado, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Estado' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+procedure TEstadosService.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        EstadoFactory.Pesquisar(sNome, Dset);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+function TEstadosService.Recuperar(var oEstado: TEstados; var sErro: string): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := EstadoFactory.Recuperar(oEstado, sErro);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          sErro := 'Ocorreu um erro ao Inserir o Estado' + E.Message;
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+      end;
+   end;
+end;
+
+end.
+

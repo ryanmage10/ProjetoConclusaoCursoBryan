@@ -53,28 +53,30 @@ begin
 end;
 
 procedure TCad_Cidades.btn_SalvarClick(Sender: TObject);
-var sErro: string;
 begin
   inherited;
   if ValidarDados then
   begin
     popularObjeto;
-    try
-      if Inclusao then
-        CidadeControl.Inserir(Cidade, sErro)
-      else
-        CidadeControl.Alterar(Cidade, sErro);
-    except on E:Exception do
 
-    end;
-    self.Close;
+     if not CidadeControl.VerificarNome(Cidade) then
+     begin
+        if Inclusao then
+          CidadeControl.Inserir(Cidade)
+        else
+          CidadeControl.Alterar(Cidade);
+
+        self.Close;
+     end
+     else
+       raise Exception.Create('Já Existe uma Cidade cadastrado com esse nome');
   end;
 end;
 
 procedure TCad_Cidades.FormCreate(Sender: TObject);
 begin
   inherited;
-  Cidade := TCidades.Criar;
+  Cidade := TCidades.Create;
   CidadeControl := TCidadesController.Create;
 end;
 
@@ -97,8 +99,16 @@ begin
   edt_id.text := inttostr(Cidade.ID);
   edt_Cidade.text := Cidade.Nome;
   edt_DDD.text := Cidade.DDD;
-  //edt_codIbge.text := Cidade.CodIbge;
+  edt_codIbge.text := Cidade.CodIbge;
   edt_estado.text := Cidade.Estado.Nome;
+
+  lbl_Cad.Visible := True;
+  lbl_DataCad.Visible := True;
+  lbl_DataCad.Caption := Cidade.User_Insert + '-' + DatetoStr(Cidade.DataCad);
+
+  lbl_DataAlt.Caption := Cidade.User_Update + '-' + DatetoStr(Cidade.DataUltAlt);
+  Lbl_Alt.Visible := True;
+  lbl_DataAlt.Visible := True;
 end;
 
 procedure TCad_Cidades.PopularObjeto;
@@ -106,6 +116,7 @@ begin
   Cidade.ID := strtoint(edt_id.text);
   Cidade.Nome := edt_Cidade.text;
   Cidade.DDD :=  edt_DDD.text;
+  Cidade.CodIbge := edt_codIbge.text;
 end;
 
 function TCad_Cidades.ValidarDados: boolean;

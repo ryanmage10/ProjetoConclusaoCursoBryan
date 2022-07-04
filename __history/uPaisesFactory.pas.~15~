@@ -1,0 +1,62 @@
+unit uPaisesFactory;
+
+interface
+uses uPaises, system.SysUtils, DBClient, uPaisesDao, uDmConexao;
+  type
+  TPaisesFactory = class(TObject)
+    private
+      PaisDao : TPaisesDao;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oPais: TPaises; var sErro: string):Boolean;
+      function Alterar(oPais: TPaises; var sErro: string):Boolean;
+      function Excluir(oPais: TPaises; var sErro: string):Boolean;
+      function Recuperar(var oPais: TPaises; var sErro: string):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+  end;
+
+  var
+  PaisesFactory: TPaisesFactory;
+implementation
+
+{ TPaisesFactory }
+
+function TPaisesFactory.Alterar(oPais: TPaises; var sErro: string): Boolean;
+begin
+   result := PaisDao.Alterar(oPais, sErro);
+end;
+
+constructor TPaisesFactory.create;
+begin
+   PaisDao := TPaisesDao.Create;
+end;
+
+function TPaisesFactory.Excluir(oPais: TPaises; var sErro: string): Boolean;
+begin
+   result := PaisDao.Excluir(oPais, sErro);
+end;
+
+destructor TPaisesFactory.free;
+begin
+   freeandnil(PaisDao);
+end;
+
+function TPaisesFactory.Inserir(oPais: TPaises; var sErro: string): Boolean;
+begin
+   result := PaisDao.Inserir(oPais, sErro);
+end;
+
+procedure TPaisesFactory.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   PaisDao.Pesquisar(sNome, Dset);
+end;
+
+function TPaisesFactory.Recuperar(var oPais: TPaises;
+  var sErro: string): Boolean;
+begin
+   result := PaisDao.Recuperar(oPais, sErro);
+end;
+
+end.

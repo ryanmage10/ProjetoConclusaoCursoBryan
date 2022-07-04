@@ -1,0 +1,376 @@
+inherited Cad_Pessoa: TCad_Pessoa
+  Caption = 'Cadastro de Pessoas'
+  ClientHeight = 382
+  ClientWidth = 542
+  ExplicitWidth = 558
+  ExplicitHeight = 421
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    Width = 542
+    Height = 382
+    ExplicitLeft = 8
+    ExplicitTop = -8
+    ExplicitWidth = 536
+    ExplicitHeight = 342
+    inherited lbl_Cad: TLabel
+      Top = 344
+      ExplicitTop = 344
+    end
+    inherited lbl_DataCad: TLabel
+      Top = 344
+      ExplicitTop = 344
+    end
+    inherited Lbl_Alt: TLabel
+      Top = 358
+      ExplicitTop = 358
+    end
+    inherited lbl_DataAlt: TLabel
+      Top = 358
+      ExplicitTop = 358
+    end
+    object lbl_Nome: TLabel [5]
+      Left = 16
+      Top = 61
+      Width = 32
+      Height = 13
+      Caption = 'Nome'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_CPFCNPJ: TLabel [6]
+      Left = 16
+      Top = 107
+      Width = 20
+      Height = 13
+      Caption = 'CPF'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_RGIE: TLabel [7]
+      Left = 167
+      Top = 107
+      Width = 16
+      Height = 13
+      Caption = 'RG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_DataNasc: TLabel [8]
+      Left = 350
+      Top = 107
+      Width = 113
+      Height = 13
+      Caption = 'Data de Nascimento'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_logradouro: TLabel [9]
+      Left = 16
+      Top = 153
+      Width = 65
+      Height = 13
+      Caption = 'Logradouro'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_numero: TLabel [10]
+      Left = 350
+      Top = 153
+      Width = 44
+      Height = 13
+      Caption = 'Numero'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Cep: TLabel [11]
+      Left = 446
+      Top = 153
+      Width = 20
+      Height = 13
+      Caption = 'CEP'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Bairro: TLabel [12]
+      Left = 16
+      Top = 199
+      Width = 34
+      Height = 13
+      Caption = 'Bairro'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Complemento: TLabel [13]
+      Left = 350
+      Top = 197
+      Width = 79
+      Height = 13
+      Caption = 'Complemento'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label1: TLabel [14]
+      Left = 16
+      Top = 243
+      Width = 38
+      Height = 13
+      Caption = 'Cidade'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_UF: TLabel [15]
+      Left = 350
+      Top = 243
+      Width = 14
+      Height = 13
+      Caption = 'UF'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Tel_Fixo: TLabel [16]
+      Left = 16
+      Top = 291
+      Width = 75
+      Height = 13
+      Caption = 'Telefone Fixo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Tel_Cel: TLabel [17]
+      Left = 350
+      Top = 291
+      Width = 91
+      Height = 13
+      Caption = 'Telefone Celular'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_RazaoSocial: TLabel [18]
+      Left = 350
+      Top = 61
+      Width = 71
+      Height = 13
+      Caption = 'Razao Social'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rg_Sexo: TRadioGroup [19]
+      Left = 343
+      Top = 55
+      Width = 185
+      Height = 46
+      Caption = 'Sexo'
+      Items.Strings = (
+        'Masculino'
+        'Feminino')
+      TabOrder = 9
+    end
+    inherited btn_Salvar: TButton
+      Left = 372
+      Top = 345
+      ExplicitLeft = 372
+      ExplicitTop = 345
+    end
+    inherited btn_Cancelar: TButton
+      Left = 453
+      Top = 345
+      ExplicitLeft = 453
+      ExplicitTop = 345
+    end
+    object edt_Nome: TEdit
+      Left = 16
+      Top = 80
+      Width = 321
+      Height = 21
+      MaxLength = 50
+      TabOrder = 3
+    end
+    object edt_Cidade: TEdit
+      Left = 16
+      Top = 264
+      Width = 321
+      Height = 21
+      MaxLength = 50
+      ReadOnly = True
+      TabOrder = 4
+    end
+    object edt_Logradouro: TEdit
+      Left = 16
+      Top = 172
+      Width = 321
+      Height = 21
+      MaxLength = 50
+      TabOrder = 5
+    end
+    object edt_Bairro: TEdit
+      Left = 16
+      Top = 216
+      Width = 321
+      Height = 21
+      MaxLength = 30
+      TabOrder = 6
+    end
+    object Rg_TipoPessoa: TRadioGroup
+      Left = 343
+      Top = 9
+      Width = 185
+      Height = 46
+      Caption = 'Tipo Pessoa'
+      Items.Strings = (
+        'F'#237'sica'
+        'Jur'#237'dica')
+      TabOrder = 7
+    end
+    object edt_CPFCNPJ: TMaskEdit
+      Left = 16
+      Top = 126
+      Width = 145
+      Height = 21
+      EditMask = '000\.000\.000-00;1;_'
+      MaxLength = 14
+      TabOrder = 8
+      Text = '   .   .   -  '
+    end
+    object edt_RGIE: TMaskEdit
+      Left = 167
+      Top = 126
+      Width = 170
+      Height = 21
+      EditMask = '00\.000\.000-0;1;_'
+      MaxLength = 12
+      TabOrder = 10
+      Text = '  .   .   - '
+    end
+    object edt_dataNasc: TDateTimePicker
+      Left = 350
+      Top = 126
+      Width = 178
+      Height = 21
+      Date = 44745.000000000000000000
+      Time = 0.833879375000833500
+      TabOrder = 11
+    end
+    object edt_numero: TEdit
+      Left = 350
+      Top = 172
+      Width = 90
+      Height = 21
+      MaxLength = 6
+      TabOrder = 12
+    end
+    object edt_CEP: TEdit
+      Left = 446
+      Top = 172
+      Width = 82
+      Height = 21
+      MaxLength = 8
+      TabOrder = 13
+    end
+    object edt_Complemento: TEdit
+      Left = 350
+      Top = 216
+      Width = 178
+      Height = 21
+      MaxLength = 30
+      TabOrder = 14
+    end
+    object btn_Pesquisar: TButton
+      Left = 446
+      Top = 262
+      Width = 82
+      Height = 25
+      Caption = 'Pesquisar'
+      TabOrder = 15
+    end
+    object edt_UF: TEdit
+      Left = 350
+      Top = 264
+      Width = 90
+      Height = 21
+      MaxLength = 3
+      ReadOnly = True
+      TabOrder = 16
+    end
+    object edt_Tel_Fixo: TEdit
+      Left = 16
+      Top = 310
+      Width = 321
+      Height = 21
+      MaxLength = 16
+      TabOrder = 17
+    end
+    object edt_Tel_Cel: TEdit
+      Left = 350
+      Top = 310
+      Width = 178
+      Height = 21
+      MaxLength = 16
+      TabOrder = 18
+    end
+    object edt_Razao_Social: TEdit
+      Left = 350
+      Top = 80
+      Width = 178
+      Height = 21
+      MaxLength = 30
+      TabOrder = 19
+    end
+  end
+end
