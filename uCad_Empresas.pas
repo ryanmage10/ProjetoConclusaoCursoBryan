@@ -146,7 +146,7 @@ begin
 
   if not (length(edt_Razao_Social.Text) > 0) then
   begin
-    ShowMessage('Insira a Razao social do Estado');
+    ShowMessage('Insira a Razao social da Empresa');
     edt_Razao_Social.setFocus;
     exit;
   end;

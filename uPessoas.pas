@@ -151,7 +151,7 @@ end;
 
 function TPessoas.Getcidade: TCidades;
 begin
-  result := Cidade.Clone;
+  result := FCidade;
 end;
 
 function TPessoas.GetComplemento: string;
