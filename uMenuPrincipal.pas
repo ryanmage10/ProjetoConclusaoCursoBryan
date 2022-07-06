@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
-  uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes, uCons_Fornecedores;
+  uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes,
+  uCons_Fornecedores, uCons_Caixas;
 
 type
   TMenuPrincipal = class(TForm)
@@ -19,6 +20,7 @@ type
     Btn_Funcionarios: TMenuItem;
     Btn_Clientes: TMenuItem;
     btn_Fornecedores: TMenuItem;
+    btn_Caixas: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
@@ -26,6 +28,7 @@ type
     procedure Btn_FuncionariosClick(Sender: TObject);
     procedure Btn_ClientesClick(Sender: TObject);
     procedure btn_FornecedoresClick(Sender: TObject);
+    procedure btn_CaixasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,6 +39,17 @@ type
 implementation
 
 {$R *.dfm}
+
+procedure TMenuPrincipal.btn_CaixasClick(Sender: TObject);
+var ConsCaixaForm: TCons_Caixas;
+begin
+   ConsCaixaForm := TCons_Caixas.Create(nil);
+   try
+      ConsCaixaForm.ShowModal;
+   finally
+      FreeAndNil(ConsCaixaForm);
+   end;
+end;
 
 procedure TMenuPrincipal.btn_CidadesClick(Sender: TObject);
 var ConsCidadeForm: TCons_Cidades;

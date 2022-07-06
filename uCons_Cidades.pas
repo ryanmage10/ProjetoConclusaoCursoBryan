@@ -67,15 +67,17 @@ begin
   inherited;
   if (dset_Cidades.Active) and (dset_Cidades.RecordCount > 0) then
   begin
-     if MessageDlg('Deseja Realmente excluir a Cidade '+ dset_cidadesCidade.AsString + '?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-     begin
       Cidade.ID := dset_CidadesID.AsInteger;
       if not CidadeControl.VerificarExclusao(Cidade) then
       begin
+        if MessageDlg('Deseja Realmente excluir a Cidade '+ dset_cidadesCidade.AsString + '?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+        begin
         CidadeControl.Excluir(Cidade);
         CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
-      end;
-     end;
+        end;
+      end
+      Else
+        raise Exception.Create('Erro ao excluir: Há registros vinculados à esse estado');
   end
   else
   begin

@@ -1,0 +1,37 @@
+unit uCad_Caixas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Base, Vcl.StdCtrls, Vcl.ExtCtrls,
+  uCaixas, uCaixasController;
+
+type
+  TCad_Caixas = class(TCad_Base)
+    lbl_nome: TLabel;
+    lbl_moeda: TLabel;
+    lbl_empresa: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    btn_Pesquisar: TButton;
+  private
+    { Private declarations }
+    procedure popularInterface;
+    procedure PopularObjeto;
+    function ValidarDados: boolean;
+  public
+    { Public declarations }
+    Caixa : TCaixas;
+    CaixaControl : TCaixasController;
+  end;
+
+var
+  Cad_Caixas: TCad_Caixas;
+
+implementation
+
+{$R *.dfm}
+
+end.

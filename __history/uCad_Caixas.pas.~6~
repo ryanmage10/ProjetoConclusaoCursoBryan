@@ -1,0 +1,65 @@
+unit uCad_Caixas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Base, Vcl.StdCtrls, Vcl.ExtCtrls,
+  uCaixas, uCaixasController;
+
+type
+  TCad_Caixas = class(TCad_Base)
+    lbl_nome: TLabel;
+    lbl_moeda: TLabel;
+    lbl_empresa: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    btn_Pesquisar: TButton;
+  private
+    { Private declarations }
+    procedure popularInterface;
+    procedure PopularObjeto;
+    function ValidarDados: boolean;
+  public
+    { Public declarations }
+    Caixa : TCaixas;
+    CaixaControl : TCaixasController;
+  end;
+
+var
+  Cad_Caixas: TCad_Caixas;
+
+implementation
+
+{$R *.dfm}
+
+{ TCad_Caixas }
+
+procedure TCad_Caixas.popularInterface;
+begin
+  edt_id.text := inttostr(Caixa.ID);
+  edt_Nome.text := Caixa.Nome;
+  edt_moeda.text := Caixa.Moeda;
+  edt_Empresa.text := Caixa.Empresa.Nome;
+
+  lbl_Cad.Visible := True;
+  lbl_DataCad.Visible := True;
+  lbl_DataCad.Caption := Estado.User_Insert + '-' + DatetoStr(Estado.DataCad);
+
+  lbl_DataAlt.Caption := Estado.User_Update + '-' + DatetoStr(Estado.DataUltAlt);
+  Lbl_Alt.Visible := True;
+  lbl_DataAlt.Visible := True;
+end;
+
+procedure TCad_Caixas.PopularObjeto;
+begin
+
+end;
+
+function TCad_Caixas.ValidarDados: boolean;
+begin
+
+end;
+
+end.

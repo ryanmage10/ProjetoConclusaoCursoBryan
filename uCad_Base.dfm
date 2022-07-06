@@ -43,6 +43,7 @@ object Cad_Base: TCad_Base
       Width = 77
       Height = 13
       Caption = 'Cadastrado em:'
+      Visible = False
     end
     object lbl_DataCad: TLabel
       Left = 99
@@ -50,6 +51,7 @@ object Cad_Base: TCad_Base
       Width = 6
       Height = 13
       Caption = '0'
+      Visible = False
     end
     object Lbl_Alt: TLabel
       Left = 16
@@ -57,6 +59,7 @@ object Cad_Base: TCad_Base
       Width = 99
       Height = 13
       Caption = 'Ultima Alteracao em:'
+      Visible = False
     end
     object lbl_DataAlt: TLabel
       Left = 121
@@ -64,6 +67,7 @@ object Cad_Base: TCad_Base
       Width = 6
       Height = 13
       Caption = '0'
+      Visible = False
     end
     object edt_id: TEdit
       Left = 16

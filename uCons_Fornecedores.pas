@@ -67,17 +67,17 @@ begin
   inherited;
   if (dset_Fornecedores.Active) and (dset_Fornecedores.RecordCount > 0) then
     begin
-       if MessageDlg('Deseja Realmente excluir o Fornecedor : '+ dset_FornecedoresFornecedor.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-       begin
         Fornecedor.ID := dset_FornecedoresID.AsInteger;
         if not FornecedoresControl.VerificarExclusao(Fornecedor) then
         begin
-          FornecedoresControl.Excluir(Fornecedor);
-          FornecedoresControl.Pesquisar(edt_Pesquisa.Text, Dset_Fornecedores);
+          if MessageDlg('Deseja Realmente excluir o Fornecedor : '+ dset_FornecedoresFornecedor.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+          begin
+            FornecedoresControl.Excluir(Fornecedor);
+            FornecedoresControl.Pesquisar(edt_Pesquisa.Text, Dset_Fornecedores);
+          end;
         end
         else
           raise Exception.Create('Erro ao excluir: Há registros vinculados à esse Fornecedor');
-       end;
     end
     else
     begin

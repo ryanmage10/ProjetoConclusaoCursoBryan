@@ -210,16 +210,16 @@ end;
 function TEmpresasDao.VerificarExclusao(Value: TEmpresas): boolean;
 begin
    result := False;
-   {with DmConexao.Qry do
+   with DmConexao.Qry do
     begin
       sql.clear;
-      Sql.Add('SELECT * FROM ESTADOS WHERE ID_Empresa = :ID_Empresa');
-      paramByName('ID_Empresa').AsInteger := Value.id;
+      Sql.Add('SELECT * FROM FUNCIONARIOS WHERE ID_EMPRESA = :ID_EMPRESA');
+      paramByName('ID_EMPRESA').AsInteger := Value.Id;
       open;
       if not IsEmpty then
         result := true;
       close;
-    end;}
+    end;
 end;
 
 function TEmpresasDao.VerificarCpfCnpj(Value: TEmpresas): boolean;

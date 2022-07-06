@@ -67,17 +67,17 @@ procedure TCons_Empresas.btn_ExcluirClick(Sender: TObject);
 begin
   if (dset_Empresas.Active) and (dset_Empresas.RecordCount > 0) then
     begin
-       if MessageDlg('Deseja Realmente excluir a Empresa : '+ dset_EmpresasEmpresa.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-       begin
         Empresa.ID := dset_EmpresasID.AsInteger;
         if not EmpresaControl.VerificarExclusao(Empresa) then
         begin
-          EmpresaControl.Excluir(Empresa);
-          EmpresaControl.Pesquisar(edt_Pesquisa.Text, Dset_Empresas);
+          if MessageDlg('Deseja Realmente excluir a Empresa : '+ dset_EmpresasEmpresa.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+          begin
+            EmpresaControl.Excluir(Empresa);
+            EmpresaControl.Pesquisar(edt_Pesquisa.Text, Dset_Empresas);
+          end;
         end
         else
           raise Exception.Create('Erro ao excluir: Há registros vinculados à essa Empresa');
-       end;
     end
     else
     begin

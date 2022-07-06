@@ -67,17 +67,17 @@ procedure TCons_Clientes.btn_ExcluirClick(Sender: TObject);
 begin
 if (dset_Clientes.Active) and (dset_Clientes.RecordCount > 0) then
     begin
-       if MessageDlg('Deseja Realmente excluir o Cliente : '+ dset_ClientesCliente.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-       begin
         Cliente.ID := dset_ClientesID.AsInteger;
         if not ClientesControl.VerificarExclusao(Cliente) then
         begin
-          ClientesControl.Excluir(Cliente);
-          ClientesControl.Pesquisar(edt_Pesquisa.Text, Dset_Clientes);
+          if MessageDlg('Deseja Realmente excluir o Cliente : '+ dset_ClientesCliente.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+          begin
+            ClientesControl.Excluir(Cliente);
+            ClientesControl.Pesquisar(edt_Pesquisa.Text, Dset_Clientes);
+          end;
         end
         else
           raise Exception.Create('Erro ao excluir: Há registros vinculados à esse Cliente');
-       end;
     end
     else
     begin

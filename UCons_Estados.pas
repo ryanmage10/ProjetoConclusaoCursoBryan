@@ -61,7 +61,7 @@ begin
      end;
   end
   else
-    raise Exception.Create('Erro ao Alterar: Lista Vazia');
+    raise Exception.Create('Erro ao Alterar: Nenhum registro Selecionado');
 end;
 
 procedure TCons_Estados.btn_ExcluirClick(Sender: TObject);
@@ -69,17 +69,17 @@ begin
   inherited;
   if (dset_Estados.Active) and (dset_Estados.RecordCount > 0) then
   begin
-     if MessageDlg('Deseja Realmente excluir o Estado: '+ dset_EstadosEstado.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-     begin
       Estado.ID := dset_EstadosID.AsInteger;
       if not EstadoControl.VerificarExclusao(Estado) then
       begin
-        EstadoControl.Excluir(Estado);
-        EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
+        if MessageDlg('Deseja Realmente excluir o Estado: '+ dset_EstadosEstado.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+        begin
+          EstadoControl.Excluir(Estado);
+          EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
+        end;
       end
       Else
         raise Exception.Create('Erro ao excluir: Há registros vinculados à esse estado');
-     end;
   end
   else
   begin

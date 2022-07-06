@@ -67,17 +67,17 @@ procedure TCons_Funcionarios.btn_ExcluirClick(Sender: TObject);
 begin
     if (dset_Funcionarios.Active) and (dset_Funcionarios.RecordCount > 0) then
     begin
-       if MessageDlg('Deseja Realmente excluir o Funcionário : '+ dset_FuncionariosFuncionario.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-       begin
         Funcionario.ID := dset_FuncionariosID.AsInteger;
         if not FuncionarioControl.VerificarExclusao(Funcionario) then
         begin
-          FuncionarioControl.Excluir(Funcionario);
-          FuncionarioControl.Pesquisar(edt_Pesquisa.Text, Dset_Funcionarios);
+          if MessageDlg('Deseja Realmente excluir o Funcionário : '+ dset_FuncionariosFuncionario.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+          begin
+            FuncionarioControl.Excluir(Funcionario);
+            FuncionarioControl.Pesquisar(edt_Pesquisa.Text, Dset_Funcionarios);
+          end;
         end
         else
           raise Exception.Create('Erro ao excluir: Há registros vinculados à esse Funcionario');
-       end;
     end
     else
     begin

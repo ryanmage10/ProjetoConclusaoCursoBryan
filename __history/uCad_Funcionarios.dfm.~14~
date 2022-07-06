@@ -1,0 +1,167 @@
+inherited Cad_Funcionarios: TCad_Funcionarios
+  Caption = 'Cadastro de Funcion'#225'rios'
+  ClientHeight = 424
+  ClientWidth = 532
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  ExplicitWidth = 548
+  ExplicitHeight = 463
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    Width = 532
+    Height = 424
+    ExplicitWidth = 532
+    ExplicitHeight = 424
+    inherited lbl_Cad: TLabel
+      Left = 14
+      Top = 388
+      ExplicitLeft = 14
+      ExplicitTop = 388
+    end
+    inherited lbl_DataCad: TLabel
+      Left = 97
+      Top = 388
+      ExplicitLeft = 97
+      ExplicitTop = 388
+    end
+    inherited Lbl_Alt: TLabel
+      Left = 14
+      Top = 402
+      ExplicitLeft = 14
+      ExplicitTop = 402
+    end
+    inherited lbl_DataAlt: TLabel
+      Left = 119
+      Top = 402
+      ExplicitLeft = 119
+      ExplicitTop = 402
+    end
+    inherited lbl_Cep: TLabel
+      Left = 435
+      ExplicitLeft = 435
+    end
+    inherited lbl_RazaoSocial: TLabel
+      Visible = False
+    end
+    object lbl_empresa: TLabel [19]
+      Left = 16
+      Top = 334
+      Width = 49
+      Height = 13
+      Caption = 'Empresa'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl_Salario: TLabel [20]
+      Left = 350
+      Top = 333
+      Width = 39
+      Height = 13
+      Caption = 'Sal'#225'rio'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    inherited btn_Salvar: TButton
+      Left = 370
+      Top = 389
+      OnClick = btn_SalvarClick
+      ExplicitLeft = 370
+      ExplicitTop = 389
+    end
+    inherited btn_Cancelar: TButton
+      Left = 451
+      Top = 388
+      Height = 27
+      ExplicitLeft = 451
+      ExplicitTop = 388
+      ExplicitHeight = 27
+    end
+    inherited Rg_TipoPessoa: TRadioGroup
+      Width = 183
+      Visible = False
+      ExplicitWidth = 183
+    end
+    inherited edt_dataNasc: TDateTimePicker
+      Width = 176
+      ExplicitWidth = 176
+    end
+    inherited edt_numero: TEdit
+      Width = 71
+      ExplicitWidth = 71
+    end
+    inherited edt_Complemento: TEdit
+      Width = 176
+      ExplicitWidth = 176
+    end
+    inherited btn_Pesquisar: TButton
+      Left = 435
+      Width = 91
+      OnClick = btn_PesquisarClick
+      ExplicitLeft = 435
+      ExplicitWidth = 91
+    end
+    inherited edt_UF: TEdit
+      Width = 71
+      ExplicitWidth = 71
+    end
+    inherited edt_Razao_Social: TEdit
+      Width = 176
+      Visible = False
+      ExplicitWidth = 176
+    end
+    inherited edt_Cep: TMaskEdit
+      Left = 435
+      Width = 91
+      ExplicitLeft = 435
+      ExplicitWidth = 91
+    end
+    inherited edt_Tel_Fixo: TMaskEdit
+      Width = 321
+      ExplicitWidth = 321
+    end
+    inherited edt_Tel_Cel: TMaskEdit
+      Width = 176
+      ExplicitWidth = 176
+    end
+    object edt_Empresa: TEdit
+      Left = 16
+      Top = 350
+      Width = 244
+      Height = 21
+      CharCase = ecUpperCase
+      MaxLength = 50
+      ReadOnly = True
+      TabOrder = 20
+    end
+    object btn_pesquisarEmpresa: TButton
+      Left = 266
+      Top = 348
+      Width = 71
+      Height = 25
+      Caption = 'Pesquisar'
+      TabOrder = 21
+      OnClick = btn_pesquisarEmpresaClick
+    end
+    object edt_salario: TMaskEdit
+      Left = 350
+      Top = 352
+      Width = 171
+      Height = 21
+      CharCase = ecUpperCase
+      EditMask = '!999999,99;1;_'
+      MaxLength = 9
+      TabOrder = 22
+      Text = '      ,  '
+    end
+  end
+end

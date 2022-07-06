@@ -1,0 +1,101 @@
+unit uCaixas;
+
+interface
+
+uses
+  uBase;
+
+type
+  TCaixas = class(TBase)
+  protected
+    FNome: string[50];
+    FDDI: string[3];
+    Fsigla: String[3];
+
+    function GetNome: string;
+    function GetDDI: string;
+    function GetSigla: string;
+    procedure SetNome(Value: string);
+    procedure SetDDI(Value: string);
+    procedure SetSigla(Value: string);
+
+  public
+
+    property Nome: string read GetNome write SetNome;
+    property DDI: string read GetDDI write SetDDI;
+    property sigla: string read GetSigla write SetSigla;
+
+    constructor Create;
+    Destructor Free;
+    function clone: TCaixas;
+    procedure CopiarDados(Value: TCaixas);
+
+    procedure LimparDados;
+  end;
+
+implementation
+
+constructor TCaixas.Create;
+begin
+  inherited;
+  LimparDados;
+end;
+
+Destructor TCaixas.Free;
+begin
+  inherited;
+end;
+
+procedure TCaixas.LimparDados;
+begin
+  inherited LimparDados;
+  Nome := '';
+  DDI := '';
+  sigla := '';
+end;
+
+function TCaixas.clone: TCaixas;
+begin
+  result := TCaixas.Create;
+  result.CopiarDados(Self);
+end;
+
+procedure TCaixas.CopiarDados(Value: TCaixas);
+begin
+  inherited CopiarDados(Value);
+  Nome := Value.Nome;
+  DDI := Value.DDI;
+  sigla := Value.sigla;
+end;
+
+function TCaixas.GetNome: string;
+begin
+  result := FNome;
+end;
+
+function TCaixas.GetDDI: string;
+begin
+  result := FDDI;
+end;
+
+function TCaixas.GetSigla: string;
+begin
+  result := Fsigla;
+end;
+
+procedure TCaixas.SetNome(Value: string);
+begin
+  FNome := Value;
+end;
+
+procedure TCaixas.SetDDI(Value: string);
+begin
+  FDDI := Value;
+end;
+
+procedure TCaixas.SetSigla(Value: string);
+begin
+  Fsigla := Value;
+end;
+
+end.

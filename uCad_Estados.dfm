@@ -6,18 +6,6 @@ inherited Cad_Estados: TCad_Estados
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    inherited lbl_Cad: TLabel
-      Visible = False
-    end
-    inherited lbl_DataCad: TLabel
-      Visible = False
-    end
-    inherited Lbl_Alt: TLabel
-      Visible = False
-    end
-    inherited lbl_DataAlt: TLabel
-      Visible = False
-    end
     object lbl_Estado: TLabel [5]
       Left = 16
       Top = 64

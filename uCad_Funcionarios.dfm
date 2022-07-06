@@ -154,8 +154,8 @@ inherited Cad_Funcionarios: TCad_Funcionarios
     end
     object edt_salario: TMaskEdit
       Left = 350
-      Top = 352
-      Width = 171
+      Top = 350
+      Width = 176
       Height = 21
       CharCase = ecUpperCase
       EditMask = '!999999,99;1;_'

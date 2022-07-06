@@ -183,17 +183,49 @@ end;
 function TCidadesDao.VerificarExclusao(Value: TCidades): boolean;
 begin
    result := False;
-   {with DmConexao.Qry do
+   with DmConexao.Qry do
     begin
       sql.clear;
-      Sql.Add('SELECT * FROM CIDADES WHERE CIDADE = :CIDADE and ID_ESTADO = :ID_ESTADO');
-      paramByName('CIDADE').AsString := Value.Nome;
-      paramByName('ID_ESTADO').AsInteger := Value.Estado.Id;
+      Sql.Add('SELECT * FROM EMPRESAS WHERE ID_CIDADE = :ID_CIDADE');
+      paramByName('ID_CIDADE').AsInteger := Value.Id;
       open;
       if not IsEmpty then
         result := true;
       close;
-    end;}
+
+      if not result then
+      begin
+        sql.clear;
+        Sql.Add('SELECT * FROM FORNECEDORES WHERE ID_CIDADE = :ID_CIDADE');
+        paramByName('ID_CIDADE').AsInteger := Value.Id;
+        open;
+        if not IsEmpty then
+          result := true;
+        close;
+      end;
+
+      if not result then
+      begin
+        sql.clear;
+        Sql.Add('SELECT * FROM CLIENTES WHERE ID_CIDADE = :ID_CIDADE');
+        paramByName('ID_CIDADE').AsInteger := Value.Id;
+        open;
+        if not IsEmpty then
+          result := true;
+        close;
+      end;
+
+      if not result then
+      begin
+        sql.clear;
+        Sql.Add('SELECT * FROM FUNCIONARIOS WHERE ID_CIDADE = :ID_CIDADE');
+        paramByName('ID_CIDADE').AsInteger := Value.Id;
+        open;
+        if not IsEmpty then
+          result := true;
+        close;
+      end;
+    end;
 end;
 
 function TCidadesDao.VerificarNome(Value: TCidades): boolean;

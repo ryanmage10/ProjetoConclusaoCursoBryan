@@ -69,17 +69,17 @@ begin
   inherited;
   if (dset_Paises.Active) and (dset_Paises.RecordCount > 0) then
   begin
-     if MessageDlg('Deseja Realmente excluir o Pais : '+ dset_PaisesPais.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
-     begin
       Pais.ID := dset_PaisesID.AsInteger;
       if not PaisControl.VerificarExclusao(Pais) then
       begin
-        PaisControl.Excluir(Pais);
-        PaisControl.Pesquisar(edt_Pesquisa.Text, Dset_Paises);
+        if MessageDlg('Deseja Realmente excluir o Pais : '+ dset_PaisesPais.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+        begin
+            PaisControl.Excluir(Pais);
+            PaisControl.Pesquisar(edt_Pesquisa.Text, Dset_Paises);
+        end;
       end
       else
         raise Exception.Create('Erro ao excluir: Há registros vinculados à esse país');
-     end;
   end
   else
   begin
