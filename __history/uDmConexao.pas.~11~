@@ -47,7 +47,6 @@ begin
 
   iniFile := TIniFile.Create(localArquivo);
   ConnectionConexao.Params.database := iniFile.ReadString('db', 'dbName', '');
-  ConnectionConexao.Connected := True;
 
   iniFile.Free;
 end;
