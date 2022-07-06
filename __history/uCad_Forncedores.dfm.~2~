@@ -1,0 +1,10 @@
+inherited Cad_Forncedores: TCad_Forncedores
+  Caption = 'Cadastro de Fornecores'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    inherited Rg_TipoPessoa: TRadioGroup
+      ItemIndex = 0
+    end
+  end
+end

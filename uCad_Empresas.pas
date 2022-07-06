@@ -64,7 +64,7 @@ begin
         self.Close;
      end
      else
-      raise Exception.Create('Já Existe uma Empresa cadastrado com esse nome');
+      raise Exception.Create('Já Existe uma Empresa cadastrado com esse CNPJ');
   end;
 end;
 
@@ -106,6 +106,7 @@ begin
   edt_UF.Text := Empresa.Cidade.Estado.UF;
   edt_Tel_Fixo.Text := Empresa.TelFixo;
   edt_Tel_Cel.Text := Empresa.TelCel;
+  edt_dataNasc.Date := Empresa.DtNasc;
 
   lbl_Cad.Visible := True;
   lbl_DataCad.Visible := True;
@@ -132,6 +133,7 @@ begin
   Empresa.TelCel := edt_Tel_Cel.Text;
   Empresa.Tipo := TpJuridica;
   Empresa.Sexo := TpIndefinido;
+  Empresa.DtNasc := edt_dataNasc.Date;
 end;
 
 function TCad_Empresa.ValidarDados: boolean;
@@ -151,7 +153,7 @@ begin
     exit;
   end;
 
-  if not (length(edt_CPFCNPJ.Text) > 0) then
+  if edt_CPFCNPJ.Text = '  .   .   /    -  ' then
   begin
     ShowMessage('Insira o CNPJ da empresa');
     edt_CPFCNPJ.setFocus;

@@ -43,20 +43,25 @@ implementation
 procedure TCons_Estados.btn_AlterarClick(Sender: TObject);
 var CadEstadoForm: TCad_Estados;
 begin
-   CadEstadoForm := TCad_Estados.Create(nil);
-   Estado.LimparDados;
-   Estado.id := Dset_Estados.FieldByName('id').asInteger;
-   if EstadoControl.Recuperar(Estado) then
-   begin
-     try
-        CadEstadoForm.Estado.CopiarDados(Estado);
-        CadEstadoForm.Inclusao := False;
-        CadEstadoForm.ShowModal;
-        EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
-     finally
-        //FreeAndNil(CadEstadoForm);
+  if (dset_Estados.Active) and (dset_Estados.RecordCount > 0) then
+  begin
+     CadEstadoForm := TCad_Estados.Create(nil);
+     Estado.LimparDados;
+     Estado.id := Dset_Estados.FieldByName('id').asInteger;
+     if EstadoControl.Recuperar(Estado) then
+     begin
+       try
+          CadEstadoForm.Estado.CopiarDados(Estado);
+          CadEstadoForm.Inclusao := False;
+          CadEstadoForm.ShowModal;
+          EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
+       finally
+          //FreeAndNil(CadEstadoForm);
+       end;
      end;
-   end;
+  end
+  else
+    raise Exception.Create('Erro ao Alterar: Lista Vazia');
 end;
 
 procedure TCons_Estados.btn_ExcluirClick(Sender: TObject);
@@ -78,7 +83,7 @@ begin
   end
   else
   begin
-    raise Exception.Create('Erro ao excluir: Lista Vazia');
+    raise Exception.Create('Erro ao excluir: Nenhum registro Selecionado');
   end;
 end;
 

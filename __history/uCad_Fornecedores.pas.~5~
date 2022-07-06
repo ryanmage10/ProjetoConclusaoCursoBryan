@@ -1,0 +1,118 @@
+unit uCad_Fornecedores;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Pessoa, Vcl.ComCtrls, Vcl.Mask,
+  Vcl.StdCtrls, Vcl.ExtCtrls, uFornecedores, uFornecedoresController, uCons_Cidades, uPessoas, uCidades;
+
+type
+  TCad_Fornecedores = class(TCad_Pessoa)
+    procedure btn_PesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+    procedure popularInterface;
+    procedure PopularObjeto;
+    function ValidarDados: boolean;
+    procedure AlterarCampos;
+  public
+    { Public declarations }
+    Fornecedor : TFornecedores;
+    FornecedorControl : TFornecedoresController;
+  end;
+
+var
+  Cad_Fornecedores: TCad_Fornecedores;
+
+implementation
+
+{$R *.dfm}
+
+procedure TCad_Fornecedores.AlterarCampos;
+begin
+  if rg_tipoPessoa.ItemIndex = 0 then
+  begin
+    rg_Sexo.Visible := True;
+    Lbl_RazaoSocial.Visible := False;
+    edt_Razao_Social.Visible := False;
+    lbl_CPFCNPJ.Caption := 'CPF';
+    edt_CPFCNPJ.EditMask := '000\.000\.000-00;1;_';
+    edt_CPFCNPJ.Text := '';
+    lbl_RGIE.Caption := 'RG';
+    edt_RGIE.EditMask := '00\.000\.000-0;1;_';
+    edt_RGIE.Text := '';
+    lbl_dataNasc.Caption := 'Data Nascimento';
+    lbl_dataNasc.Font.Color := clRed;
+  end
+  else
+  begin
+    Lbl_RazaoSocial.Visible := True;
+    edt_Razao_Social.Visible := True;
+    rg_Sexo.Visible := False;
+    lbl_CPFCNPJ.Caption := 'CNPJ';
+    edt_CPFCNPJ.EditMask := '00\.000\.000/0000-00;1;_';
+    edt_CPFCNPJ.Text := '';
+    lbl_RGIE.Caption := 'IE';
+    edt_RGIE.EditMask := '';
+    edt_RGIE.Text := '';
+    lbl_dataNasc.Caption := 'Data DE Fundação';
+    lbl_dataNasc.Font.Color := clBlack;
+  end;
+end;
+
+procedure TCad_Fornecedores.btn_PesquisarClick(Sender: TObject);
+var ConsCidadeForm: TCons_Cidades;
+begin
+   ConsCidadeForm := TCons_Cidades.Create(nil);
+   try
+      ConsCidadeForm.Selecao := True;
+      ConsCidadeForm.ShowModal;
+      Fornecedor.Cidade := (ConsCidadeForm.Cidade.clone);
+      edt_Cidade.text := Fornecedor.Cidade.Nome;
+      edt_uf.text := Fornecedor.Cidade.Estado.uf;
+   finally
+      FreeAndNil(ConsCidadeForm);
+   end;
+end;
+
+procedure TCad_Fornecedores.FormCreate(Sender: TObject);
+begin
+  inherited;
+  Fornecedor := TFornecedores.Create;
+  FornecedorControl := TFornecedoresController.Create;
+end;
+
+procedure TCad_Fornecedores.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  Fornecedor.Free;
+  FornecedorControl.Free;
+end;
+
+procedure TCad_Fornecedores.FormShow(Sender: TObject);
+begin
+  inherited;
+  if not inclusao then
+    popularInterface;
+end;
+
+procedure TCad_Fornecedores.popularInterface;
+begin
+
+end;
+
+procedure TCad_Fornecedores.PopularObjeto;
+begin
+
+end;
+
+function TCad_Fornecedores.ValidarDados: boolean;
+begin
+
+end;
+
+end.

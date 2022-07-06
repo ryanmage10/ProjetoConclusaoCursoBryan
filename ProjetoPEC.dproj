@@ -178,6 +178,42 @@
             <Form>Cons_Empresas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFuncionariosController.pas"/>
+        <DCCReference Include="uFuncionariosService.pas"/>
+        <DCCReference Include="uFuncionariosFactory.pas"/>
+        <DCCReference Include="uFuncionariosDao.pas"/>
+        <DCCReference Include="uCad_Funcionarios.pas">
+            <Form>Cad_Funcionarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Funcionarios.pas">
+            <Form>Cons_Funcionarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uClientesController.pas"/>
+        <DCCReference Include="uClientesService.pas"/>
+        <DCCReference Include="uClientesFactory.pas"/>
+        <DCCReference Include="uClientesDao.pas"/>
+        <DCCReference Include="uCad_Clientes.pas">
+            <Form>Cad_Clientes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Clientes.pas">
+            <Form>Cons_Clientes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uFornecedoresController.pas"/>
+        <DCCReference Include="uFornecedoresService.pas"/>
+        <DCCReference Include="uFornecedoresFactory.pas"/>
+        <DCCReference Include="uFornecedoresDao.pas"/>
+        <DCCReference Include="uCad_Fornecedores.pas">
+            <Form>Cad_Fornecedores</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Fornecedores.pas">
+            <Form>Cons_Fornecedores</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

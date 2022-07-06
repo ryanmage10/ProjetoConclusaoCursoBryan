@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
-  uCons_Cidades, uCons_Empresas;
+  uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes, uCons_Fornecedores;
 
 type
   TMenuPrincipal = class(TForm)
@@ -16,10 +16,16 @@ type
     btn_Estados: TMenuItem;
     btn_Cidades: TMenuItem;
     btn_Empresa: TMenuItem;
+    Btn_Funcionarios: TMenuItem;
+    Btn_Clientes: TMenuItem;
+    btn_Fornecedores: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
     procedure btn_EmpresaClick(Sender: TObject);
+    procedure Btn_FuncionariosClick(Sender: TObject);
+    procedure Btn_ClientesClick(Sender: TObject);
+    procedure btn_FornecedoresClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,6 +45,17 @@ begin
       ConsCidadeForm.ShowModal;
    finally
       FreeAndNil(ConsCidadeForm);
+   end;
+end;
+
+procedure TMenuPrincipal.Btn_ClientesClick(Sender: TObject);
+var ConsClienteForm: TCons_Clientes;
+begin
+   ConsClienteForm := TCons_Clientes.Create(nil);
+   try
+      ConsClienteForm.ShowModal;
+   finally
+      FreeAndNil(ConsClienteForm);
    end;
 end;
 
@@ -64,6 +81,17 @@ begin
    end;
 end;
 
+procedure TMenuPrincipal.btn_FornecedoresClick(Sender: TObject);
+var ConsFornecedorForm: TCons_Fornecedores;
+begin
+   ConsFornecedorForm := TCons_Fornecedores.Create(nil);
+   try
+      ConsFornecedorForm.ShowModal;
+   finally
+      FreeAndNil(ConsFornecedorForm);
+   end;
+end;
+
 procedure TMenuPrincipal.btn_PaisesClick(Sender: TObject);
 var ConsPaisForm: TCons_Paises;
 begin
@@ -72,6 +100,17 @@ begin
       ConsPaisForm.ShowModal;
    finally
       FreeAndNil(ConsPaisForm);
+   end;
+end;
+
+procedure TMenuPrincipal.Btn_FuncionariosClick(Sender: TObject);
+var ConsFuncionarioForm: TCons_Funcionarios;
+begin
+   ConsFuncionarioForm := TCons_Funcionarios.Create(nil);
+   try
+      ConsFuncionarioForm.ShowModal;
+   finally
+      FreeAndNil(ConsFuncionarioForm);
    end;
 end;
 

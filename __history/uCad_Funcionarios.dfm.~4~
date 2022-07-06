@@ -1,0 +1,23 @@
+inherited Cad_Funcionarios: TCad_Funcionarios
+  Caption = 'Cadastro de Funcion'#225'rios'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    inherited lbl_RazaoSocial: TLabel
+      Visible = False
+    end
+    inherited Rg_TipoPessoa: TRadioGroup
+      Visible = False
+    end
+    inherited btn_Pesquisar: TButton
+      Top = 260
+      OnClick = btn_PesquisarClick
+      ExplicitTop = 260
+    end
+    inherited edt_Razao_Social: TEdit
+      Visible = False
+    end
+  end
+end

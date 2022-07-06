@@ -42,27 +42,32 @@ implementation
 procedure TCons_Empresas.btn_AlterarClick(Sender: TObject);
 var CadEmpresasForm: TCad_Empresa;
 begin
-   CadEmpresasForm := TCad_Empresa.Create(nil);
-   Empresa.LimparDados;
-   Empresa.id := Dset_Empresas.FieldByName('id').asInteger;
-   if EmpresaControl.Recuperar(Empresa) then
+   if (dset_Empresas.Active) and (dset_Empresas.RecordCount > 0) then
    begin
-     try
-        CadEmpresasForm.Empresa.CopiarDados(Empresa);
-        CadEmpresasForm.Inclusao := False;
-        CadEmpresasForm.ShowModal;
-        EmpresaControl.Pesquisar(edt_Pesquisa.Text, Dset_Empresas);
-     finally
-        //FreeAndNil(CadPaisesForm );
+     CadEmpresasForm := TCad_Empresa.Create(nil);
+     Empresa.LimparDados;
+     Empresa.id := Dset_Empresas.FieldByName('id').asInteger;
+     if EmpresaControl.Recuperar(Empresa) then
+     begin
+       try
+          CadEmpresasForm.Empresa.CopiarDados(Empresa);
+          CadEmpresasForm.Inclusao := False;
+          CadEmpresasForm.ShowModal;
+          EmpresaControl.Pesquisar(edt_Pesquisa.Text, Dset_Empresas);
+       finally
+          //FreeAndNil(CadPaisesForm );
+       end;
      end;
-   end;
+   end
+   else
+     raise Exception.Create('Erro ao alterar: Nenhum registro Selecionado');
 end;
 
 procedure TCons_Empresas.btn_ExcluirClick(Sender: TObject);
 begin
   if (dset_Empresas.Active) and (dset_Empresas.RecordCount > 0) then
     begin
-       if MessageDlg('Deseja Realmente excluir o Pais : '+ dset_EmpresasEmpresa.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
+       if MessageDlg('Deseja Realmente excluir a Empresa : '+ dset_EmpresasEmpresa.AsString +' ?', mtConfirmation, [mbYes, mbNo], 0) = idYES then
        begin
         Empresa.ID := dset_EmpresasID.AsInteger;
         if not EmpresaControl.VerificarExclusao(Empresa) then
@@ -76,7 +81,7 @@ begin
     end
     else
     begin
-      raise Exception.Create('Erro ao excluir: Lista Vazia');
+      raise Exception.Create('Erro ao excluir: Nenhum registro Selecionado');
     end;
 end;
 

@@ -1,0 +1,25 @@
+unit uCad_Forncedores;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Pessoa, Vcl.ComCtrls, Vcl.Mask,
+  Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TCad_Pessoa1 = class(TCad_Pessoa)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Cad_Pessoa1: TCad_Pessoa1;
+
+implementation
+
+{$R *.dfm}
+
+end.

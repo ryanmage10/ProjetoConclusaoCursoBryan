@@ -41,20 +41,25 @@ implementation
 procedure TCons_Cidades.btn_AlterarClick(Sender: TObject);
 var CadCidadeForm: TCad_Cidades;
 begin
-   CadCidadeForm := TCad_Cidades.Create(nil);
-   Cidade.LimparDados;
-   Cidade.id := Dset_Cidades.FieldByName('id').asInteger;
-   if CidadeControl.Recuperar(Cidade) then
+   if (dset_Cidades.Active) and (dset_Cidades.RecordCount > 0) then
    begin
-     try
-        CadCidadeForm.Cidade.CopiarDados(Cidade);
-        CadCidadeForm.Inclusao := False;
-        CadCidadeForm.ShowModal;
-        CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
-     finally
-        //FreeAndNil(CadCidadeForm);
+     CadCidadeForm := TCad_Cidades.Create(nil);
+     Cidade.LimparDados;
+     Cidade.id := Dset_Cidades.FieldByName('id').asInteger;
+     if CidadeControl.Recuperar(Cidade) then
+     begin
+       try
+          CadCidadeForm.Cidade.CopiarDados(Cidade);
+          CadCidadeForm.Inclusao := False;
+          CadCidadeForm.ShowModal;
+          CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
+       finally
+          //FreeAndNil(CadCidadeForm);
+       end;
      end;
-   end;
+   end
+   else
+     raise Exception.Create('Erro ao Alterar: Nenhum registro Selecionado');
 end;
 
 procedure TCons_Cidades.btn_ExcluirClick(Sender: TObject);
@@ -74,7 +79,7 @@ begin
   end
   else
   begin
-    raise Exception.Create('Erro ao excluir');
+    raise Exception.Create('Erro ao excluir: Nenhum registro Selecionado');
   end;
 end;
 

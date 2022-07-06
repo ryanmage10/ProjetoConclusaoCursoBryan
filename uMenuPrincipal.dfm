@@ -45,6 +45,18 @@ object MenuPrincipal: TMenuPrincipal
         Caption = 'Empresa'
         OnClick = btn_EmpresaClick
       end
+      object Btn_Funcionarios: TMenuItem
+        Caption = 'Funcionarios'
+        OnClick = Btn_FuncionariosClick
+      end
+      object Btn_Clientes: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Btn_ClientesClick
+      end
+      object btn_Fornecedores: TMenuItem
+        Caption = 'Fornecedores'
+        OnClick = btn_FornecedoresClick
+      end
     end
   end
 end

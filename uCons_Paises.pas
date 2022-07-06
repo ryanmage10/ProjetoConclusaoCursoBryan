@@ -43,20 +43,25 @@ implementation
 procedure TCons_Paises.btn_AlterarClick(Sender: TObject);
 var CadPaisesForm: TCad_Paises;
 begin
-   CadPaisesForm := TCad_Paises.Create(nil);
-   Pais.LimparDados;
-   Pais.id := Dset_Paises.FieldByName('id').asInteger;
-   if PaisControl.Recuperar(Pais) then
+   if (dset_Paises.Active) and (dset_Paises.RecordCount > 0) then
    begin
-     try
-        CadPaisesForm.Pais.CopiarDados(Pais);
-        CadPaisesForm.Inclusao := False;
-        CadPaisesForm.ShowModal;
-        PaisControl.Pesquisar(edt_Pesquisa.Text, Dset_Paises);
-     finally
-        //FreeAndNil(CadPaisesForm );
+     CadPaisesForm := TCad_Paises.Create(nil);
+     Pais.LimparDados;
+     Pais.id := Dset_Paises.FieldByName('id').asInteger;
+     if PaisControl.Recuperar(Pais) then
+     begin
+       try
+          CadPaisesForm.Pais.CopiarDados(Pais);
+          CadPaisesForm.Inclusao := False;
+          CadPaisesForm.ShowModal;
+          PaisControl.Pesquisar(edt_Pesquisa.Text, Dset_Paises);
+       finally
+          //FreeAndNil(CadPaisesForm );
+       end;
      end;
-   end;
+   end
+   else
+     raise Exception.Create('Erro ao excluir: Lista Vazia');
 end;
 
 procedure TCons_Paises.btn_ExcluirClick(Sender: TObject);
@@ -78,7 +83,7 @@ begin
   end
   else
   begin
-    raise Exception.Create('Erro ao excluir: Lista Vazia');
+    raise Exception.Create('Erro ao excluir: Nenhum registro Selecionado');
   end;
 end;
 

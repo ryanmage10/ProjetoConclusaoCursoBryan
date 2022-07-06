@@ -1,0 +1,5 @@
+inherited Cons_Clientes: TCons_Clientes
+  Caption = 'Consulta de Clientes'
+  PixelsPerInch = 96
+  TextHeight = 13
+end
