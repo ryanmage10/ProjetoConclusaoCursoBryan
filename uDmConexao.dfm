@@ -1,12 +1,10 @@
 object dmConexao: TdmConexao
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 203
   Width = 240
   object ConnectionConexao: TFDConnection
     Params.Strings = (
-      
-        'Database=C:\Users\Bryan\Documents\GitHub\ProjetoConclusaoCursoBr' +
-        'yan\PROJETOTCC.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'CharacterSet=UTF8'
