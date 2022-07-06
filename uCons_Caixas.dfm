@@ -39,8 +39,10 @@ inherited Cons_Caixas: TCons_Caixas
       end
       inherited btn_Selecionar: TButton
         Left = 100
+        Top = 7
         OnClick = btn_SelecionarClick
         ExplicitLeft = 100
+        ExplicitTop = 7
       end
     end
     inherited btn_Alterar: TButton

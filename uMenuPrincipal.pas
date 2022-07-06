@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
   uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes,
-  uCons_Fornecedores, uCons_Caixas;
+  uCons_Fornecedores, uCons_Caixas, uCons_Contratos;
 
 type
   TMenuPrincipal = class(TForm)
@@ -21,6 +21,7 @@ type
     Btn_Clientes: TMenuItem;
     btn_Fornecedores: TMenuItem;
     btn_Caixas: TMenuItem;
+    btn_Contratos: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
@@ -29,6 +30,7 @@ type
     procedure Btn_ClientesClick(Sender: TObject);
     procedure btn_FornecedoresClick(Sender: TObject);
     procedure btn_CaixasClick(Sender: TObject);
+    procedure btn_ContratosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,6 +72,17 @@ begin
       ConsClienteForm.ShowModal;
    finally
       FreeAndNil(ConsClienteForm);
+   end;
+end;
+
+procedure TMenuPrincipal.btn_ContratosClick(Sender: TObject);
+var ConsContratoForm: TCons_Contratos;
+begin
+   ConsContratoForm := TCons_Contratos.Create(nil);
+   try
+      ConsContratoForm.ShowModal;
+   finally
+      FreeAndNil(ConsContratoForm);
    end;
 end;
 

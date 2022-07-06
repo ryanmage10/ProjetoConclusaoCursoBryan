@@ -1,0 +1,43 @@
+unit uContratos;
+
+interface
+
+uses
+  uBase, uFornecedores, uClientes, uEmpresas;
+
+type
+  TContratos = class(TBase)
+  protected
+    FDescricao: string[50];
+    FMoeda: string[2];
+    FEmpresa: TEmpresas;
+    FCliente: TClientes;
+    FFornecedor: TFornecedores;
+    FValor: Currency;
+
+    procedure SetDescricao(Value: string);
+    procedure SetMoeda(Value: string);
+    procedure SetEmpresa(Value: TEmpresas);
+    procedure SetCliente(Value: TClientes);
+    procedure SetFornecedor(Value: TFornecedoress);
+    function GetNome: string;
+    function GetUF: string;
+    function GetPais: TPaises;
+
+  public
+
+    property Nome: string read GetNome write SetNome;
+    property UF: string read GetUF write SetUF;
+    property Pais: TPaises read GetPais write SetPais;
+
+    constructor Create;
+    destructor Free;
+    function clone: TContratos;
+    procedure LimparDados;
+    procedure CopiarDados(Value: TContratos);
+  end;
+
+
+implementation
+
+end.

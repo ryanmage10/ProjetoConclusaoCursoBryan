@@ -61,6 +61,10 @@ object MenuPrincipal: TMenuPrincipal
         Caption = 'Caixas'
         OnClick = btn_CaixasClick
       end
+      object btn_Contratos: TMenuItem
+        Caption = 'Contratos'
+        OnClick = btn_ContratosClick
+      end
     end
   end
 end

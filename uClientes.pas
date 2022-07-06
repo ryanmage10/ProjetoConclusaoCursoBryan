@@ -10,7 +10,7 @@ type
   public
     constructor Create;
     procedure copiarDados(value: TClientes);
-    function Clone: TPessoas;
+    function Clone: TClientes;
     procedure LimparDados;
     destructor Free;
   end;
@@ -18,7 +18,7 @@ implementation
 
 { TClientes }
 
-function TClientes.Clone: TPessoas;
+function TClientes.Clone: TClientes;
 begin
    Result := TClientes.Create;
    result.CopiarDados(Self);
