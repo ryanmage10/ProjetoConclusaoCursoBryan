@@ -214,6 +214,32 @@
             <Form>Cons_Fornecedores</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uCaixas.pas"/>
+        <DCCReference Include="uCaixasController.pas"/>
+        <DCCReference Include="uCaixasService.pas"/>
+        <DCCReference Include="uCaixasFactory.pas"/>
+        <DCCReference Include="uCaixasDao.pas"/>
+        <DCCReference Include="uCad_Caixas.pas">
+            <Form>Cad_Caixas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Caixas.pas">
+            <Form>Cons_Caixas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uContratos.pas"/>
+        <DCCReference Include="uContratosController.pas"/>
+        <DCCReference Include="uContratosService.pas"/>
+        <DCCReference Include="uContratosFactory.pas"/>
+        <DCCReference Include="uContratosDao.pas"/>
+        <DCCReference Include="uCad_Contratos.pas">
+            <Form>Cad_Contratos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Contratos.pas">
+            <Form>Cons_Contratos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

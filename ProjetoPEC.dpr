@@ -57,7 +57,21 @@ uses
   uFornecedoresFactory in 'uFornecedoresFactory.pas',
   uFornecedoresDao in 'uFornecedoresDao.pas',
   uCad_Fornecedores in 'uCad_Fornecedores.pas' {Cad_Fornecedores},
-  uCons_Fornecedores in 'uCons_Fornecedores.pas' {Cons_Fornecedores};
+  uCons_Fornecedores in 'uCons_Fornecedores.pas' {Cons_Fornecedores},
+  uCaixas in 'uCaixas.pas',
+  uCaixasController in 'uCaixasController.pas',
+  uCaixasService in 'uCaixasService.pas',
+  uCaixasFactory in 'uCaixasFactory.pas',
+  uCaixasDao in 'uCaixasDao.pas',
+  uCad_Caixas in 'uCad_Caixas.pas' {Cad_Caixas},
+  uCons_Caixas in 'uCons_Caixas.pas' {Cons_Caixas},
+  uContratos in 'uContratos.pas',
+  uContratosController in 'uContratosController.pas',
+  uContratosService in 'uContratosService.pas',
+  uContratosFactory in 'uContratosFactory.pas',
+  uContratosDao in 'uContratosDao.pas',
+  uCad_Contratos in 'uCad_Contratos.pas' {Cad_Contratos},
+  uCons_Contratos in 'uCons_Contratos.pas' {Cons_Contratos};
 
 {$R *.res}
 
@@ -66,9 +80,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMenuPrincipal, MenuPrincipal);
   Application.CreateForm(TdmConexao, dmConexao);
-  Application.CreateForm(TCad_Clientes, Cad_Clientes);
-  Application.CreateForm(TCons_Clientes, Cons_Clientes);
-  Application.CreateForm(TCad_Fornecedores, Cad_Fornecedores);
-  Application.CreateForm(TCons_Fornecedores, Cons_Fornecedores);
+  Application.CreateForm(TCad_Contratos, Cad_Contratos);
+  Application.CreateForm(TCons_Contratos, Cons_Contratos);
   Application.Run;
 end.

@@ -43,7 +43,7 @@ begin
   begin
     Sql.Clear;
     sql.add('UPDATE Contratos SET CODIGODOC = :CODIGODOC, DESCRICAO = :DESCRICAO, MOEDA = :MOEDA, ID_EMPRESA = :ID_EMPRESA, ');
-    sql.add(' ID_CLIENTE = :ID_CLIENTE, ID_FORNECEDOR = :ID_FORNECEDOR, VALOR = :VALOR, TIPO = :TIPO');
+    sql.add(' ID_CLIENTE = :ID_CLIENTE, ID_FORNECEDOR = :ID_FORNECEDOR, VALOR = :VALOR, TIPO = :TIPO,');
     Sql.Add('USER_INSERT = :USER_INSERT, USER_UPDATE = :USER_UPDATE, DATE_INSERT = :DATE_INSERT, DATE_UPDATE = :DATE_UPDATE');
     Sql.Add(' WHERE ID = :ID');
 
@@ -102,7 +102,7 @@ begin
   with DmConexao.Qry, oContrato do
   begin
       Sql.Clear;
-      sql.add('INSERT INTO Contratos (CODIGODOC, DESCRICAO, MOEDA, ID_EMPRESA, ID_CLIENTE, ID_FORNECEDOR, VALOR, TIPO, USER_INSERT,USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
+      sql.add('INSERT INTO Contratos (CODIGODOC, DESCRICAO, MOEDA, ID_EMPRESA, ID_CLIENTE, ID_FORNECEDOR, VALOR, TIPO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
       Sql.add(' VALUES (:CODIGODOC, :DESCRICAO, :MOEDA, :ID_EMPRESA, :ID_CLIENTE, :ID_FORNECEDOR, :VALOR, :TIPO, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
 
       ObjToField(oContrato, DmConexao.Qry);
@@ -116,7 +116,7 @@ procedure TContratosDao.ObjToField(var oContrato: TContratos; Qry: TFDQuery);
 begin
   with oContrato, Qry do
   begin
-    CodigoDoc := FieldByName('CODIGODOC').AsString;
+    parambyName('CODIGODOC').AsString := CodigoDoc;
     paramByName('DESCRICAO').AsString := Descricao;
     paramByName('MOEDA').AsString := Moeda;
     paramByName('Valor').AsCurrency := Valor;

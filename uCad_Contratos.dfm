@@ -9,6 +9,7 @@ inherited Cad_Contratos: TCad_Contratos
   TextHeight = 13
   inherited Panel1: TPanel
     Height = 265
+    ExplicitHeight = 265
     inherited lbl_Cad: TLabel
       Top = 231
       ExplicitTop = 231
@@ -117,6 +118,7 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 86
       Width = 65
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 10
       TabOrder = 3
     end
@@ -125,6 +127,7 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 86
       Width = 256
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 4
     end
@@ -133,6 +136,7 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 85
       Width = 75
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 3
       TabOrder = 5
     end
@@ -141,6 +145,7 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 135
       Width = 249
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
       TabOrder = 6
@@ -150,6 +155,7 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 184
       Width = 327
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
       TabOrder = 7
