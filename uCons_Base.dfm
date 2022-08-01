@@ -98,9 +98,9 @@ object Cons_Base: TCons_Base
     end
     object btn_Pesquisar: TButton
       Left = 435
-      Top = 14
+      Top = 15
       Width = 75
-      Height = 25
+      Height = 23
       Caption = 'Pesquisar'
       TabOrder = 4
     end

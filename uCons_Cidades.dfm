@@ -45,9 +45,7 @@ inherited Cons_Cidades: TCons_Cidades
       OnClick = btn_AlterarClick
     end
     inherited btn_Pesquisar: TButton
-      Top = 17
       OnClick = btn_PesquisarClick
-      ExplicitTop = 17
     end
   end
   object ds_Cidades: TDataSource

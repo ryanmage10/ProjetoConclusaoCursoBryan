@@ -141,7 +141,7 @@ inherited Cad_Contratos: TCad_Contratos
       TabOrder = 5
     end
     object Edt_Cliente_Fornecedor: TEdit
-      Left = 13
+      Left = 16
       Top = 135
       Width = 249
       Height = 21
@@ -179,9 +179,9 @@ inherited Cad_Contratos: TCad_Contratos
       OnClick = btn_PesquisarClick
     end
     object edt_Valor: TMaskEdit
-      Left = 347
+      Left = 349
       Top = 135
-      Width = 76
+      Width = 75
       Height = 21
       EditMask = '9999999,99;1;_'
       MaxLength = 10
