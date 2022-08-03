@@ -183,10 +183,13 @@ inherited Cad_Contratos: TCad_Contratos
       Top = 135
       Width = 75
       Height = 21
-      EditMask = '9999999,99;1;_'
-      MaxLength = 10
+      AutoSelect = False
+      BiDiMode = bdLeftToRight
+      EditMask = '999999,99;1;'
+      MaxLength = 9
+      ParentBiDiMode = False
       TabOrder = 10
-      Text = '       ,  '
+      Text = '      ,  '
     end
     object rg_Tipo: TRadioGroup
       Left = 312

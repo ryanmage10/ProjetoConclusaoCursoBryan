@@ -71,7 +71,10 @@ uses
   uContratosFactory in 'uContratosFactory.pas',
   uContratosDao in 'uContratosDao.pas',
   uCad_Contratos in 'uCad_Contratos.pas' {Cad_Contratos},
-  uCons_Contratos in 'uCons_Contratos.pas' {Cons_Contratos};
+  uCons_Contratos in 'uCons_Contratos.pas' {Cons_Contratos},
+  uCondicaoPagamento in 'uCondicaoPagamento.pas',
+  uParcelas in 'uParcelas.pas',
+  uFormasPagamentos in 'uFormasPagamentos.pas';
 
 {$R *.res}
 
