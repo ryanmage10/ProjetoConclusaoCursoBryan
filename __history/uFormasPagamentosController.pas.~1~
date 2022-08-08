@@ -1,0 +1,71 @@
+unit uFormasPagamentosController;
+
+interface
+uses uFormasPagamentos, system.SysUtils, DBClient, uFormasPagamentosService;
+  type
+  TFormasPagamentosController = class
+    private
+      FormasPagamentoservice : TFormasPagamentosService;
+    protected
+    public
+      constructor create;
+      destructor Free;
+      function Inserir(oFormasPagamento: TFormasPagamentos):Boolean;
+      function Alterar(oFormasPagamento: TFormasPagamentos):Boolean;
+      function Excluir(oFormasPagamento: TFormasPagamentos):Boolean;
+      function Recuperar(oFormasPagamento: TFormasPagamentos):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+      function VerificarNome(Value: TFormasPagamentos): boolean;
+      function VerificarExclusao(Value: TFormasPagamentos): boolean;
+
+  end;
+implementation
+
+{ TFormasPagamentosController }
+
+function TFormasPagamentosController.Alterar(oFormasPagamento: TFormasPagamentos): Boolean;
+begin
+   result := FormasPagamentoservice.Alterar(oFormasPagamento);
+end;
+
+constructor TFormasPagamentosController.create;
+begin
+   FormasPagamentoservice := TFormasPagamentosService.Create;
+end;
+
+function TFormasPagamentosController.Excluir(oFormasPagamento: TFormasPagamentos): Boolean;
+begin
+  result := FormasPagamentoservice.Excluir(oFormasPagamento);
+end;
+
+destructor TFormasPagamentosController.Free;
+begin
+  FormasPagamentoservice.Free;
+end;
+
+function TFormasPagamentosController.Inserir(oFormasPagamento: TFormasPagamentos): Boolean;
+begin
+   result := FormasPagamentoservice.Inserir(oFormasPagamento);
+end;
+
+procedure TFormasPagamentosController.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   FormasPagamentoservice.Pesquisar(sNome, Dset);
+end;
+
+function TFormasPagamentosController.Recuperar(oFormasPagamento: TFormasPagamentos): Boolean;
+begin
+  result := FormasPagamentoservice.Recuperar(oFormasPagamento);
+end;
+
+function TFormasPagamentosController.VerificarExclusao(Value: TFormasPagamentos): boolean;
+begin
+  result := FormasPagamentoservice.VerificarExclusao(Value);
+end;
+
+function TFormasPagamentosController.VerificarNome(Value: TFormasPagamentos): boolean;
+begin
+  result := FormasPagamentoservice.VerificarNome(Value);
+end;
+
+end.

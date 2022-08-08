@@ -1,0 +1,26 @@
+unit uCad_FormaPagamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Base, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TCad_FormaPagamento = class(TCad_Base)
+    edt_Descricao: TEdit;
+    lbl_Descricao: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Cad_FormaPagamento: TCad_FormaPagamento;
+
+implementation
+
+{$R *.dfm}
+
+end.

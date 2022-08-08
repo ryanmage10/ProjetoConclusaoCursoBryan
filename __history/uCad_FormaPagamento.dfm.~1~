@@ -1,0 +1,5 @@
+inherited Cad_Forma_Pagamento: TCad_Forma_Pagamento
+  Caption = 'Cadastro de Formas de Pagamento'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

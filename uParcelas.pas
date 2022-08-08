@@ -3,7 +3,7 @@ unit uParcelas;
 interface
 
 uses
-  uBase, uFormasPagamentos;
+  uBase, uFormaPagamento;
 
 type
   TParcela = class(TBase)

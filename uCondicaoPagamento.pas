@@ -3,7 +3,7 @@ unit uCondicaoPagamento;
 interface
 
 uses
-  uBase;
+  uBase, System.Generics.Collections, System.SysUtils, uParcelas;
 
 type
   TCondicaoPagamento = class(TBase)
@@ -12,26 +12,26 @@ type
     FJuro: Currency;
     FMulta: Currency;
     FDesconto: Currency;
-    FParcelas: Integer;   // TROCAR
+    FParcelas: TObjectList<TParcela>;   // TROCAR
 
     function GetDescricao: string;
     function GetJuro: Currency;
     function GetMulta: Currency;
     function GetDesconto: Currency;
-    function GetNroParcelas: Integer;
+    function GetParcelas: TObjectList<TParcela>;
 
     procedure SetDescricao(Value: string);
     procedure SetJuro(Value: Currency);
     procedure SetMulta(Value: Currency);
     procedure SetDesconto(Value: Currency);
-    procedure SetNroParcelas(Value: Integer);
+    procedure SetParcelas(Value: TObjectList<TParcela>);
   public
 
     property Descricao: string read GetDescricao write SetDescricao;
     property Juro: Currency read GetJuro write SetJuro;
     property Multa: Currency read GetMulta write SetMulta;
     property Desconto: Currency read GetDesconto write SetDesconto;
-    property NroParcelas: Integer read GetNroParcelas write SetNroParcelas;
+    property Parcelas: TObjectList<TParcela> read GetParcelas write SetParcelas;
 
     constructor Create;
     Destructor Free;
@@ -60,7 +60,7 @@ begin
    FJuro := Value.Juro;
    FMulta := Value.Multa;
    FDesconto := Value.Desconto;
-   FNroParcelas := Value.NroParcelas;
+   FParcelas := Value.Parcelas;
 end;
 
 constructor TCondicaoPagamento.Create;
@@ -94,9 +94,9 @@ begin
   result := FMulta;
 end;
 
-function TCondicaoPagamento.GetNroParcelas: Integer;
+function TCondicaoPagamento.GetParcelas: TObjectList<TParcela>;
 begin
-  result := FNroParcelas;
+  result := FParcelas;
 end;
 
 procedure TCondicaoPagamento.LimparDados;
@@ -106,7 +106,7 @@ begin
   FJuro := 0;
   FMulta := 0;
   FDesconto := 0;
-  FNroParcelas := 0;
+  FParcelas := nil;
 end;
 
 procedure TCondicaoPagamento.SetDesconto(Value: Currency);
@@ -129,9 +129,9 @@ begin
   FMulta := Value;
 end;
 
-procedure TCondicaoPagamento.SetNroParcelas(Value: Integer);
+procedure TCondicaoPagamento.SetParcelas(Value: TObjectList<TParcela>);
 begin
-  FNroParcelas := Value;
+  FParcelas := Value;
 end;
 
 end.

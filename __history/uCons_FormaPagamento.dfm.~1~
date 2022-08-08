@@ -1,0 +1,5 @@
+inherited Cons_FormaPagamento: TCons_FormaPagamento
+  Caption = 'Cons_FormaPagamento'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

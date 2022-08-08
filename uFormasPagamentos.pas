@@ -1,4 +1,4 @@
-unit uFormasPagamentos;
+unit uFormaPagamento;
 
 interface
 

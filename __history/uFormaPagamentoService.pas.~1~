@@ -1,0 +1,162 @@
+unit uFormaPagamentoService;
+
+interface
+uses uFormaPagamento, uFormaPagamentoFactory, system.SysUtils, DBClient, uDmConexao;
+  type
+  TFormaPagamentoService = class(TObject)
+    private
+      ContratoFactory : TFormaPagamentoFactory;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oContrato: TFormaPagamento):Boolean;
+      function Alterar(oContrato: TFormaPagamento):Boolean;
+      function Excluir(oContrato: TFormaPagamento):Boolean;
+      function Recuperar(var oContrato: TFormaPagamento):Boolean;
+      procedure Pesquisar(sNome: string; var Dset: TClientDataSet);
+      function VerificarNome(Value: TFormaPagamento): boolean;
+      function VerificarExclusao(Value: TFormaPagamento): boolean;
+  end;
+  var
+  FormaPagamentoService: TFormaPagamentoService;
+implementation
+
+{ TFormaPagamentoService }
+
+function TFormaPagamentoService.Alterar(oContrato: TFormaPagamento): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.Alterar(oContrato);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Alterar o Contrato' + E.Message);
+      end;
+   end;
+end;
+
+constructor TFormaPagamentoService.create;
+begin
+   ContratoFactory := TFormaPagamentoFactory.Create;
+end;
+
+function TFormaPagamentoService.Excluir(oContrato: TFormaPagamento): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.Excluir(oContrato);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Excluir o Contrato' + E.Message);
+      end;
+   end;
+end;
+
+destructor TFormaPagamentoService.free;
+begin
+   freeandnil(ContratoFactory);
+end;
+
+function TFormaPagamentoService.Inserir(oContrato: TFormaPagamento): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.Inserir(oContrato);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Inserir o Contrato' + E.Message);
+      end;
+   end;
+end;
+
+procedure TFormaPagamentoService.Pesquisar(sNome: string; var Dset: TClientDataSet);
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        ContratoFactory.Pesquisar(sNome, Dset);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Pesquisar o Contrato' + E.Message);
+      end;
+   end;
+end;
+
+function TFormaPagamentoService.Recuperar(var oContrato: TFormaPagamento): Boolean;
+begin
+   try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.Recuperar(oContrato);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Inserir o Contrato' + E.Message);
+      end;
+   end;
+end;
+
+function TFormaPagamentoService.VerificarExclusao(Value: TFormaPagamento): boolean;
+begin
+  try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.VerificarExclusao(Value);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Verificar a exclusao do Contrato' + E.Message);
+      end;
+   end;
+end;
+
+function TFormaPagamentoService.VerificarNome(Value: TFormaPagamento): boolean;
+begin
+  try
+      begin
+        DmConexao.TransactionConexao.StartTransaction;
+        result := ContratoFactory.VerificarNome(Value);
+        DmConexao.TransactionConexao.Commit;
+      end;
+      except
+      on E: Exception do
+      begin
+          result := False;
+          DmConexao.TransactionConexao.Rollback;
+          raise Exception.Create('Ocorreu um erro ao Verificar o nome do Contrato' + E.Message);
+      end;
+   end;
+end;
+
+end.

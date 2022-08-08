@@ -74,7 +74,13 @@ uses
   uCons_Contratos in 'uCons_Contratos.pas' {Cons_Contratos},
   uCondicaoPagamento in 'uCondicaoPagamento.pas',
   uParcelas in 'uParcelas.pas',
-  uFormasPagamentos in 'uFormasPagamentos.pas';
+  uFormaPagamento in 'uFormaPagamento.pas',
+  uFormaPagamentoController in 'uFormaPagamentoController.pas',
+  uFormaPagamentoService in 'uFormaPagamentoService.pas',
+  uFormaPagamentoFactory in 'uFormaPagamentoFactory.pas',
+  uFormaPagamentoDao in 'uFormaPagamentoDao.pas',
+  uCad_FormaPagamento in 'uCad_FormaPagamento.pas' {Cad_FormaPagamento},
+  uCons_FormaPagamento in 'uCons_FormaPagamento.pas' {Cons_FormaPagamento};
 
 {$R *.res}
 
@@ -85,5 +91,7 @@ begin
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TCad_Contratos, Cad_Contratos);
   Application.CreateForm(TCons_Contratos, Cons_Contratos);
+  Application.CreateForm(TCad_FormaPagamento, Cad_FormaPagamento);
+  Application.CreateForm(TCons_FormaPagamento, Cons_FormaPagamento);
   Application.Run;
 end.

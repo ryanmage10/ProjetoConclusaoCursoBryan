@@ -65,6 +65,10 @@ object MenuPrincipal: TMenuPrincipal
         Caption = 'Contratos'
         OnClick = btn_ContratosClick
       end
+      object btn_FormaPagamento: TMenuItem
+        Caption = 'Forma Pagamento'
+        OnClick = btn_FormaPagamentoClick
+      end
     end
   end
 end

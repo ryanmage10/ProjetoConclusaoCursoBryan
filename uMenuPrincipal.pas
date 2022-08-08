@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
   uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes,
-  uCons_Fornecedores, uCons_Caixas, uCons_Contratos;
+  uCons_Fornecedores, uCons_Caixas, uCons_Contratos, uCons_FormaPagamento;
 
 type
   TMenuPrincipal = class(TForm)
@@ -22,6 +22,7 @@ type
     btn_Fornecedores: TMenuItem;
     btn_Caixas: TMenuItem;
     btn_Contratos: TMenuItem;
+    btn_FormaPagamento: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
@@ -31,6 +32,7 @@ type
     procedure btn_FornecedoresClick(Sender: TObject);
     procedure btn_CaixasClick(Sender: TObject);
     procedure btn_ContratosClick(Sender: TObject);
+    procedure btn_FormaPagamentoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -105,6 +107,17 @@ begin
       ConsEstadoForm.ShowModal;
    finally
       FreeAndNil(ConsEstadoForm);
+   end;
+end;
+
+procedure TMenuPrincipal.btn_FormaPagamentoClick(Sender: TObject);
+var ConsFormaPagamentoForm: TCons_FormaPagamento;
+begin
+   ConsFormaPagamentoForm := TCons_FormaPagamento.Create(nil);
+   try
+      ConsFormaPagamentoForm.ShowModal;
+   finally
+      FreeAndNil(ConsFormaPagamentoForm);
    end;
 end;
 
