@@ -241,7 +241,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uCondicaoPagamento.pas"/>
-        <DCCReference Include="uParcelas.pas"/>
+        <DCCReference Include="uParcelaModelos.pas"/>
         <DCCReference Include="uFormaPagamento.pas"/>
         <DCCReference Include="uFormaPagamentoController.pas"/>
         <DCCReference Include="uFormaPagamentoService.pas"/>
@@ -253,6 +253,14 @@
         </DCCReference>
         <DCCReference Include="uCons_FormaPagamento.pas">
             <Form>Cons_FormaPagamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCondicaoPagamentoController.pas"/>
+        <DCCReference Include="uCondicaoPagamentoService.pas"/>
+        <DCCReference Include="uCondicaoPagamentoFactory.pas"/>
+        <DCCReference Include="uCondicaoPagamentoDao.pas"/>
+        <DCCReference Include="uCad_CondicaoPagamento.pas">
+            <Form>Cad_CondicaoPagamento</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

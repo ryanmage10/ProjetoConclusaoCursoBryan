@@ -1,0 +1,39 @@
+unit uCad_CondicaoPagamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Base, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Data.DB, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TCad_CondicaoPagamento = class(TCad_Base)
+    Edit1: TEdit;
+    Label1: TLabel;
+    Edit2: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit3: TEdit;
+    Label4: TLabel;
+    Edit4: TEdit;
+    Panel2: TPanel;
+    DBGrid1: TDBGrid;
+    Label5: TLabel;
+    Edit5: TEdit;
+    Label6: TLabel;
+    Edit6: TEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Cad_CondicaoPagamento: TCad_CondicaoPagamento;
+
+implementation
+
+{$R *.dfm}
+
+end.

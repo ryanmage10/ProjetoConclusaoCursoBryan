@@ -1,4 +1,4 @@
-unit uParcelaModelos;
+unit uParcelas;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   uBase, uFormaPagamento;
 
 type
-  TParcelaModelo = class(TBase)
+  TParcela = class(TBase)
   protected
     FCod_CondPag: Integer;
     FNumero: Integer;
@@ -40,23 +40,23 @@ type
 
     constructor Create;
     Destructor Free;
-    function clone: TParcelaModelo;
-    procedure CopiarDados(Value: TParcelaModelo);
+    function clone: TParcela;
+    procedure CopiarDados(Value: TParcela);
 
     procedure LimparDados;
   end;
 
 implementation
 
-{ TParcelaModelo }
+{ TParcela }
 
-function TParcelaModelo.clone: TParcelaModelo;
+function TParcela.clone: TParcela;
 begin
-  result := TParcelaModelo.Create;
+  result := TParcela.Create;
   result.CopiarDados(Self);
 end;
 
-procedure TParcelaModelo.CopiarDados(Value: TParcelaModelo);
+procedure TParcela.CopiarDados(Value: TParcela);
 begin
   inherited CopiarDados(Value);
   FCod_CondPag := Value.Cod_CondPag;
@@ -67,50 +67,50 @@ begin
   FFormaPag := Value.FormaPag;
 end;
 
-constructor TParcelaModelo.Create;
+constructor TParcela.Create;
 begin
   inherited;
   FFormaPag := TFormaPagamento.Create;
   LimparDados;
 end;
 
-destructor TParcelaModelo.Free;
+destructor TParcela.Free;
 begin
   FFormaPag.Free;
   Inherited;
 end;
 
-function TParcelaModelo.GetCod_CondPag: Integer;
+function TParcela.GetCod_CondPag: Integer;
 begin
   result := FCod_CondPag;
 end;
 
-function TParcelaModelo.GetCod_ContasPag: Integer;
+function TParcela.GetCod_ContasPag: Integer;
 begin
   result := FCod_ContasPag;
 end;
 
-function TParcelaModelo.GetDias: integer;
+function TParcela.GetDias: integer;
 begin
   result := FDias;
 end;
 
-function TParcelaModelo.GetFormaPag: TFormaPagamento;
+function TParcela.GetFormaPag: TFormaPagamento;
 begin
   result := FFormaPag;
 end;
 
-function TParcelaModelo.GetNumero: Integer;
+function TParcela.GetNumero: Integer;
 begin
   result := Fnumero;
 end;
 
-function TParcelaModelo.GetPercentual: Currency;
+function TParcela.GetPercentual: Currency;
 begin
   result := FPercentual;
 end;
 
-procedure TParcelaModelo.LimparDados;
+procedure TParcela.LimparDados;
 begin
   inherited LimparDados;
   FCod_CondPag := 0;
@@ -121,32 +121,32 @@ begin
   FFormaPag.LimparDados;
 end;
 
-procedure TParcelaModelo.SetCod_CondPag(Value: Integer);
+procedure TParcela.SetCod_CondPag(Value: Integer);
 begin
   FCod_CondPag := Value;
 end;
 
-procedure TParcelaModelo.SetCod_ContasPag(Value: Integer);
+procedure TParcela.SetCod_ContasPag(Value: Integer);
 begin
   FCod_ContasPag := Value;
 end;
 
-procedure TParcelaModelo.SetDias(Value: integer);
+procedure TParcela.SetDias(Value: integer);
 begin
   FDias := Value;
 end;
 
-procedure TParcelaModelo.SetFormaPag(Value: TFormaPagamento);
+procedure TParcela.SetFormaPag(Value: TFormaPagamento);
 begin
   FFormaPag.CopiarDados(Value);
 end;
 
-procedure TParcelaModelo.SetNumero(Value: Integer);
+procedure TParcela.SetNumero(Value: Integer);
 begin
   FNumero := Value;
 end;
 
-procedure TParcelaModelo.SetPercentual(Value: Currency);
+procedure TParcela.SetPercentual(Value: Currency);
 begin
   FPercentual := Value;
 end;

@@ -73,19 +73,14 @@ uses
   uCad_Contratos in 'uCad_Contratos.pas' {Cad_Contratos},
   uCons_Contratos in 'uCons_Contratos.pas' {Cons_Contratos},
   uCondicaoPagamento in 'uCondicaoPagamento.pas',
-  uParcelaModelos in 'uParcelaModelos.pas',
+  uParcelas in 'uParcelas.pas',
   uFormaPagamento in 'uFormaPagamento.pas',
   uFormaPagamentoController in 'uFormaPagamentoController.pas',
   uFormaPagamentoService in 'uFormaPagamentoService.pas',
   uFormaPagamentoFactory in 'uFormaPagamentoFactory.pas',
   uFormaPagamentoDao in 'uFormaPagamentoDao.pas',
   uCad_FormaPagamento in 'uCad_FormaPagamento.pas' {Cad_FormaPagamento},
-  uCons_FormaPagamento in 'uCons_FormaPagamento.pas' {Cons_FormaPagamento},
-  uCondicaoPagamentoController in 'uCondicaoPagamentoController.pas',
-  uCondicaoPagamentoService in 'uCondicaoPagamentoService.pas',
-  uCondicaoPagamentoFactory in 'uCondicaoPagamentoFactory.pas',
-  uCondicaoPagamentoDao in 'uCondicaoPagamentoDao.pas',
-  uCad_CondicaoPagamento in 'uCad_CondicaoPagamento.pas' {Cad_CondicaoPagamento};
+  uCons_FormaPagamento in 'uCons_FormaPagamento.pas' {Cons_FormaPagamento};
 
 {$R *.res}
 
@@ -98,6 +93,5 @@ begin
   Application.CreateForm(TCons_Contratos, Cons_Contratos);
   Application.CreateForm(TCad_FormaPagamento, Cad_FormaPagamento);
   Application.CreateForm(TCons_FormaPagamento, Cons_FormaPagamento);
-  Application.CreateForm(TCad_CondicaoPagamento, Cad_CondicaoPagamento);
   Application.Run;
 end.

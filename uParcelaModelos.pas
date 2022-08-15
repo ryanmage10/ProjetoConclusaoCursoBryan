@@ -12,21 +12,21 @@ type
     FNumero: Integer;
     FDias: integer;
     FPercentual: Currency;
-    FCod_ContasPag: Integer;
+    //FCod_ContasPag: Integer;
     FFormaPag: TFormaPagamento;
 
     function GetCod_CondPag: Integer;
     function GetNumero: Integer;
     function GetDias: integer;
     function GetPercentual: Currency;
-    function GetCod_ContasPag: Integer;
+    //function GetCod_ContasPag: Integer;
     function GetFormaPag: TFormaPagamento;
 
     procedure SetCod_CondPag(Value: Integer);
     procedure SetNumero(Value: Integer);
     procedure SetDias(Value: integer);
     procedure SetPercentual(Value: Currency);
-    procedure SetCod_ContasPag(Value: Integer);
+   // procedure SetCod_ContasPag(Value: Integer);
     procedure SetFormaPag(Value: TFormaPagamento);
 
   public
@@ -35,7 +35,7 @@ type
     property Numero: Integer read GetNumero write SetNumero;
     property Dias: integer read GetDias write SetDias;
     property Percentual: Currency read GetPercentual write SetPercentual;
-    property Cod_ContasPag: integer read GetCod_ContasPag write SetCod_ContasPag;
+    //property Cod_ContasPag: integer read GetCod_ContasPag write SetCod_ContasPag;
     property FormaPag: TFormaPagamento read GetFormaPag write SetFormaPag;
 
     constructor Create;
@@ -63,7 +63,7 @@ begin
   FNumero := Value.Numero;
   FDias := Value.Dias;
   FPercentual := Value.Percentual;
-  FCod_ContasPag := Value.Cod_ContasPag;
+  //FCod_ContasPag := Value.Cod_ContasPag;
   FFormaPag := Value.FormaPag;
 end;
 
@@ -85,10 +85,10 @@ begin
   result := FCod_CondPag;
 end;
 
-function TParcelaModelo.GetCod_ContasPag: Integer;
+{function TParcelaModelo.GetCod_ContasPag: Integer;
 begin
   result := FCod_ContasPag;
-end;
+end;}
 
 function TParcelaModelo.GetDias: integer;
 begin
@@ -117,7 +117,7 @@ begin
   FNumero := 0;
   FDias := 0;
   FPercentual := 0;
-  FCod_ContasPag := 0;
+  //FCod_ContasPag := 0;
   FFormaPag.LimparDados;
 end;
 
@@ -126,10 +126,10 @@ begin
   FCod_CondPag := Value;
 end;
 
-procedure TParcelaModelo.SetCod_ContasPag(Value: Integer);
+{procedure TParcelaModelo.SetCod_ContasPag(Value: Integer);
 begin
   FCod_ContasPag := Value;
-end;
+end; }
 
 procedure TParcelaModelo.SetDias(Value: integer);
 begin
