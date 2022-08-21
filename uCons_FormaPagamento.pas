@@ -92,6 +92,7 @@ begin
    try
       CadFormaPagamentoForm.Inclusao := True;
       CadFormaPagamentoForm.ShowModal;
+      edt_Pesquisa.Clear;
       FormaPagamentoControl.Pesquisar(edt_Pesquisa.Text, Dset_FormaPagamento);
    finally
       //

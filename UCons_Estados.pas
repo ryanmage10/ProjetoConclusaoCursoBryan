@@ -94,6 +94,7 @@ begin
    try
       CadEstadoForm.Inclusao := True;
       CadEstadoForm.ShowModal;
+      edt_Pesquisa.Clear;
       EstadoControl.Pesquisar(edt_Pesquisa.Text, Dset_Estados);
    finally
       //FreeAndNil(CadEstadoForm);

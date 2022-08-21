@@ -41,7 +41,7 @@ begin
   with DmConexao.Qry, oCondicaoPagamento do
   begin
     Sql.Clear;
-    sql.add('UPDATE FORMA_PAGAMENTO SET  DESCRICAO = :DESCRICAO,');
+    sql.add('UPDATE CONDICAO_PAGAMENTO SET  DESCRICAO = :DESCRICAO, JURO = :JURO, MULTA = :MULTA, DESCONTO = :DESCONTO,');
     Sql.Add('USER_INSERT = :USER_INSERT, USER_UPDATE = :USER_UPDATE, DATE_INSERT = :DATE_INSERT, DATE_UPDATE = :DATE_UPDATE');
     Sql.Add(' WHERE ID = :ID');
 
@@ -64,7 +64,7 @@ begin
     with DmConexao.Qry do
     begin
       Sql.Clear;
-      Sql.Add('DELETE FROM FORMA_PAGAMENTO WHERE ID = :ID');
+      Sql.Add('DELETE FROM CONDICAO_PAGAMENTO WHERE ID = :ID');
       paramByName('ID').AsInteger := oCondicaoPagamento.ID;
       ExecSql();
       result := true;
@@ -78,6 +78,9 @@ begin
   begin
     ID := FieldByName('ID').AsInteger;
     Descricao := FieldByName('DESCRICAO').AsString;
+    Juro := FieldByName('JURO').AsCurrency;
+    Multa := FieldByName('MULTA').AsCurrency;
+    Desconto := FieldByName('DESCONTO').AsCurrency;
     DataCad := FieldByName('date_insert').AsDatetime;
     DataUltAlt := FieldByName('date_update').AsDatetime;
     user_insert := FieldByName('User_Insert').AsString;
@@ -96,8 +99,8 @@ begin
   with DmConexao.Qry, oCondicaoPagamento do
   begin
       Sql.Clear;
-      sql.add('INSERT INTO FORMA_PAGAMENTO ( DESCRICAO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
-      Sql.add(' VALUES (:DESCRICAO, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
+      sql.add('INSERT INTO CONDICAO_PAGAMENTO ( DESCRICAO, JURO, MULTA, DESCONTO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
+      Sql.add(' VALUES (:DESCRICAO, :JURO, :MULTA, :DESCONTO, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
 
       ObjToField(oCondicaoPagamento, DmConexao.Qry);
       ExecSql();
@@ -111,6 +114,9 @@ begin
   with oCondicaoPagamento, Qry do
   begin
     paramByName('DESCRICAO').AsString := Descricao;
+    paramByName('JURO').AsCurrency := Juro;
+    paramByName('MULTA').AsCurrency := Multa;
+    paramByName('DESCONTO').AsCurrency := Desconto;
     paramByName('date_insert').AsDatetime := DataCad;
     paramByName('date_update').AsDatetime := DataUltAlt;
     paramByName('User_Insert').AsString := user_insert;
@@ -127,11 +133,11 @@ begin
 
       if Value = '' then
       begin
-        Sql.Add('SELECT ID, DESCRICAO, DATE_INSERT FROM FORMA_PAGAMENTO');
+        Sql.Add('SELECT ID, DESCRICAO, DATE_INSERT FROM CONDICAO_PAGAMENTO');
       end
       else
       begin
-        Sql.Add('SELECT ID, DESCRICAO, DATE_INSERT FROM FORMA_PAGAMENTO WHERE DESCRICAO LIKE :NOME');
+        Sql.Add('SELECT ID, DESCRICAO, DATE_INSERT FROM CONDICAO_PAGAMENTO WHERE DESCRICAO LIKE :NOME');
         paramByName('NOME').AsString := '%' + Value + '%';
       end;
       open;
@@ -155,7 +161,7 @@ begin
     with DmConexao.Qry do
     begin
       sql.clear;
-      Sql.Add('SELECT * FROM FORMA_PAGAMENTO WHERE ID = :ID');
+      Sql.Add('SELECT * FROM CONDICAO_PAGAMENTO WHERE ID = :ID');
       paramByName('ID').AsInteger := oCondicaoPagamento.ID;
       open;
       FieldtoObj(oCondicaoPagamento, DmConexao.Qry);
@@ -185,7 +191,7 @@ begin
    with DmConexao.Qry do
     begin
       sql.clear;
-      Sql.Add('SELECT * FROM FORMA_PAGAMENTO WHERE DESCRICAO = :DESCRICAO AND NOT ID = :ID');
+      Sql.Add('SELECT * FROM CONDICAO_PAGAMENTO WHERE DESCRICAO = :DESCRICAO AND NOT ID = :ID');
       paramByName('ID').AsInteger := Value.ID;
       paramByName('Descricao').AsString := Value.Descricao;
       open;

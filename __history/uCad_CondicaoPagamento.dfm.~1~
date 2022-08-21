@@ -1,5 +1,0 @@
-inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
-  Caption = 'Cadastro de Condi'#231#227'o de Pagamento'
-  PixelsPerInch = 96
-  TextHeight = 13
-end

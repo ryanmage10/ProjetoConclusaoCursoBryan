@@ -93,6 +93,7 @@ begin
    try
       CadCaixaForm.Inclusao := True;
       CadCaixaForm.ShowModal;
+      edt_Pesquisa.Clear;
       CaixaControl.Pesquisar(edt_Pesquisa.Text, Dset_Caixas);
    finally
       //FreeAndNil(CadEstadoForm);

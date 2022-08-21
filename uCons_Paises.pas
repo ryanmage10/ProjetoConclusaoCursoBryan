@@ -94,6 +94,7 @@ begin
    try
       CadPaisesForm.Inclusao := True;
       CadPaisesForm.ShowModal;
+      edt_Pesquisa.Clear;
       PaisControl.Pesquisar(edt_Pesquisa.Text, Dset_Paises);
    finally
       //FreeAndNil(CadPaisesForm);

@@ -92,6 +92,7 @@ begin
    try
       CadEmpresasForm.Inclusao := True;
       CadEmpresasForm.ShowModal;
+      edt_Pesquisa.Clear;
       EmpresaControl.Pesquisar(edt_Pesquisa.Text, Dset_Empresas);
    finally
       //FreeAndNil(CadPaisesForm);

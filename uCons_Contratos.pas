@@ -96,6 +96,7 @@ begin
    try
       CadContratoForm.Inclusao := True;
       CadContratoForm.ShowModal;
+      edt_Pesquisa.Clear;
       ContratosControl.Pesquisar(edt_Pesquisa.Text, Dset_Contratos);
    finally
       //FreeAndNil(CadEstadoForm);

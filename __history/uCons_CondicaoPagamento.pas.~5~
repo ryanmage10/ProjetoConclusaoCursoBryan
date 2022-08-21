@@ -1,0 +1,62 @@
+unit uCons_CondicaoPagamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCons_Base, Data.DB, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Datasnap.DBClient, uCondicaoPagamentoController,
+  uCondicaoPagamento;
+
+type
+  TCons_CondicaoPagamento = class(TCons_Base)
+    ds_CondicaoPagamento: TDataSource;
+    dset_CondicaoPagamento: TClientDataSet;
+    dset_CondicaoPagamentoID: TIntegerField;
+    dset_CondicaoPagamentoDESCRICAO: TStringField;
+    dset_CondicaoPagamentoDATA_INSERT: TDateField;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+    CondicaoPagamentoControl : TCondicaoPagamentoController;
+  public
+    { Public declarations }
+    CondicaoPagamento: TCondicaoPagamento;
+  end;
+
+var
+  Cons_CondicaoPagamento: TCons_CondicaoPagamento;
+
+implementation
+
+{$R *.dfm}
+
+procedure TCons_CondicaoPagamento.FormCreate(Sender: TObject);
+begin
+  inherited;
+  CondicaoPagamentoControl := TCondicaoPagamentoController.Create;
+  CondicaoPagamento := TCondicaoPagamento.Create;
+
+  if ( not Dset_CondicaoPagamento.IsEmpty ) then
+    Dset_CondicaoPagamento.EmptyDataSet;
+  Dset_CondicaoPagamento.Active := False;
+  Dset_CondicaoPagamento.CreateDataSet;
+  Dset_CondicaoPagamento.Open;
+end;
+
+procedure TCons_CondicaoPagamento.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  CondicaoPagamento.Free;
+  CondicaoPagamentoControl.Free;
+end;
+
+procedure TCons_CondicaoPagamento.FormShow(Sender: TObject);
+begin
+  inherited;
+  CondicaoPagamentoControl.Pesquisar(edt_Pesquisa.Text, Dset_CondicaoPagamento);
+end;
+
+end.

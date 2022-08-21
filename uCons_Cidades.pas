@@ -92,6 +92,7 @@ begin
    try
       CadCidadeForm.Inclusao := True;
       CadCidadeForm.ShowModal;
+      edt_Pesquisa.Clear;
       CidadeControl.Pesquisar(edt_Pesquisa.Text, Dset_cidades);
    finally
       //FreeAndNil(CadCidadeForm);

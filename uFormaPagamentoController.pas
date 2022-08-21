@@ -5,7 +5,7 @@ uses uFormaPagamento, system.SysUtils, DBClient, uFormaPagamentoService;
   type
   TFormaPagamentoController = class
     private
-      FormaPagamentoervice : TFormaPagamentoService;
+      FormaPagamentoService : TFormaPagamentoService;
     protected
     public
       constructor create;
@@ -25,47 +25,47 @@ implementation
 
 function TFormaPagamentoController.Alterar(oFormasPagamento: TFormaPagamento): Boolean;
 begin
-   result := FormaPagamentoervice.Alterar(oFormasPagamento);
+   result := FormaPagamentoService.Alterar(oFormasPagamento);
 end;
 
 constructor TFormaPagamentoController.create;
 begin
-   FormaPagamentoervice := TFormaPagamentoService.Create;
+   FormaPagamentoService := TFormaPagamentoService.Create;
 end;
 
 function TFormaPagamentoController.Excluir(oFormasPagamento: TFormaPagamento): Boolean;
 begin
-  result := FormaPagamentoervice.Excluir(oFormasPagamento);
+  result := FormaPagamentoService.Excluir(oFormasPagamento);
 end;
 
 destructor TFormaPagamentoController.Free;
 begin
-  FormaPagamentoervice.Free;
+  FormaPagamentoService.Free;
 end;
 
 function TFormaPagamentoController.Inserir(oFormasPagamento: TFormaPagamento): Boolean;
 begin
-   result := FormaPagamentoervice.Inserir(oFormasPagamento);
+   result := FormaPagamentoService.Inserir(oFormasPagamento);
 end;
 
 procedure TFormaPagamentoController.Pesquisar(sNome: string; var Dset: TClientDataSet);
 begin
-   FormaPagamentoervice.Pesquisar(sNome, Dset);
+   FormaPagamentoService.Pesquisar(sNome, Dset);
 end;
 
 function TFormaPagamentoController.Recuperar(oFormasPagamento: TFormaPagamento): Boolean;
 begin
-  result := FormaPagamentoervice.Recuperar(oFormasPagamento);
+  result := FormaPagamentoService.Recuperar(oFormasPagamento);
 end;
 
 function TFormaPagamentoController.VerificarExclusao(Value: TFormaPagamento): boolean;
 begin
-  result := FormaPagamentoervice.VerificarExclusao(Value);
+  result := FormaPagamentoService.VerificarExclusao(Value);
 end;
 
 function TFormaPagamentoController.VerificarNome(Value: TFormaPagamento): boolean;
 begin
-  result := FormaPagamentoervice.VerificarNome(Value);
+  result := FormaPagamentoService.VerificarNome(Value);
 end;
 
 end.

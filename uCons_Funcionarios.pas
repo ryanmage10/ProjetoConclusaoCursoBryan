@@ -92,6 +92,7 @@ begin
    try
       CadFuncionariosForm.Inclusao := True;
       CadFuncionariosForm.ShowModal;
+      edt_Pesquisa.Clear;
       FuncionarioControl.Pesquisar(edt_Pesquisa.Text, Dset_Funcionarios);
    finally
       //FreeAndNil(CadPaisesForm);
