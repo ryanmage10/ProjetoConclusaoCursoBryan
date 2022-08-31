@@ -66,11 +66,13 @@ end;
 constructor TCondicaoPagamento.Create;
 begin
   inherited;
+  FParcelaModelos := TObjectList<TParcelaModelo>.Create;
   LimparDados;
 end;
 
 destructor TCondicaoPagamento.Free;
 begin
+  FParcelaModelos.Free;
   inherited;
 end;
 
@@ -106,7 +108,7 @@ begin
   FJuro := 0;
   FMulta := 0;
   FDesconto := 0;
-  FParcelaModelos := nil;
+  FParcelaModelos.Clear;
 end;
 
 procedure TCondicaoPagamento.SetDesconto(Value: Currency);

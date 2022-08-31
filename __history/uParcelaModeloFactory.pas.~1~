@@ -1,0 +1,61 @@
+unit uParcelaModeloFactory;
+
+interface
+uses uParcelaModelo, system.SysUtils, DBClient, uParcelaModeloDao, uDmConexao;
+  type
+  TParcelaModeloFactory = class(TObject)
+    private
+      ParcelaModeloDao : TParcelaModeloDao;
+    protected
+    public
+      constructor create;
+      destructor free;
+      function Inserir(oParcelaModelo: TParcelaModelo):Boolean;
+      function Alterar(oParcelaModelo: TParcelaModelo):Boolean;
+      function Excluir(oParcelaModelo: TParcelaModelo):Boolean;
+      function Recuperar(var oParcelaModelo: TParcelaModelo):Boolean;
+  end;
+
+  var
+  ParcelaModeloFactory: TParcelaModeloFactory;
+implementation
+
+{ TParcelaModeloFactory }
+
+function TParcelaModeloFactory.Alterar(oParcelaModelo: TParcelaModelo): Boolean;
+begin
+   oParcelaModelo.User_Update := 'Bryan S ilva';
+   oParcelaModelo.DataUltAlt := now;
+   result := ParcelaModeloDao.Alterar(oParcelaModelo);
+end;
+
+constructor TParcelaModeloFactory.create;
+begin
+   ParcelaModeloDao := TParcelaModeloDao.Create;
+end;
+
+function TParcelaModeloFactory.Excluir(oParcelaModelo: TParcelaModelo): Boolean;
+begin
+   result := ParcelaModeloDao.Excluir(oParcelaModelo);
+end;
+
+destructor TParcelaModeloFactory.free;
+begin
+   freeandnil(ParcelaModeloDao);
+end;
+
+function TParcelaModeloFactory.Inserir(oParcelaModelo: TParcelaModelo): Boolean;
+begin
+   oParcelaModelo.User_Insert := 'Bryan';
+   oParcelaModelo.User_Update := 'Bryan';
+   oParcelaModelo.DataCad := now;
+   oParcelaModelo.DataUltAlt := now;
+   result := ParcelaModeloDao.Inserir(oParcelaModelo);
+end;
+
+function TParcelaModeloFactory.Recuperar(var oParcelaModelo: TParcelaModelo): Boolean;
+begin
+   result := ParcelaModeloDao.Recuperar(oParcelaModelo);
+end;
+
+end.

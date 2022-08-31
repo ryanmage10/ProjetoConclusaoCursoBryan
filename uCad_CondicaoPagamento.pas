@@ -84,6 +84,7 @@ begin
     dset_parcelasPercentual.AsCurrency := StrToCurr(edt_Percentual.Text);
     dset_parcelasDias.AsInteger  := StrToInt(edt_Dias.Text);
     dset_parcelasForma_Pagamento.AsString := Forma_Pagamento.Descricao;
+    Dset_ParcelasIdForma_Pagamento.AsInteger := Forma_Pagamento.Id;
     dset_parcelas.Post;
 
     Act_LimparCamposParcela;
@@ -110,7 +111,6 @@ begin
   if ValidarParcela then
   begin
     dset_parcelas.Edit;
-    dset_parcelasNumero.AsInteger := dset_parcelas.RecordCount + 1;
     dset_parcelasPercentual.AsCurrency := StrToCurr(edt_Percentual.Text);
     dset_parcelasDias.AsInteger  := StrToInt(edt_Dias.Text);
     dset_parcelasForma_Pagamento.AsString := Forma_Pagamento.Descricao;
@@ -264,6 +264,7 @@ end;
 procedure TCad_CondicaoPagamento.PopularObjeto;
 var i : integer;
     parcela : TParcelaModelo;
+    Percentual: Currency;
 begin
 
   CondicaoPag.Descricao := edt_Descricao.text;
@@ -272,18 +273,26 @@ begin
   CondicaoPag.Desconto := StrtoCurr(edt_Desconto.text);
 
   CondicaoPag.ParcelaModelos.Clear;
+  dset_parcelas.First;
   for I := 0 to Dset_Parcelas.RecordCount - 1 do
   begin
      Parcela := TParcelaModelo.Create;
-     with dset_parcelas do
-     begin
-       Append;
-       Parcela.Numero := dset_parcelasNumero.AsInteger;
-       Parcela.Percentual := dset_parcelasPercentual.AsCurrency;
-       Parcela.Dias := dset_parcelasDias.AsInteger;
-       Parcela.FormaPag.Id := dset_parcelasIDForma_Pagamento.AsInteger;
-       post;
-     end;
+     Parcela.Numero := dset_parcelasNumero.AsInteger;
+     Parcela.Percentual := dset_parcelasPercentual.AsCurrency;
+     Parcela.Dias := dset_parcelasDias.AsInteger;
+     Parcela.FormaPag.Id := dset_parcelasIDForma_Pagamento.AsInteger;
+     dset_parcelas.Next;
+     CondicaoPag.ParcelaModelos.Add(Parcela);
+  end;
+
+  Percentual := 0;
+  for I := 0 to CondicaoPag.ParcelaModelos.Count - 1 do
+     Percentual := Percentual + CondicaoPag.ParcelaModelos.Items[I].Percentual;
+
+  if not (Percentual = 100) then
+  begin
+    ShowMessage('É necessario que o total do percentual das parcelas seja 100%');
+    exit;
   end;
 end;
 
@@ -323,16 +332,6 @@ begin
   if not (Dset_Parcelas.RecordCount > 0) then
   begin
     ShowMessage('É necessario inserir parcelas na condição de pagamento');
-    exit;
-  end;
-
-  Percentual := 0;
-  for I := 0 to CondicaoPag.ParcelaModelos.Count - 1 do
-     Percentual := Percentual + CondicaoPag.ParcelaModelos.Items[I].Percentual;
-
-  if not (Percentual = 100) then
-  begin
-    ShowMessage('É necessario que o total do percentual das parcelas seja 100%');
     exit;
   end;
 

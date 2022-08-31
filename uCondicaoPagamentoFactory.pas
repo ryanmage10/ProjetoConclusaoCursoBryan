@@ -1,11 +1,13 @@
 unit uCondicaoPagamentoFactory;
 
 interface
-uses uCondicaoPagamento, system.SysUtils, DBClient, uCondicaoPagamentoDao, uDmConexao;
+uses uCondicaoPagamento, system.SysUtils, DBClient, uCondicaoPagamentoDao, uDmConexao,
+  uParcelaModeloFactory;
   type
   TCondicaoPagamentoFactory = class(TObject)
     private
       CondicaoPagamentoDao : TCondicaoPagamentoDao;
+      ParcelaModeloFactory: TParcelaModeloFactory;
     protected
     public
       constructor create;
@@ -29,22 +31,27 @@ function TCondicaoPagamentoFactory.Alterar(oCondicaoPagamento: TCondicaoPagament
 begin
    oCondicaoPagamento.User_Update := 'Bryan Silva';
    oCondicaoPagamento.DataUltAlt := now;
-   result := CondicaoPagamentoDao.Alterar(oCondicaoPagamento);
+   if ParcelaModeloFactory.ExcluirPorCondicaoPagamento(oCondicaoPagamento.Id) then
+     if CondicaoPagamentoDao.Alterar(oCondicaoPagamento) then
+        result := ParcelaModeloFactory.InserirParcelas(oCondicaoPagamento.ParcelaModelos);
 end;
 
 constructor TCondicaoPagamentoFactory.create;
 begin
    CondicaoPagamentoDao := TCondicaoPagamentoDao.Create;
+   ParcelaModeloFactory := TParcelaModeloFactory.Create;
 end;
 
 function TCondicaoPagamentoFactory.Excluir(oCondicaoPagamento: TCondicaoPagamento): Boolean;
 begin
-   result := CondicaoPagamentoDao.Excluir(oCondicaoPagamento);
+   if ParcelaModeloFactory.ExcluirPorCondicaoPagamento(oCondicaoPagamento.Id) then
+      result := CondicaoPagamentoDao.Excluir(oCondicaoPagamento);
 end;
 
 destructor TCondicaoPagamentoFactory.free;
 begin
    freeandnil(CondicaoPagamentoDao);
+   ParcelaModeloFactory.Free;
 end;
 
 function TCondicaoPagamentoFactory.Inserir(oCondicaoPagamento: TCondicaoPagamento): Boolean;
@@ -53,7 +60,9 @@ begin
    oCondicaoPagamento.User_Update := 'Bryan';
    oCondicaoPagamento.DataCad := now;
    oCondicaoPagamento.DataUltAlt := now;
-   result := CondicaoPagamentoDao.Inserir(oCondicaoPagamento);
+   if CondicaoPagamentoDao.Inserir(oCondicaoPagamento) then
+      result := ParcelaModeloFactory.InserirParcelas(oCondicaoPagamento.ParcelaModelos);
+
 end;
 
 procedure TCondicaoPagamentoFactory.Pesquisar(sNome: string; var Dset: TClientDataSet);
@@ -63,7 +72,8 @@ end;
 
 function TCondicaoPagamentoFactory.Recuperar(var oCondicaoPagamento: TCondicaoPagamento): Boolean;
 begin
-   result := CondicaoPagamentoDao.Recuperar(oCondicaoPagamento);
+   if CondicaoPagamentoDao.Recuperar(oCondicaoPagamento) then
+    result := ParcelaModeloFactory.RecuperarPorCondicaoPagamento(oCondicaoPagamento);
 end;
 
 function TCondicaoPagamentoFactory.VerificarExclusao(Value: TCondicaoPagamento): boolean;

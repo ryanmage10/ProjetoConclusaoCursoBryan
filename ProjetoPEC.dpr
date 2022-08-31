@@ -85,7 +85,10 @@ uses
   uCondicaoPagamentoService in 'uCondicaoPagamentoService.pas',
   uCondicaoPagamentoFactory in 'uCondicaoPagamentoFactory.pas',
   uCondicaoPagamentoDao in 'uCondicaoPagamentoDao.pas',
-  uCad_CondicaoPagamento in 'uCad_CondicaoPagamento.pas' {Cad_CondicaoPagamento};
+  uCad_CondicaoPagamento in 'uCad_CondicaoPagamento.pas' {Cad_CondicaoPagamento},
+  uCons_CondicaoPagamento in 'uCons_CondicaoPagamento.pas' {Cons_CondicaoPagamento},
+  uParcelaModeloFactory in 'uParcelaModeloFactory.pas',
+  uParcelaModeloDao in 'uParcelaModeloDao.pas';
 
 {$R *.res}
 
@@ -99,5 +102,6 @@ begin
   Application.CreateForm(TCad_FormaPagamento, Cad_FormaPagamento);
   Application.CreateForm(TCons_FormaPagamento, Cons_FormaPagamento);
   Application.CreateForm(TCad_CondicaoPagamento, Cad_CondicaoPagamento);
+  Application.CreateForm(TCons_CondicaoPagamento, Cons_CondicaoPagamento);
   Application.Run;
 end.

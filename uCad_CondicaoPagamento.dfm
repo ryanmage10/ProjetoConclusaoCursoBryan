@@ -4,7 +4,6 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  ExplicitTop = -46
   ExplicitHeight = 465
   PixelsPerInch = 96
   TextHeight = 13
@@ -93,6 +92,7 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
       Top = 76
       Width = 408
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 3
     end
