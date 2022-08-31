@@ -184,6 +184,8 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         Top = 59
         Width = 95
         Height = 21
+        MaxLength = 3
+        NumbersOnly = True
         TabOrder = 1
       end
       object edt_dias: TEdit
@@ -191,6 +193,8 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         Top = 59
         Width = 72
         Height = 21
+        MaxLength = 3
+        NumbersOnly = True
         TabOrder = 2
       end
       object btn_adicionar: TButton

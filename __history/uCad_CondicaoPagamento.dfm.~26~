@@ -80,6 +80,7 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
     end
     inherited btn_Salvar: TButton
       Top = 385
+      OnClick = btn_SalvarClick
       ExplicitTop = 385
     end
     inherited btn_Cancelar: TButton
@@ -91,6 +92,7 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
       Top = 76
       Width = 408
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 50
       TabOrder = 3
     end
@@ -140,7 +142,7 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object DBGrid1: TDBGrid
+      object Grid: TDBGrid
         Left = 4
         Top = 83
         Width = 398
@@ -191,24 +193,25 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         Height = 21
         TabOrder = 2
       end
-      object edt_adicionar: TButton
+      object btn_adicionar: TButton
         Left = 216
         Top = 57
         Width = 58
         Height = 25
         Caption = 'Adicionar'
         TabOrder = 3
-        OnClick = edt_adicionarClick
+        OnClick = btn_adicionarClick
       end
-      object edt_alterar: TButton
+      object btn_alterar: TButton
         Left = 280
         Top = 57
         Width = 58
         Height = 25
         Caption = 'Alterar'
         TabOrder = 4
+        OnClick = btn_alterarClick
       end
-      object edt_excluir: TButton
+      object btn_excluir: TButton
         Left = 344
         Top = 57
         Width = 58

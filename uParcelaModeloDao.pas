@@ -28,7 +28,7 @@ type
     function InserirParcelas(ListaParcelas: TList<TParcelaModelo>): boolean;
     function Excluir(oParcelaModelo: TParcelaModelo): boolean;
     function ExcluirPorCondicaoPagamento(Id: Integer): Boolean;
-
+    //function RetornaUltIdCondicao: Integer;
 
   end;
 
@@ -128,7 +128,7 @@ begin
     paramByName('DIAS').AsInteger := Dias;
     paramByName('PERCENTUAL').AsCurrency := Percentual;
     paramByName('ID_FORMA_PAGAMENTO').AsInteger := FormaPag.Id;
-    paramByName('ID_CONDICAO_PAGAMENTO').AsInteger := Cod_CondPag;
+    //paramByName('ID_CONDICAO_PAGAMENTO').AsInteger := RetornaUltIdCondicao;
     paramByName('date_insert').AsDatetime := DataCad;
     paramByName('date_update').AsDatetime := DataUltAlt;
     paramByName('User_Insert').AsString := user_insert;
@@ -167,10 +167,15 @@ end;
 function TParcelaModeloDao.RecuperarPorCondicaoPagamento(
   var CondicaoPagamento: TCondicaoPagamento): boolean;
   var oParcelaModelo : TParcelaModelo;
+      FormaPagamento: TFormaPagamento;
+      FormaPagamentoDao: TFormaPagamentoDao;
   begin
+  result := False;
   with DmConexao.Qry do
   begin
     Sql.Clear;
+    FormaPagamento := TFormaPagamento.Create;
+    FormaPagamentoDao := TFormaPagamentoDao.Create;
     Sql.Add('SELECT * FROM PARCELA_MODELO WHERE ID_CONDICAO_PAGAMENTO = :ID');
     paramByName('ID').AsInteger := CondicaoPagamento.ID;
     open;
@@ -178,11 +183,30 @@ function TParcelaModeloDao.RecuperarPorCondicaoPagamento(
     begin
         oParcelaModelo := TParcelaModelo.Create;
         FieldtoObj(oParcelaModelo, DmConexao.Qry);
+        FormaPagamento.Id := FieldByName('ID_FORMA_PAGAMENTO').AsInteger;
+        FormaPagamentoDao.Recuperar(FormaPagamento);
+        oParcelaModelo.FormaPag.CopiarDados(FormaPagamento);
         CondicaoPagamento.ParcelaModelos.Add(oParcelaModelo);
         next;
     end;
+    Result:= True;
     close;
+
+    FormaPagamento.Free;
+    FormaPagamentoDao.Free;
   end;
 end;
+
+{function TParcelaModeloDao.RetornaUltIdCondicao: Integer;
+begin
+  with DmConexao.Qry do
+  begin
+    Sql.Clear;
+    Sql.Add('SELECT GEN_ID(condicao_pagamento_gen, 0) FROM RDB$DATABASE');
+    open;
+    result := ParamByName('gen_id').AsInteger;
+    close;
+  end;
+end;  }
 
 end.

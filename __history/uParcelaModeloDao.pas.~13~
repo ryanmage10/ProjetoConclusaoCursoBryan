@@ -8,7 +8,8 @@ uses
   Datasnap.Provider, Datasnap.DBClient, uDmConexao, uParcelaModelos, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uFormaPagamento, uFormaPagamentoDao;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uFormaPagamento, uFormaPagamentoDao,
+  uCondicaoPagamento;
 
 type
   TParcelaModeloDao = class(TObject)
@@ -22,6 +23,7 @@ type
   public
     { Public declarations }
     function Recuperar(Var oParcelaModelo: TParcelaModelo): boolean;
+    function RecuperarPorCondicaoPagamento(Var CondicaoPagamento: TCondicaoPagamento): boolean;
     function inserir(oParcelaModelo: TParcelaModelo): boolean;
     function InserirParcelas(ListaParcelas: TList<TParcelaModelo>): boolean;
     function Excluir(oParcelaModelo: TParcelaModelo): boolean;
@@ -47,7 +49,7 @@ begin
     with DmConexao.Qry do
     begin
       Sql.Clear;
-      Sql.Add('DELETE FROM CONDICAO_PAGAMENTO WHERE ID = :ID');
+      Sql.Add('DELETE FROM PARCELA_MODELO WHERE ID = :ID');
       paramByName('ID').AsInteger := oParcelaModelo.ID;
       ExecSql();
       result := true;
@@ -61,7 +63,7 @@ begin
     with DmConexao.Qry do
     begin
       Sql.Clear;
-      Sql.Add('DELETE FROM CONDICAO_PAGAMENTO WHERE ID_CONDICAO_PAGAMENTO = :ID');
+      Sql.Add('DELETE FROM PARCELA_MODELO WHERE ID_CONDICAO_PAGAMENTO = :ID');
       paramByName('ID').AsInteger := ID;
       ExecSql();
       result := true;
@@ -97,7 +99,7 @@ begin
   with DmConexao.Qry, oParcelaModelo do
   begin
       Sql.Clear;
-      sql.add('INSERT INTO CONDICAO_PAGAMENTO ( NUMERO, DIAS, PERCENTUAL, ID_FORMA_PAGAMENTO, ID_CONDICAO_PAGAMENTO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
+      sql.add('INSERT INTO PARCELA_MODELO ( NUMERO, DIAS, PERCENTUAL, ID_FORMA_PAGAMENTO, ID_CONDICAO_PAGAMENTO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
       Sql.add(' VALUES (:NUMERO, :DIAS, :PERCENTUAL, :ID_FORMA_PAGAMENTO, :ID_CONDICAO_PAGAMENTO, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
 
       ObjToField(oParcelaModelo, DmConexao.Qry);
@@ -143,7 +145,7 @@ begin
     begin
       sql.clear;
       FormaPagamento := TFormaPagamento.Create;
-      Sql.Add('SELECT * FROM CONDICAO_PAGAMENTO WHERE ID = :ID');
+      Sql.Add('SELECT * FROM PARCELA_MODELO WHERE ID = :ID');
       paramByName('ID').AsInteger := oParcelaModelo.ID;
       open;
       FieldtoObj(oParcelaModelo, DmConexao.Qry);
@@ -160,6 +162,27 @@ begin
          FormaPagamento.Free;
       end;
     end;
+end;
+
+function TParcelaModeloDao.RecuperarPorCondicaoPagamento(
+  var CondicaoPagamento: TCondicaoPagamento): boolean;
+  var oParcelaModelo : TParcelaModelo;
+  begin
+  with DmConexao.Qry do
+  begin
+    Sql.Clear;
+    Sql.Add('SELECT * FROM PARCELA_MODELO WHERE ID_CONDICAO_PAGAMENTO = :ID');
+    paramByName('ID').AsInteger := CondicaoPagamento.ID;
+    open;
+    while not eof do
+    begin
+        oParcelaModelo := TParcelaModelo.Create;
+        FieldtoObj(oParcelaModelo, DmConexao.Qry);
+        CondicaoPagamento.ParcelaModelos.Add(oParcelaModelo);
+        next;
+    end;
+    close;
+  end;
 end;
 
 end.
