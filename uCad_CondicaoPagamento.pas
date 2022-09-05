@@ -22,9 +22,6 @@ type
     edt_percentual: TEdit;
     lbl_Dias: TLabel;
     edt_dias: TEdit;
-    edt_Juros: TMaskEdit;
-    edt_Multa: TMaskEdit;
-    edt_desconto: TMaskEdit;
     btn_adicionar: TButton;
     btn_alterar: TButton;
     btn_excluir: TButton;
@@ -38,6 +35,9 @@ type
     Label1: TLabel;
     dset_parcelasForma_Pagamento: TStringField;
     dset_parcelasIdForma_Pagamento: TIntegerField;
+    edt_Juros: TEdit;
+    edt_Multa: TEdit;
+    edt_desconto: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -248,6 +248,7 @@ begin
        dset_parcelasPercentual.AsCurrency := Parcela.Percentual;
        dset_parcelasDias.AsInteger := Parcela.Dias;
        dset_parcelasForma_Pagamento.AsString := Parcela.FormaPag.Descricao;
+       dset_parcelasIdForma_Pagamento.AsInteger := Parcela.FormaPag.Id;
        post;
      end;
   end;
@@ -281,6 +282,7 @@ begin
      Parcela.Percentual := dset_parcelasPercentual.AsCurrency;
      Parcela.Dias := dset_parcelasDias.AsInteger;
      Parcela.FormaPag.Id := dset_parcelasIDForma_Pagamento.AsInteger;
+     Parcela.Cod_CondPag := StrToInt(edt_id.text);
      dset_parcelas.Next;
      CondicaoPag.ParcelaModelos.Add(Parcela);
   end;

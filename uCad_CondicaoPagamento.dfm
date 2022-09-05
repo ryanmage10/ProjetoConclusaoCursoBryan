@@ -148,6 +148,7 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         Width = 398
         Height = 146
         DataSource = ds_parcelas
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -242,35 +243,32 @@ inherited Cad_CondicaoPagamento: TCad_CondicaoPagamento
         OnClick = btn_PesquisarClick
       end
     end
-    object edt_Juros: TMaskEdit
-      Left = 18
+    object edt_Juros: TEdit
+      Left = 16
       Top = 126
-      Width = 128
+      Width = 137
       Height = 21
-      EditMask = '9999,99;1;_'
-      MaxLength = 7
+      MaxLength = 3
+      NumbersOnly = True
       TabOrder = 5
-      Text = '    ,  '
     end
-    object edt_Multa: TMaskEdit
+    object edt_Multa: TEdit
       Left = 168
       Top = 126
-      Width = 120
+      Width = 121
       Height = 21
-      EditMask = '9999,99'
-      MaxLength = 7
+      MaxLength = 6
+      NumbersOnly = True
       TabOrder = 6
-      Text = '    ,  '
     end
-    object edt_desconto: TMaskEdit
+    object edt_desconto: TEdit
       Left = 303
       Top = 126
-      Width = 120
+      Width = 121
       Height = 21
-      EditMask = '9999,99'
-      MaxLength = 7
+      MaxLength = 6
+      NumbersOnly = True
       TabOrder = 7
-      Text = '    ,  '
     end
   end
   object ds_parcelas: TDataSource

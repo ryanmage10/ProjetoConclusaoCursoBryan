@@ -27,36 +27,8 @@ object MenuPrincipal: TMenuPrincipal
   object Menu1: TMainMenu
     Left = 168
     Top = 16
-    object btn_Cadastros: TMenuItem
-      Caption = 'Cadastros'
-      object btn_Paises: TMenuItem
-        Caption = 'Paises'
-        OnClick = btn_PaisesClick
-      end
-      object btn_Estados: TMenuItem
-        Caption = 'Estados'
-        OnClick = btn_EstadosClick
-      end
-      object btn_Cidades: TMenuItem
-        Caption = 'Cidades'
-        OnClick = btn_CidadesClick
-      end
-      object btn_Empresa: TMenuItem
-        Caption = 'Empresa'
-        OnClick = btn_EmpresaClick
-      end
-      object Btn_Funcionarios: TMenuItem
-        Caption = 'Funcionarios'
-        OnClick = Btn_FuncionariosClick
-      end
-      object Btn_Clientes: TMenuItem
-        Caption = 'Clientes'
-        OnClick = Btn_ClientesClick
-      end
-      object btn_Fornecedores: TMenuItem
-        Caption = 'Fornecedores'
-        OnClick = btn_FornecedoresClick
-      end
+    object btn_Financeiro: TMenuItem
+      Caption = 'Financeiro'
       object btn_Caixas: TMenuItem
         Caption = 'Caixas'
         OnClick = btn_CaixasClick
@@ -72,6 +44,40 @@ object MenuPrincipal: TMenuPrincipal
       object CondicaoPagamento1: TMenuItem
         Caption = 'Condi'#231#227'o Pagamento'
         OnClick = CondicaoPagamento1Click
+      end
+    end
+    object btn_Localidades: TMenuItem
+      Caption = 'Localidades'
+      object btn_paises: TMenuItem
+        Caption = 'Paises'
+        OnClick = btn_PaisesClick
+      end
+      object btn_estados: TMenuItem
+        Caption = 'Estados'
+        OnClick = btn_EstadosClick
+      end
+      object btn_cidades: TMenuItem
+        Caption = 'Cidades'
+        OnClick = btn_CidadesClick
+      end
+    end
+    object btn_Pessoas: TMenuItem
+      Caption = 'Pessoas'
+      object btn_Empresas: TMenuItem
+        Caption = 'Empresas'
+        OnClick = btn_EmpresaClick
+      end
+      object Btn_Funcionarios1: TMenuItem
+        Caption = 'Funcion'#225'rios'
+        OnClick = Btn_FuncionariosClick
+      end
+      object Btn_Clientes: TMenuItem
+        Caption = 'Clientes'
+        OnClick = Btn_ClientesClick
+      end
+      object btn_Fornecedores1: TMenuItem
+        Caption = 'Fornecedores'
+        OnClick = btn_FornecedoresClick
       end
     end
   end

@@ -12,18 +12,20 @@ type
   TMenuPrincipal = class(TForm)
     Panel1: TPanel;
     Menu1: TMainMenu;
-    btn_Cadastros: TMenuItem;
-    btn_Paises: TMenuItem;
-    btn_Estados: TMenuItem;
-    btn_Cidades: TMenuItem;
-    btn_Empresa: TMenuItem;
-    Btn_Funcionarios: TMenuItem;
-    Btn_Clientes: TMenuItem;
-    btn_Fornecedores: TMenuItem;
+    btn_Financeiro: TMenuItem;
     btn_Caixas: TMenuItem;
     btn_Contratos: TMenuItem;
     btn_FormaPagamento: TMenuItem;
     CondicaoPagamento1: TMenuItem;
+    btn_Localidades: TMenuItem;
+    btn_paises: TMenuItem;
+    btn_estados: TMenuItem;
+    btn_cidades: TMenuItem;
+    btn_Pessoas: TMenuItem;
+    btn_Empresas: TMenuItem;
+    Btn_Funcionarios1: TMenuItem;
+    Btn_Clientes: TMenuItem;
+    btn_Fornecedores1: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);

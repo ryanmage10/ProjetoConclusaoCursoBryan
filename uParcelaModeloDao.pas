@@ -99,6 +99,7 @@ begin
   with DmConexao.Qry, oParcelaModelo do
   begin
       Sql.Clear;
+
       sql.add('INSERT INTO PARCELA_MODELO ( NUMERO, DIAS, PERCENTUAL, ID_FORMA_PAGAMENTO, ID_CONDICAO_PAGAMENTO, USER_INSERT, USER_UPDATE, DATE_INSERT, DATE_UPDATE)');
       Sql.add(' VALUES (:NUMERO, :DIAS, :PERCENTUAL, :ID_FORMA_PAGAMENTO, :ID_CONDICAO_PAGAMENTO, :USER_INSERT, :USER_UPDATE, :DATE_INSERT, :DATE_UPDATE)');
 
@@ -128,7 +129,7 @@ begin
     paramByName('DIAS').AsInteger := Dias;
     paramByName('PERCENTUAL').AsCurrency := Percentual;
     paramByName('ID_FORMA_PAGAMENTO').AsInteger := FormaPag.Id;
-    //paramByName('ID_CONDICAO_PAGAMENTO').AsInteger := RetornaUltIdCondicao;
+    paramByName('ID_CONDICAO_PAGAMENTO').AsInteger := Cod_CondPag;
     paramByName('date_insert').AsDatetime := DataCad;
     paramByName('date_update').AsDatetime := DataUltAlt;
     paramByName('User_Insert').AsString := user_insert;
@@ -169,7 +170,8 @@ function TParcelaModeloDao.RecuperarPorCondicaoPagamento(
   var oParcelaModelo : TParcelaModelo;
       FormaPagamento: TFormaPagamento;
       FormaPagamentoDao: TFormaPagamentoDao;
-  begin
+      I: Integer;
+begin
   result := False;
   with DmConexao.Qry do
   begin
@@ -179,18 +181,26 @@ function TParcelaModeloDao.RecuperarPorCondicaoPagamento(
     Sql.Add('SELECT * FROM PARCELA_MODELO WHERE ID_CONDICAO_PAGAMENTO = :ID');
     paramByName('ID').AsInteger := CondicaoPagamento.ID;
     open;
-    while not eof do
+    while (not eof) do
     begin
         oParcelaModelo := TParcelaModelo.Create;
         FieldtoObj(oParcelaModelo, DmConexao.Qry);
-        FormaPagamento.Id := FieldByName('ID_FORMA_PAGAMENTO').AsInteger;
-        FormaPagamentoDao.Recuperar(FormaPagamento);
-        oParcelaModelo.FormaPag.CopiarDados(FormaPagamento);
+        oParcelaModelo.FormaPag.Id := FieldByName('ID_FORMA_PAGAMENTO').AsInteger;
         CondicaoPagamento.ParcelaModelos.Add(oParcelaModelo);
-        next;
+        Next;
     end;
-    Result:= True;
+
     close;
+
+    for I := 0 to CondicaoPagamento.ParcelaModelos.Count - 1 do
+    begin
+       oParcelaModelo := CondicaoPagamento.ParcelaModelos.Items[I];
+       FormaPagamento.id := oParcelaModelo.FormaPag.Id;
+       FormaPagamentoDao.Recuperar(FormaPagamento);
+       oParcelaModelo.FormaPag.CopiarDados(FormaPagamento);
+    end;
+
+    Result:= True;
 
     FormaPagamento.Free;
     FormaPagamentoDao.Free;
