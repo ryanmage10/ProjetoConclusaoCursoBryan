@@ -45,6 +45,14 @@ object MenuPrincipal: TMenuPrincipal
         Caption = 'Condi'#231#227'o Pagamento'
         OnClick = CondicaoPagamento1Click
       end
+      object btn_Unidades: TMenuItem
+        Caption = 'Unidades'
+        OnClick = btn_UnidadesClick
+      end
+      object btn_produtos: TMenuItem
+        Caption = 'Produtos'
+        OnClick = btn_produtosClick
+      end
     end
     object btn_Localidades: TMenuItem
       Caption = 'Localidades'

@@ -88,7 +88,22 @@ uses
   uCad_CondicaoPagamento in 'uCad_CondicaoPagamento.pas' {Cad_CondicaoPagamento},
   uCons_CondicaoPagamento in 'uCons_CondicaoPagamento.pas' {Cons_CondicaoPagamento},
   uParcelaModeloFactory in 'uParcelaModeloFactory.pas',
-  uParcelaModeloDao in 'uParcelaModeloDao.pas';
+  uParcelaModeloDao in 'uParcelaModeloDao.pas',
+  uUnidades in 'uUnidades.pas',
+  uUnidadesController in 'uUnidadesController.pas',
+  uUnidadesService in 'uUnidadesService.pas',
+  uUnidadesFactory in 'uUnidadesFactory.pas',
+  uUnidadesDao in 'uUnidadesDao.pas',
+  uCad_Unidades in 'uCad_Unidades.pas' {Cad_Unidades},
+  uCons_Unidades in 'uCons_Unidades.pas' {Cons_Unidades},
+  uProdutos in 'uProdutos.pas',
+  uProdutosController in 'uProdutosController.pas',
+  uProdutosService in 'uProdutosService.pas',
+  uProdutosFactory in 'uProdutosFactory.pas',
+  uProdutosDao in 'uProdutosDao.pas',
+  uCad_Produtos in 'uCad_Produtos.pas' {Cad_Produtos},
+  uCons_Produtos in 'uCons_Produtos.pas' {Cons_Produtos},
+  uCompras in 'uCompras.pas';
 
 {$R *.res}
 
@@ -103,5 +118,9 @@ begin
   Application.CreateForm(TCons_FormaPagamento, Cons_FormaPagamento);
   Application.CreateForm(TCad_CondicaoPagamento, Cad_CondicaoPagamento);
   Application.CreateForm(TCons_CondicaoPagamento, Cons_CondicaoPagamento);
+  Application.CreateForm(TCad_Unidades, Cad_Unidades);
+  Application.CreateForm(TCons_Unidades, Cons_Unidades);
+  Application.CreateForm(TCad_Produtos, Cad_Produtos);
+  Application.CreateForm(TCons_Produtos, Cons_Produtos);
   Application.Run;
 end.

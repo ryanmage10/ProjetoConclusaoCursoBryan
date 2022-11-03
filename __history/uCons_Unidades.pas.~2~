@@ -1,0 +1,32 @@
+unit uCons_Unidades;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCons_Base, Data.DB, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Datasnap.DBClient, uUnidades, uUnidadesController;
+
+type
+  TCons_Unidades = class(TCons_Base)
+    ds_Unidade: TDataSource;
+    dset_Unidade: TClientDataSet;
+    dset_UnidadeID: TIntegerField;
+    dset_UnidadeDESCRICAO: TStringField;
+    dset_UnidadeSIGLA: TStringField;
+    dset_UnidadeDATA_INSERT: TDateField;
+  private
+    { Private declarations }
+    Unidade
+  public
+    { Public declarations }
+  end;
+
+var
+  Cons_Unidades: TCons_Unidades;
+
+implementation
+
+{$R *.dfm}
+
+end.

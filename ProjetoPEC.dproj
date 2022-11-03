@@ -269,6 +269,33 @@
         </DCCReference>
         <DCCReference Include="uParcelaModeloFactory.pas"/>
         <DCCReference Include="uParcelaModeloDao.pas"/>
+        <DCCReference Include="uUnidades.pas"/>
+        <DCCReference Include="uUnidadesController.pas"/>
+        <DCCReference Include="uUnidadesService.pas"/>
+        <DCCReference Include="uUnidadesFactory.pas"/>
+        <DCCReference Include="uUnidadesDao.pas"/>
+        <DCCReference Include="uCad_Unidades.pas">
+            <Form>Cad_Unidades</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Unidades.pas">
+            <Form>Cons_Unidades</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uProdutos.pas"/>
+        <DCCReference Include="uProdutosController.pas"/>
+        <DCCReference Include="uProdutosService.pas"/>
+        <DCCReference Include="uProdutosFactory.pas"/>
+        <DCCReference Include="uProdutosDao.pas"/>
+        <DCCReference Include="uCad_Produtos.pas">
+            <Form>Cad_Produtos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCons_Produtos.pas">
+            <Form>Cons_Produtos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCompras.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

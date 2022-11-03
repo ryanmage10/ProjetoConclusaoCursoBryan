@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, uCons_paises, uCons_estados,
   uCons_Cidades, uCons_Empresas, uCons_Funcionarios, uCons_Clientes,
-  uCons_Fornecedores, uCons_Caixas, uCons_Contratos, uCons_FormaPagamento, uCons_CondicaoPagamento;
+  uCons_Fornecedores, uCons_Caixas, uCons_Contratos, uCons_FormaPagamento,
+  uCons_CondicaoPagamento, uCons_Unidades, uCons_Produtos;
 
 type
   TMenuPrincipal = class(TForm)
@@ -26,6 +27,8 @@ type
     Btn_Funcionarios1: TMenuItem;
     Btn_Clientes: TMenuItem;
     btn_Fornecedores1: TMenuItem;
+    btn_Unidades: TMenuItem;
+    btn_produtos: TMenuItem;
     procedure btn_PaisesClick(Sender: TObject);
     procedure btn_EstadosClick(Sender: TObject);
     procedure btn_CidadesClick(Sender: TObject);
@@ -37,6 +40,8 @@ type
     procedure btn_ContratosClick(Sender: TObject);
     procedure btn_FormaPagamentoClick(Sender: TObject);
     procedure CondicaoPagamento1Click(Sender: TObject);
+    procedure btn_UnidadesClick(Sender: TObject);
+    procedure btn_produtosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -144,6 +149,28 @@ begin
       ConsPaisForm.ShowModal;
    finally
       FreeAndNil(ConsPaisForm);
+   end;
+end;
+
+procedure TMenuPrincipal.btn_produtosClick(Sender: TObject);
+var ConsProdutoForm: TCons_produtos;
+begin
+   ConsProdutoForm := TCons_produtos.Create(nil);
+   try
+      ConsprodutoForm.ShowModal;
+   finally
+      FreeAndNil(ConsprodutoForm);
+   end;
+end;
+
+procedure TMenuPrincipal.btn_UnidadesClick(Sender: TObject);
+var ConsUnidadeForm: TCons_Unidades;
+begin
+   ConsUnidadeForm := TCons_Unidades.Create(nil);
+   try
+      ConsUnidadeForm.ShowModal;
+   finally
+      FreeAndNil(ConsUnidadeForm);
    end;
 end;
 

@@ -1,0 +1,83 @@
+unit uUnidades;
+
+interface
+
+uses
+  uBase;
+
+type
+  TUnidades = class(TBase)
+  protected
+    FDescricao: string[50];
+    Fsigla: String[3];
+
+    function GetDescricao: string;
+    function GetSigla: string;
+    procedure SetDescricao(Value: string);
+    procedure SetSigla(Value: string);
+
+  public
+
+    property Descricao: string read GetDescricao write SetDescricao;
+    property sigla: string read GetSigla write SetSigla;
+
+    constructor Create;
+    Destructor Free;
+    function clone: TUnidades;
+    procedure CopiarDados(Value: TUnidades);
+
+    procedure LimparDados;
+  end;
+
+implementation
+
+
+
+{ TUnidades }
+
+function TUnidades.clone: TUnidades;
+begin
+
+end;
+
+procedure TUnidades.CopiarDados(Value: TUnidades);
+begin
+
+end;
+
+constructor TUnidades.Create;
+begin
+
+end;
+
+destructor TUnidades.Free;
+begin
+
+end;
+
+function TUnidades.GetDescricao: string;
+begin
+
+end;
+
+function TUnidades.GetSigla: string;
+begin
+
+end;
+
+procedure TUnidades.LimparDados;
+begin
+
+end;
+
+procedure TUnidades.SetDescricao(Value: string);
+begin
+
+end;
+
+procedure TUnidades.SetSigla(Value: string);
+begin
+
+end;
+
+end.

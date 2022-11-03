@@ -1,0 +1,29 @@
+unit uCad_Unidades;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCad_Base, Vcl.StdCtrls, Vcl.ExtCtrls,
+  uUnidades, uUnidadesController;
+
+type
+  TCad_Unidades = class(TCad_Base)
+    edt_Descricao: TEdit;
+    edt_sigla: TEdit;
+    lbl_Descricao: TLabel;
+    lbl_Sigla: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Cad_Unidades: TCad_Unidades;
+
+implementation
+
+{$R *.dfm}
+
+end.

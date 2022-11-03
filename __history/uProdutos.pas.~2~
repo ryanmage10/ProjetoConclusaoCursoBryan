@@ -1,0 +1,108 @@
+unit uProdutos;
+
+interface
+
+uses
+  uBase, uUnidades;
+
+type
+  TProdutos = class(TBase)
+  protected
+    FDescricao: string[50];
+    FCodigo: string[10];
+	  FUnidade: TUnidades;
+	  FNCM: String[6];
+
+    function GetDescricao: string;
+	  function GetCodigo: string;
+	  function GetUnidade: TUnidades;
+	  function GetNCM: string;
+    procedure SetDescricao(Value: string);
+	  procedure SetCodigo(Value: string);
+	  procedure SetUnidade(Value: TUnidades);
+	  procedure SetNCM(Value: string);
+  public
+
+    property Descricao: string read GetDescricao write SetDescricao;
+    property Codigo: string read GetCodigo write SetCodigo;
+	  property Unidade: TUnidades read GetUnidade write SetUnidade;
+	  property NCM: string read GetNCM write SetNCM;
+
+    constructor Create;
+    Destructor Free;
+    function clone: TProdutos;
+    procedure CopiarDados(Value: TProdutos);
+
+    procedure LimparDados;
+  end;
+
+implementation
+
+{ TProdutos }
+
+function TProdutos.clone: TProdutos;
+begin
+
+end;
+
+procedure TProdutos.CopiarDados(Value: TProdutos);
+begin
+
+end;
+
+constructor TProdutos.Create;
+begin
+
+end;
+
+destructor TProdutos.Free;
+begin
+
+end;
+
+function TProdutos.GetCodigo: string;
+begin
+
+end;
+
+function TProdutos.GetDescricao: string;
+begin
+
+end;
+
+function TProdutos.GetNCM: string;
+begin
+
+end;
+
+function TProdutos.GetUnidade: TUnidades;
+begin
+
+end;
+
+procedure TProdutos.LimparDados;
+begin
+
+end;
+
+procedure TProdutos.SetCodigo(Value: string);
+begin
+
+end;
+
+procedure TProdutos.SetDescricao(Value: string);
+begin
+
+end;
+
+procedure TProdutos.SetNCM(Value: string);
+begin
+
+end;
+
+procedure TProdutos.SetUnidade(Value: TUnidades);
+begin
+
+end;
+
+end.

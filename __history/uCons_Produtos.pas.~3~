@@ -1,0 +1,49 @@
+unit uCons_Produtos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCons_Base, Data.DB, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Datasnap.DBClient, uProdutosController, uProdutos,
+  uCad_Produtos;
+
+type
+  TCons_Produtos = class(TCons_Base)
+    ds_produtos: TDataSource;
+    dset_produtos: TClientDataSet;
+    dset_produtosid: TIntegerField;
+    dset_produtosdescricao: TStringField;
+    dset_produtoscodigo: TStringField;
+    dset_produtosunidade: TStringField;
+    dset_produtosdata_insert: TDateTimeField;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+    ProdutoControl : TProdutosController;
+  public
+    { Public declarations }
+    Produto : TProdutos;
+  end;
+
+var
+  Cons_Produtos: TCons_Produtos;
+
+implementation
+
+{$R *.dfm}
+
+procedure TCons_Produtos.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ProdutoControl := TProdutosController.Create;
+  Produto := TProdutos.Create;
+
+  if ( not Dset_Produtos.IsEmpty ) then
+    Dset_Produtos.EmptyDataSet;
+  Dset_Produtos.Active := False;
+  Dset_Produtos.CreateDataSet;
+  Dset_Produtos.Open;
+end;
+
+end.

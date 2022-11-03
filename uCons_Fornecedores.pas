@@ -23,6 +23,7 @@ type
     procedure btn_ExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FornecedoresControl : TFornecedoresController;
@@ -134,6 +135,12 @@ begin
   inherited;
   Fornecedor.Free;
   FornecedoresControl.Free;
+end;
+
+procedure TCons_Fornecedores.FormShow(Sender: TObject);
+begin
+  inherited;
+  FornecedoresControl.Pesquisar(edt_Pesquisa.Text, Dset_Fornecedores);
 end;
 
 end.
